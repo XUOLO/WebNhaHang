@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.ProductCategory>
+@{
+    ViewBag.Title = "_MenuProductCategory";
+
+}
+
+
+
+
+
+<body>
+
+
+    <div class="product-wrapper">
+        @foreach (var item in Model)
+        {
+            <div class="product" >
+                <a href="/danh-muc-san-pham/@item.Alias-@item.id"><img src="@item.Icon" alt="Product Image"></a>
+                <div class="product-text">
+
+                    <h3 class=" "> <a href="/danh-muc-san-pham/@item.Alias-@item.id">  @item.Title </a></h3>
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+</body>
+
+
+
+
+
+
+
+<style>
+    .product-wrapper {
+        background-color: #1a1a1a;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        margin: 10px;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .product img {
+            border-radius:50%;
+            display: block;
+            width: 200px;
+            height: 200px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+    .product-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+        .product-text h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-text p {
+            font-size: 16px;
+        }
+
+    .product:hover img {
+        transform: scale(1.2);
+    }
+
+    .product:hover .product-text {
+        opacity: 1;
+    }
+</style>

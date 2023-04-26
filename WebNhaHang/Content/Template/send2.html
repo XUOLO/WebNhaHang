@@ -1,0 +1,101 @@
+<html>
+<head>
+	<style>
+		body {
+			font-family: arial;
+			font-size: 10pt;
+			background: url('https://images.pexels.com/photos/850796/pexels-photo-850796.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+		}
+
+		img {
+			display: block;
+			width: 300px;
+			margin: auto;
+			margin-bottom: 5%;
+		}
+
+		h2 {
+			font-family: arial;
+			font-size: 10pt;
+			padding-left: 10px;
+			color: #383838;
+		}
+
+		li {
+			line-height: 1em;
+			margin-bottom: 12px;
+		}
+
+		span {
+			color: blue;
+		}
+
+		.wrapper {
+			width: 90%;
+			margin: 20px auto;
+		}
+
+		.end {
+			padding-top: 4%;
+		}
+
+		p .box {
+			padding-top: 5%;
+		}
+
+		.box {
+			margin: 30px;
+			background-color: #ffffff;
+			border: 15px solid black;
+			opacity: 0.8;
+			width:100%;
+			padding: 20px;
+			filter: alpha(opacity=60);
+		}
+
+		.box-bottom {
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+
+		@media screen and (min-width: 600px) {
+			.wrapper {
+				width: 60%;
+				margin: 20px auto;
+			}
+
+			p .box {
+				padding-top: 2%;
+			}
+
+			.end {
+				padding-top: 4%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="box">
+			 
+			<img src="https://lh3.googleusercontent.com/pw/AJFCJaUY1YN1JIIRuF3_GTaZo9faRsaKNwtrZEY3Sf2m7fqKwtyA_Q4En0-jDNMVeTGE9OcBETlKowcFbQ-De8p-d68XCUzMLN4xK8-md72W7TmHIneViF1JbG-xLOO55wkoyfEQZp7WRYyUCfFN3ZlwaRBgh8OaLocW0ckIpJ2s4TibqnPYC7YxG2VXtfI7jbOCBoZcUmCD1CywWWKBT_-ef5hRAc6-umIvH3fa465vcJHnGOXRa7SUpCXBILBeBmP5yA_-7iKM40Le-a5Wa7tJuQiwtn_HUkq7jKSeyd-_kXCngvU-i2tmW40kYHYSanSZDY4t0GNeaStySLQ9UMpqHcVGqFeY9GKQaK8Bxnn74yigCcwzdKq0b9ZE6IOy9PmynxI9bNLsARw-8CHCOQRNBXx8ZUC2Z4CPwKRaT5Hc_s84TWH_dR3EP4dX5ngOkb1yNjssv8vAESxfajsn45DM3SEKYpnflKR2gikWyyhl5dff79lFuIO63yADZv-5zCX4QTYLvWVLBHCX1GBvxoAgQoEcZw9BYSCDGwobzXadSQcs7RuByZ-fhtDuBzJeTGNzxHR2HJrXLvqHmEHGoS0gYlTJmXUQFEEvgfPd7q_3GEHYN91KweiVh5hcKdwlAuFaIdgtzNLSXMuFftdcncNUOxZTRW893KM6kjgr8osTD3DurXLOEwD0uFcLwKrrsKFTJ82knA0GVcqaaq0f6p5Kikx2iCCwnVPDLk5JKmllH4rSgcinW4WSTe53FNcjELh82rNZQfxLj2a9UcR556FLSRoJDV_032yGrZ43H1q6vSvEeb-UDwMBDeJfi7B_0BjyU4Z7aGNcOqguX_n9mCzhDV0dxshkDxSwfEEsOhS39Uzc2paTiycYW0UfSxjGp3SfxGinMfVRGmGvA24XBn82MTV6EBinXNuBTKS1jWybXhJPgXb0ibSJEPBIE4yt3_dbZWXUWidvoTuzJv1J6IBYa2FHnfW5cRjmfPBCnRwc1tQIHR_4Fk4Ia32DzD7ptTMu9Rw=w341-h243-s-no?authuser=0"alt="Logo" />
+            <div>
+
+                <h4> Thông tin người úng tuyển</h4>
+
+                <p> Họ tên:{{TenKhachHang}}</p>
+                <p>SDT:{{Phone}}</p> 
+                <p> Email: {{Email}}</p>
+                <p>Address: {{DiaChi}}</p>
+                <p>Vị trí ứng tuyển: {{ViTri}}</p>
+                <p>Kinh nghiệm:{{KinhNghiem}}</p>
+
+
+
+                <p class="end"><i>This is an automated email. Do not reply this email.</i></p>
+            </div>
+		</div>
+		 
+	</div>
+</body>
+</html>

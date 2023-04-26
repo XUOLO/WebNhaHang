@@ -1,0 +1,279 @@
+﻿@model WebNhaHang.Models.EF.ReservationViewModel
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Restaurant Reservation Form   </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Tourists Reservation Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs Sign up Web Templates,
+ Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Custom Theme files -->
+    <link href="~/Content/cssformres/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/cssformres/css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />
+    <link href="~/Content/cssformres/css/style.css" rel='stylesheet' type='text/css' />
+    <!--fonts-->
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+
+    <!--//fonts-->
+</head>
+<body>
+    <!--background-->
+    <h1> Restaurant Reservation Form</h1>
+    <div class="bg-agile">
+        <div class="booking-suggestion text">
+            <h3>Gợi ý đặt bàn</h3>
+            <ul>
+                <li>Đi 1 người: đặt bàn đơn</li>
+                <li>Đi 2 người: đặt bàn đôi</li>
+                <li>Đi nhóm 4-6 người: đặt bàn 6 người.</li>
+                <li>Đi nhóm 6-12 người: đặt bàn dài</li>
+                <li>Đi nhóm &gt;12 người: gọi trực tiếp Hotline: 0906303905</li>
+            </ul>
+        </div>
+        <div class="book-reservation">
+            @using (Html.BeginForm(Model.Action, "Reservation"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Name, new { @class = "fa fa-user", @value = "Tên" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = ""  })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Phone, new { @class = "fa fa-phone" })
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "" })
+                    @Html.ValidationMessageFor(m => m.Phone)
+                </div>
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Email, new { @class = "fa fa-envelope" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = "" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Address, new { @class = "fa fa-address-card" })
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @required = "" })
+                    @Html.ValidationMessageFor(m => m.Address)
+                </div>
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Date, new { @class = "fa fa-calendar" })
+                    @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Date)
+                </div>
+                <div class="form-date-w3-agileits">
+                    @Html.LabelFor(m => m.Time, new { @class = "fa fa-clock-o" })
+                    @Html.TextBoxFor(m => m.Time, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Time)
+                </div>
+                <div class="form-left-agileits-w3layouts bottom-w3ls">
+                    <label><i class="fa fa-home" aria-hidden="true"></i> Loại bàn :</label>
+                    @Html.DropDownListFor(m => m.Room, new SelectList(ViewBag.Rooms, "Value", "Text"), new { @class = "form-control" })
+                </div>
+                <div class="form-left-agileits-w3layouts">
+                    <label>
+                        <i class="fa fa-users" aria-hidden="true"></i> Số người :
+                    </label>
+                    @Html.DropDownListFor(m => m.NumberOfPeople, new SelectList(ViewBag.Peoples, "Value", "Text"), new { @class = "form-control" })
+                </div>
+                <div class="clear"></div>
+                <div class="make">
+                    <input type="submit" value="Make a Reservation">
+                    <button  onclick="window.history.back();">Quay lại</button>
+                </div>
+            }
+        </div>
+    </div>
+    <style>
+        .bg-agile {
+            display: flex;
+        }
+
+        .booking-suggestion {
+            width: 50%;
+            margin-right: 30px;
+        }
+
+            .booking-suggestion h3 {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .booking-suggestion ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .booking-suggestion li {
+                font-size: 16px;
+                line-height: 24px;
+                margin-bottom: 10px;
+            }
+
+        .book-reservation {
+            width: 50%;
+        }
+
+        .form-date-w3-agileits {
+            margin-bottom: 20px;
+        }
+
+            .form-date-w3-agileits label {
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .form-date-w3-agileits input[type="text"],
+            .form-left-agileits-w3layouts select {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-bottom: 2px solid #ccc;
+                font-size: 16px;
+                color: #555;
+                background: transparent;
+                outline: none;
+                transition: all 0.3s ease-in-out;
+            }
+
+                .form-date-w3-agileits input[type="text"]:focus,
+                .form-left-agileits-w3layouts select:focus {
+                    border-bottom: 2px solid #fcab0e;
+                }
+
+        .form-left-agileits-w3layouts {
+            margin-bottom: 20px;
+        }
+
+            .form-left-agileits-w3layouts label {
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+        .make input[type="submit"] {
+            background: #fcab0e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .make input[type="submit"]:hover {
+                background: #333;
+            }
+        .make button  {
+            background: #fcab0e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .make button :hover {
+                background: #333;
+            }
+        .text {
+            color: red; /* Thay đổi màu chữ thành màu đỏ */
+        }
+    </style>
+
+
+    @*<div class="bg-agile">
+
+            <div class="book-reservation">
+
+                @using (Html.BeginForm(Model.Action, "Reservation"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Name, new { @class = "fa fa-user" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Phone, new { @class = "fa fa-phone" })
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "" })
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </div>
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Email, new { @class = "fa fa-envelope" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = "" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Address, new { @class = "fa fa-address-card" })
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @required = "" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Date, new { @class = "fa fa-calendar" })
+                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Date)
+                    </div>
+
+                    <div class="form-date-w3-agileits">
+                        @Html.LabelFor(m => m.Time, new { @class = "fa fa-clock-o" })
+                        @Html.TextBoxFor(m => m.Time, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Time)
+                    </div>
+                    <div class="form-left-agileits-w3layouts bottom-w3ls">
+                        <label><i class="fa fa-home" aria-hidden="true"></i> Choose a Room :</label>
+                        @Html.DropDownListFor(m => m.Room, new SelectList(ViewBag.Rooms, "Value", "Text"), new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-left-agileits-w3layouts">
+                        <label><i class="fa fa-users" aria-hidden="true"></i> No.of People :</label>
+                        @Html.DropDownListFor(m => m.NumberOfPeople, new SelectList(ViewBag.Peoples, "Value", "Text"), new { @class = "form-control" })
+
+                    </div>
+
+
+                    <div class="clear"> </div>
+                    <div class="make">
+                        <input type="submit" value="Make a Reservation">
+                    </div>
+                }
+            </div>
+        </div>*@
+
+
+    <!--copyright-->
+    <!--//copyright-->
+
+    <script type="text/javascript" src="~/Content/cssformres/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/Content/cssformres/js/wickedpicker.js"></script>
+    <script type="text/javascript">
+        $('.timepicker').wickedpicker({ twentyFour: false });
+    </script>
+
+
+    <!-- Calendar -->
+    <link rel="stylesheet" href="~/Content/cssformres/css/jquery-ui.css" />
+    <script src="~/Content/cssformres/js/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker,#datepicker1,#datepicker2,#datepicker3").datepicker();
+        });
+    </script>
+    <!-- //Calendar -->
+
+
+</body>
+</html>
+ 

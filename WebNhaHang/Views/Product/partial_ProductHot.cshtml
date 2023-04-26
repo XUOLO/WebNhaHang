@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.Product>
+@{
+    ViewBag.Title = "partial_ProductHot";
+ 
+}
+<link href="~/Content/cssformres/css/menu.css" rel="stylesheet" />
+<section class="u-clearfix u-container-align-center u-grey-90 u-section-6" id="sec-0040">
+    <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-sheet-1">
+        <h2 class="u-align-center u-text u-text-default u-text-1">View Our Menu</h2>
+        <p class="u-align-center u-text u-text-default u-text-2">
+            Trải nghiệm ẩm thực đẳng cấp
+        </p>
+        <div class="u-expanded-width u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                @foreach (var item in Model)
+                {
+                    var strImage = "";
+                    var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                    if (img != null)
+                    {
+                        strImage = img.Image;
+                    }
+                    <div class="u-container-align-center u-container-style u-list-item u-repeater-item" @item.ProductCategory.Alias>
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                            <img class="u-expanded-width u-image u-image-round u-radius-50 u-image-1" src="@strImage" alt="" data-image-width="1500" data-image-height="1207">
+                     
+                            <h6 class="u-align-center u-text u-text-default u-text-3">@item.Title </h6>
+                            <a href="/chi-tiet/@item.Alias-p@(item.id)" class="u-align-center u-border-none u-btn u-button-style u-palette-4-base u-btn-2"> read more</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

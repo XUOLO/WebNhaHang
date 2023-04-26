@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+     <div class="btn-back" onclick="window.history.back();">Quay lại</div>
+    <h2>We're Hiring!</h2>
+    <p>Lẩu nướng Hàn Quốc Sun Homes BBQ có nhu cầu tuyển dụng các vị trí sau:</p>
+    
+    <ul>
+        <li>Giám đốc quản trị kinh doanh: 1 người</li>
+        <li>Nhân viên kinh doanh: 4 người</li>
+        <li>Nhân viên lễ tân: 1 người</li>
+        <li>Nhân viên phục vụ: 3 người</li>
+    </ul>
+    <p><b>Thời gian ứng tuyển:</b> đến hết ngày 3.3.2018</p>
+    <p>Ứng viên nộp hồ sơ trực tiếp tại địa chỉ văn phòng: 123456 nhà bè tphcm hoặc gửi hồ sơ online vào email: xuanloc290901@gmail.com</p>
+    <a href="/recruitment/application" class="button">Apply Now</a>
+</main>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .btn-back {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+        margin-top: 4%;
+    }
+        nav ul {
+        list-style: none;
+        display: flex;
+    }
+
+    nav li {
+        margin-right: 1rem;
+    }
+
+        nav li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav li.active a {
+            text-decoration: underline;
+        }
+
+    main {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        margin-top:8%;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    ul {
+        list-style: disc;
+        margin-left: 2rem;
+    }
+
+    .button {
+        display: inline-block;
+        background-color: #333;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        border-radius: 0.25rem;
+        margin-top: 1rem;
+    }
+
+        .button:hover {
+            background-color: #666;
+        }
+</style>

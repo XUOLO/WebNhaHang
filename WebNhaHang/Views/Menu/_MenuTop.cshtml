@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.Category>
+
+<ul class="u-nav u-unstyled u-nav-1">
+    @if (Model != null && Model.Any())
+    {
+
+        foreach (var item in Model)
+        {
+            if (item.Alias.Equals("trang-chu"))
+            {
+                item.Alias = "";
+            }
+             
+
+            <li class="u-nav-item">
+                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/@item.Alias" style="padding: 10px 20px;">@item.Title</a>
+            </li>
+
+
+        }
+
+
+    }
+</ul>
+
+ 

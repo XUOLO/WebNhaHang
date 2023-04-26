@@ -1,0 +1,83 @@
+﻿<link href="~/Content/cssformres/css/style-starter.css" rel="stylesheet" />
+@model PagedList.PagedList<WebNhaHang.Models.EF.Product>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/cssformres/css/menu.css" rel="stylesheet" />
+<style>
+    .wow {
+        margin-top: 5%;
+    }
+</style>
+<div class="wow " data-wow-duration="1s" data-wow-delay="0.1s">
+    <h2 class="block-title text-center">
+        Our Menu
+    </h2>
+    <p class="title-caption text-center">Thực đơn của chúng tôi bao gồm một loạt các món thịt nướng ngon miệng, được chuẩn bị bởi các đầu bếp tài ba của chúng tôi sử dụng chỉ những loại thịt tươi và chất lượng cao nhất. Từ các món khai vị đậm đà đến các món chính thơm ngon và những món tráng miệng ngon miệng, có điều gì đó cho mọi người thưởng thức tại nhà hàng thịt nướng của chúng tôi. </p>
+</div>
+<div class="menu-container ">
+    @Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })
+
+
+    <div class="menu-items">
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="menu-section active" id="appetizers">
+
+                @foreach (var item in Model)
+                {
+                    var strImage = "";
+                    var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                    if (img != null)
+                    {
+                        strImage = img.Image;
+                    }
+                    <div class="menu-item @item.ProductCategory.Alias">
+                        <img src="@strImage" alt="@item.Title">
+
+                        <h4><a href="/chi-tiet/@item.Alias-p@(item.id)">@item.Title</a></h4>
+
+                        <span class="price">@WebNhaHang.Common.Common.FormatNumber(item.Price, 0) VND</span>
+
+
+
+
+
+                    </div>
+
+                }
+            </div>
+        }
+    </div>
+    
+</div>
+<style>
+    .activee{
+        border-color:#111111;
+
+    }
+        .activee a {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 700;
+            color: #111111;
+            height: 30px;
+            width: 30px;
+     
+            border: 1px solid #111111;
+            border-radius: 50%;
+            line-height: 30px;
+            text-align: center;
+        }
+     
+</style>
+<div class="row">
+    <div class="col-6"> </div>
+    <div class="col-6 activee" style="text-align:right;">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
