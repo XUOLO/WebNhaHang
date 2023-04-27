@@ -14,12 +14,12 @@ namespace WebNhaHang.Models.EF
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-
+        public string Code { get; set; }
         public string Name { get; set; }
         [StringLength(100)]
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Address { get; set; }
+        public string Note { get; set; }
         [StringLength(250)]
         public string Room { get; set; }
     

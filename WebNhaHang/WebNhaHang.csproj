@@ -243,6 +243,14 @@
     <Compile Include="Migrations\202304260854512_applicationcode.Designer.cs">
       <DependentUpon>202304260854512_applicationcode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304271738363_codereserv.cs" />
+    <Compile Include="Migrations\202304271738363_codereserv.Designer.cs">
+      <DependentUpon>202304271738363_codereserv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304271746404_notereserv.cs" />
+    <Compile Include="Migrations\202304271746404_notereserv.Designer.cs">
+      <DependentUpon>202304271746404_notereserv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -3431,6 +3439,8 @@
     <Content Include="Content\nicepage.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Template\send3.html" />
+    <Content Include="Content\Template\send4.html" />
     <Content Include="Content\Template\send1.html" />
     <Content Include="Content\Template\send2.html" />
     <Content Include="favicon.ico" />
@@ -3743,6 +3753,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304260854512_applicationcode.resx">
       <DependentUpon>202304260854512_applicationcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304271738363_codereserv.resx">
+      <DependentUpon>202304271738363_codereserv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304271746404_notereserv.resx">
+      <DependentUpon>202304271746404_notereserv.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
