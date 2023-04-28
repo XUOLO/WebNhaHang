@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<WebNhaHang.Models.EF.Reservation>
+﻿@model PagedList.IPagedList<WebNhaHang.Models.EF.Aplication>
 @using PagedList;
 @using PagedList.Mvc
 @{
@@ -13,7 +13,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/reservation" class="nav-link">Danh sách đơn đặt bàn </a>
+            <a href="/admin/recruitment" class="nav-link">Danh sách người ứng tuyển </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/home/index" class="nav-link">Cửa hàng </a>
@@ -27,7 +27,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách đơn đặt bàn</h3>
+            <h3 class="card-title">Danh sách người ứng tuyển</h3>
 
 
         </div>
@@ -37,18 +37,18 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                         
-                        <th>Tên khách hàng</th>
+
+                        <th>Họ tên</th>
                         <th>SDT</th>
                         <th>Email</th>
-                        <th>Ghi chú</th>
-                        <th>Thời gian </th>
+                        <th>Địa chỉ</th>
                         
-                        <th>Loại bàn</th>
-                        <th>Số người</th>
+
+                        <th>Vị trí ứng tuyển</th>
+                        <th>kinh nghiệm</th>
                         <th>Ngày tạo</th>
                         @*<th>Trạng thái</th>*@
-                         
+
                         <th></th>
                     </tr>
                 </thead>
@@ -60,18 +60,18 @@
                         {
                             <tr>
                                 <td>@i</td>
-                                <td>@item.Name</td>
+                                <td>@item.FullName</td>
                                 <td>@item.Phone</td>
                                 <td>@item.Email</td>
-                                <td>@item.Note</td>
-                                <td>@item.DateTime</td>
-                                <td>@item.Room</td>
-                                <td>@item.NumberOfPeople</td>
-                                 
+                                <td>@item.Address</td>
+                                <td>@item.Position</td>
+                                <td>@item.Experience</td>
+                                
+
                                 @*<td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>*@
                                 <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    <a href="/admin/reservation/view/@item.id" class="btn btn-sm btn-success">Xem</a>
+                                    <a href="/admin/recruitment/view/@item.ApplicantID" class="btn btn-sm btn-success">Xem</a>
                                     @*<a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>*@
                                 </td>
 
