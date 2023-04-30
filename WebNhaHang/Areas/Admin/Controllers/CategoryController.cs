@@ -8,6 +8,7 @@ using WebNhaHang.Models.EF;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         // GET: Admin/Category

@@ -7,6 +7,7 @@ using WebNhaHang.Models;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
     public class HomeController : Controller
     {
         // GET: Admin/Home

@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecuitmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReservationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -251,6 +253,10 @@
     <Compile Include="Migrations\202304271746404_notereserv.cs" />
     <Compile Include="Migrations\202304271746404_notereserv.Designer.cs">
       <DependentUpon>202304271746404_notereserv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304300655145_account.cs" />
+    <Compile Include="Migrations\202304300655145_account.Designer.cs">
+      <DependentUpon>202304300655145_account.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3642,6 +3648,12 @@
     <Content Include="Content\cssformres\fonts\fontello.woff" />
     <Content Include="Areas\Admin\Views\Reservation\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Recuitment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3761,6 +3773,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304271746404_notereserv.resx">
       <DependentUpon>202304271746404_notereserv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304300655145_account.resx">
+      <DependentUpon>202304300655145_account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -59,10 +59,34 @@
             </li>
             <li class="nav-item">
 
+                <a href="/admin/Role" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Role
+                        @*<i class="right fas fa-angle-left"></i>*@
+                    </p>
+                </a>
+
+
+            </li>
+            <li class="nav-item">
+
                 <a href="/admin/Recuitment" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Tuyển dụng
+                        @*<i class="right fas fa-angle-left"></i>*@
+                    </p>
+                </a>
+
+
+            </li>
+            <li class="nav-item">
+
+                <a href="/admin/account" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                     Tài khoản
                         @*<i class="right fas fa-angle-left"></i>*@
                     </p>
                 </a>
@@ -92,10 +116,32 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item">
 
+                <a href=" javascript:document.getElementById('logOffForm').submit()" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Logout
+                        @*<i class="right fas fa-angle-left"></i>*@
+                    </p>
+                </a>
+
+
+            </li>
 
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
 </div>
 <!-- /.sidebar -->
+
+@if (Request.IsAuthenticated) { 
+
+<div style="display:none">  
+    @using(Html.BeginForm("Logoff","account",FormMethod.Post,new { @id = "logOffForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
+</div>
+}

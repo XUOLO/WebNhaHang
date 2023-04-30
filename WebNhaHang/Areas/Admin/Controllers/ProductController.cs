@@ -10,6 +10,7 @@ using WebNhaHang.Models.EF;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
     public class ProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
