@@ -1,5 +1,5 @@
 ﻿@model PagedList.IPagedList<WebNhaHang.Models.EF.Order>
-    @using PagedList;
+@using PagedList;
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Danh sách đơn hàng";
@@ -20,67 +20,72 @@
         </li>
     </ul>
 }
- 
+
 <!-- Main content -->
 <section class="content">
-   
+
     <!-- Default box -->
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header">
             <h3 class="card-title">Danh sách đơn hàng</h3>
 
+            <div class="card-tools">
 
+                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel</button>
+            </div>
         </div>
         <div class="card-body">
 
-           <table class="table table-bordered">
-               <thead>
-                   <tr>
-                       <th>#</th>
-                       <th>Mã đơn hàng</th>
-                       <th>Tên khách hàng</th>
-                       <th>SDT</th>
-                       <th>Tiền </th>
-                       <th>Trạng thái</th>
-                       <th>Ngày tạo</th>
-                       <th></th>
-                   </tr>
-               </thead>
-               <tbody>
-                   @if (Model != null && Model.Any())
-                   {
-                       var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
-                       foreach (var item in Model)
-                       {
-                   <tr>
-                       <td>@i</td>
-                       <td>@item.Code</td>
-                       <td>@item.CustomerName</td>
-                       <td>@item.Phone</td>
-                       <td>@WebNhaHang.Common.Common.FormatNumber(item.TotalAmount,0)<span> VND</span></td>
-                       <td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>
-                       <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                       <td><a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success" >Xem</a> 
-                        <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Cập nhật</a></td>
+            <table class="table table-bordered"id="dataTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>SDT</th>
+                        <th>Tiền </th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Code</td>
+                                <td>@item.CustomerName</td>
+                                <td>@item.Phone</td>
+                                <td>@WebNhaHang.Common.Common.FormatNumber(item.TotalAmount, 0)<span> VND</span></td>
+                                <td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>
+                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+                                    <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Cập nhật</a>
+                                </td>
 
-                   </tr>
-                           i++;
-                       }
+                            </tr>
+                            i++;
+                        }
 
-                   }
-               </tbody>
-           </table>
+                    }
+                </tbody>
+            </table>
 
-           <div class="row">
-               <div class="col-6"> </div>
-               <div class="col-6" style="text-align:right;">
-                   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-               </div>
-           </div>
+            <div class="row">
+                <div class="col-6"> </div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-           
+
         </div>
         <!-- /.card-footer-->
     </div>
@@ -100,10 +105,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="hidden"id="txtOrderId"value="0"/>
+                <input type="hidden" id="txtOrderId" value="0" />
                 <div class="form-group">
                     <label>Trạng thái</label>
-                    <select class="form-control"id="ddTrangThai">
+                    <select class="form-control" id="ddTrangThai">
                         <option value="2">
                             Đã thanh toán
                         </option>
@@ -120,11 +125,38 @@
     <!-- /.modal-dialog -->
 </div>
 
-
+<script src="~/Content/assets/js/export.js"></script>
 
 @section scripts{
+
+
+
     <script>
-        $(document).ready(function(){
+        function fnExcelReport(id, name) {
+            var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+            tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+            tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+            tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+            tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+            tab_text = tab_text + "<table border='1px' style='color:black'>";
+
+
+            var exportTable = $('#' + id).clone();
+            exportTable.find('th').last().remove();
+            exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+            exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+            tab_text = tab_text + exportTable.html();
+            tab_text = tab_text + '</table></body></html>';
+            var fileName = "Danh sách đơn hàng" + '.xls';
+
+            //Save the file
+            var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+            window.saveAs(blob, fileName);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
             $('body').on('click', '.btnCapNhat', function () {
                 var id = $(this).data("id");
                 $('#txtOrderId').val(id);
@@ -141,13 +173,13 @@
                     success: function (res) {
 
                         if (res.Success) {
-                        location.reload();
+                            location.reload();
+                        }
                     }
-                }
                 });
-                
+
             });
         });
 
     </script>
-    }
+}

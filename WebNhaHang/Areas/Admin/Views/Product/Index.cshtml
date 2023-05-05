@@ -27,7 +27,33 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<h2>Index</h2>
+
+<script src="~/Content/assets/js/export.js"></script>
+ 
+<script>
+    function fnExcelReport(id, name) {
+        var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+        tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+        tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+        tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+        tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+        tab_text = tab_text + "<table border='1px' style='color:black'>";
+
+
+        var exportTable = $('#' + id).clone();
+        exportTable.find('th').last().remove();
+        exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+        exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+        tab_text = tab_text + exportTable.html();
+        tab_text = tab_text + '</table></body></html>';
+        var fileName = "Danh sách sản phẩm" + '.xls';
+
+        //Save the file
+        var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+        window.saveAs(blob, fileName);
+    }
+</script>
 
 <section class="content-header">
     <div class="container-fluid">
@@ -45,7 +71,6 @@
     </div><!-- /.container-fluid -->
 </section>
 
-
 <!-- Main content -->
 <section class="content">
 
@@ -57,12 +82,14 @@
             <div class="card-tools">
                 <a href="/admin/Product/Add" class="btn btn-primary">Thêm mới</a>
                 <a href="3" class="btn btn-danger" id="BtnDeleteAll">Xóa</a>
+                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel</button>
             </div>
+
         </div>
         <div class="card-body">
 
 
-            <table class="table table-hover">
+            <table class="table table-hover" id="dataTable">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
@@ -91,32 +118,32 @@
                             var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                    <tr id="trow_@item.id">
-                        <td><input type="checkbox" class="cbkItem" value="@item.id" /></td>
-                        <td>@i</td>
-                        <td>
-                            <img class="imgproduct" data-id="@item.id" src="@item.Image" width="50" />
-                        </td>
-                        <td>@item.Title</td>
-                        <td>@item.ProductCategory.Title</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Price</td>
-                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                        <td class="text-center">
-                            <a hreff='#' data-id="@item.id" class="btnHome">@Html.Raw(strCheckHome)</a>
-                        </td>
-                        <td class="text-center">
-                            <a hreff='#' data-id="@item.id" class="btnSale">@Html.Raw(strCheckSale)</a>
-                        </td>
-                        <td class="text-center">
-                            <a hreff='#' data-id="@item.id" class="btnActive">@Html.Raw(strCheck)</a>
-                        </td>
-                        <td>
-                            <a href="/admin/Product/Edit/@item.id" class="btn btn-sm btn-primary">Sửa</a>
+                            <tr id="trow_@item.id">
+                                <td><input type="checkbox" class="cbkItem" value="@item.id" /></td>
+                                <td>@i</td>
+                                <td>
+                                    <img class="imgproduct" data-id="@item.id" src="@item.Image" width="50" />
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@item.ProductCategory.Title</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <a hreff='#' data-id="@item.id" class="btnHome">@Html.Raw(strCheckHome)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a hreff='#' data-id="@item.id" class="btnSale">@Html.Raw(strCheckSale)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a hreff='#' data-id="@item.id" class="btnActive">@Html.Raw(strCheck)</a>
+                                </td>
+                                <td>
+                                    <a href="/admin/Product/Edit/@item.id" class="btn btn-sm btn-primary">Sửa</a>
 
-                            <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                        </td>
-                    </tr>
+                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                </td>
+                            </tr>
                             i++;
                         }
                     }

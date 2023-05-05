@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
+ 
 
 namespace WebNhaHang.Controllers
 {
@@ -25,6 +26,7 @@ namespace WebNhaHang.Controllers
         {
             var items = db.ProductCategories.Where(x=>x.IsActive).ToList();
             return PartialView("_MenuProductCategory", items);
+            
             
         }
         public ActionResult MenuLeft(int? id)
