@@ -31,6 +31,11 @@
             <div class="card-tools">
 
                 <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel</button>
+
+                @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
+                @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
+                @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
+                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
             </div>
 
         </div>
