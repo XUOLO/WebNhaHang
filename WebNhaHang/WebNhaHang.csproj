@@ -229,6 +229,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -297,6 +298,10 @@
     <Compile Include="Migrations\202304300655145_account.cs" />
     <Compile Include="Migrations\202304300655145_account.Designer.cs">
       <DependentUpon>202304300655145_account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305091620295_contact.cs" />
+    <Compile Include="Migrations\202305091620295_contact.Designer.cs">
+      <DependentUpon>202305091620295_contact.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -377,6 +382,7 @@
     <Content Include="Areas\Admin\Data\js\waves.js" />
     <Content Include="Asset\css\application.css" />
     <Content Include="Asset\css\bootstrap.min.css" />
+    <Content Include="Asset\css\ContactCss.css" />
     <Content Include="Asset\css\elegant-icons.css" />
     <Content Include="Asset\css\font-awesome.min.css" />
     <Content Include="Asset\css\jquery-ui.min.css" />
@@ -3776,6 +3782,7 @@
     <Content Include="_WebNhaHang_20230414061241DataSet.xsc">
       <DependentUpon>_WebNhaHang_20230414061241DataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Contact\Index.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>
@@ -3847,6 +3854,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304300655145_account.resx">
       <DependentUpon>202304300655145_account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305091620295_contact.resx">
+      <DependentUpon>202305091620295_contact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="report\ReportRecruitment.rdlc" />
   </ItemGroup>

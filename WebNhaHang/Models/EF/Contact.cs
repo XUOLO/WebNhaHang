@@ -8,7 +8,7 @@ using System.Web;
 namespace WebNhaHang.Models.EF
 {
     [Table("Tb_Contact")]
-    public class Contact
+    public class Contact:CommonAbstract
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -17,7 +17,7 @@ namespace WebNhaHang.Models.EF
         [StringLength(150,ErrorMessage ="ten khong duoc qua 150 ki tu")]
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Website { get; set; }
+        public string Phone { get; set; }
         [StringLength(4000)]
         public string Message { get; set; }
         public int Isread { get; set; }

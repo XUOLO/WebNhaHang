@@ -1,0 +1,70 @@
+﻿@model WebNhaHang.Models.EF.Contact
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - Xuolo</title>
+    <link href="~/Asset/css/ContactCss.css" rel="stylesheet" />
+ 
+  
+</head>
+
+<body>
+
+    <main>
+        <section class="contact-info">
+            <h2>Thông tin liên lạc</h2>
+            <p>Address: 123 Nhà bè,TPHCM</p>
+            <p>Phone: 0906303905</p>
+            <p>Email: xuanloc290901@gmail.com</p>
+            <p>Giờ làm việc</p>
+            <p> T2-T6 từ 8h-17h</p>
+
+        </section>
+        <section class="contact-form">
+            <h2>Send Us a Message</h2>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label for="name">Tên:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">SDT:</label>
+                    <input type="text" name="Phone" required class="form-control" autocomplete="off" onkeypress="return valideNumber()" />
+                </div>
+                <div class="form-group">
+                    <label for="message">Lời nhắn:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <input type="submit" value="Gửi" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+                 
+            }
+
+        </section>
+
+     
+
+ 
+        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d15683.055833618631!2d106.729300959003!3d10.675420979508598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDQwJzQxLjciTiAxMDbCsDQzJzQ4LjgiRQ!5e0!3m2!1svi!2s!4v1679016321464!5m2!1svi!2s" width="1600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </main>
+
+</body>
+
+</html>
+<script>
+    function valideNumber() {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode >= 48 && charCode <= 57) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
