@@ -1,8 +1,42 @@
 ﻿  <!-- Sidebar -->
-
+ 
 <div class="sidebar">
     <!-- Sidebar user (optional) -->
- 
+
+    @*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="d-block">Alexander Pierce</a>
+        </div>
+    </div>*@
+
+    @using Microsoft.AspNet.Identity
+    @if (User.Identity.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <ul class="nav navbar-nav navbar-right info">
+                <li>
+                    <i class="fa fa-user login"> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ManageLogins", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</i>
+                </li>
+                <li><a href="javascript:document.getElementById('logOffForm').submit()">Log off</a></li>
+            </ul>
+                </div>
+        }
+    }
+    else
+    {
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <ul class="nav navbar-nav navbar-right info">
+
+            <li> <i class="fa fa-user login">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</i></li>
+        </ul>
+            </div>
+    }
 
     <!-- SidebarSearch Form -->
     <!--<div class="form-inline">
@@ -15,12 +49,11 @@
             </div>
         </div>
     </div>-->
-
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+            with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="/admin/Category" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -71,6 +104,18 @@
             </li>
             <li class="nav-item">
 
+                <a href="/admin/Contact" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Contact
+                        @*<i class="right fas fa-angle-left"></i>*@
+                    </p>
+                </a>
+
+
+            </li>
+            <li class="nav-item">
+
                 <a href="/admin/Recuitment" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
@@ -86,7 +131,7 @@
                 <a href="/admin/account" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                     Tài khoản
+                        Tài khoản
                         @*<i class="right fas fa-angle-left"></i>*@
                     </p>
                 </a>
@@ -123,7 +168,7 @@
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Logout
-                        @*<i class="right fas fa-angle-left"></i>*@
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
 
@@ -139,7 +184,7 @@
 @if (Request.IsAuthenticated) { 
 
 <div style="display:none">  
-    @using(Html.BeginForm("Logoff","account",FormMethod.Post,new { @id = "logOffForm" }))
+    @using(Html.BeginForm("Logout","account",FormMethod.Post,new { @id = "logOffForm" }))
                 {
                     @Html.AntiForgeryToken()
                 }

@@ -41,7 +41,7 @@
         </div>
         <div class="card-body">
 
-            <table class="table table-bordered"id="dataTable">
+            <table class="table table-bordered" id="dataTable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -145,7 +145,7 @@
 
 @section scripts{
 
-   
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
         function fnExcelReport(id, name) {
             var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
@@ -169,8 +169,7 @@
             var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
             window.saveAs(blob, fileName);
         }
-    </script>
-    <script>
+
         $(document).ready(function () {
             $('body').on('click', '.btnCapNhat', function () {
                 var id = $(this).data("id");

@@ -80,9 +80,14 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
+
+                @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
+                @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
+                @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
+                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })| 
                 <a href="/admin/Product/Add" class="btn btn-primary">Thêm mới</a>
                 <a href="3" class="btn btn-danger" id="BtnDeleteAll">Xóa</a>
-                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel</button>
+                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
             </div>
 
         </div>
@@ -180,7 +185,31 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
 
+     
+ 
+        function fnExcelReport(id, name) {
+            var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+            tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+            tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+            tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+            tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+            tab_text = tab_text + "<table border='1px' style='color:black'>";
 
+
+            var exportTable = $('#' + id).clone();
+            exportTable.find('th').last().remove();
+            exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+            exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+            tab_text = tab_text + exportTable.html();
+            tab_text = tab_text + '</table></body></html>';
+            var fileName = "Danh sách món ăn" + '.xls';
+
+            //Save the file
+            var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+            window.saveAs(blob, fileName);
+        }
+ 
         $(document).ready(function () {
 
             //hiển thị form load ảnh

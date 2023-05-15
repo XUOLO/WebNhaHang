@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
+using WebNhaHang.Models.EF;
+using static WebNhaHang.Controllers.ManageController;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
@@ -27,7 +29,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-
+         
         public ApplicationSignInManager SignInManager
         {
             get
@@ -107,6 +109,13 @@ namespace WebNhaHang.Areas.Admin.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Logout()
+        {
+            var authenManager = HttpContext.GetOwinContext().Authentication;
+            authenManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -146,7 +155,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
                     UserManager.AddToRole(user.Id, model.Role);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -161,6 +170,19 @@ namespace WebNhaHang.Areas.Admin.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //[HttpPost]
+        //public ActionResult Delete(int id)
+        //{
+        //    var item = db..Find(id);
+        //    if (item != null)
+        //    {
+        //        db.Products.Remove(item);
+        //        db.SaveChanges();
+        //        return Json(new { success = true });
+        //    }
+        //    return Json(new { success = false });
+        //}
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -168,5 +190,6 @@ namespace WebNhaHang.Areas.Admin.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+        
     }
 }

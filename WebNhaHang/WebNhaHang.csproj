@@ -219,6 +219,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
@@ -236,6 +237,11 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RecruitmentController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="DataSetProductCategory.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetProductCategory.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -323,7 +329,17 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\EF\ReservationViewModel.cs" />
     <Compile Include="Models\ValidTime.cs" />
+    <Compile Include="ProductDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservationDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReservationDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="_WebNhaHang_20230414061241DataSet.Designer.cs">
@@ -582,10 +598,13 @@
     <Content Include="Content\assets\images\a.jpg" />
     <Content Include="Content\assets\images\adddidasshoe1-removebg-preview.png" />
     <Content Include="Content\assets\images\adidas.jpg" />
+    <Content Include="Content\assets\images\bgfood %28Custom%29 %281%29.jpeg" />
+    <Content Include="Content\assets\images\bgfood.png" />
     <Content Include="Content\assets\images\blog1.jpg" />
     <Content Include="Content\assets\images\blog2.jpg" />
     <Content Include="Content\assets\images\blog3.jpg" />
     <Content Include="Content\assets\images\blog4.jpg" />
+    <Content Include="Content\assets\images\conntactt.jpg" />
     <Content Include="Content\assets\images\e214b3e19e953c84370bb32d59db8dad.jpg" />
     <Content Include="Content\assets\images\Flying-Shoes-Logo-Design-removebg-preview.png" />
     <Content Include="Content\assets\images\Flying-Shoes-Logo-Design.jpg" />
@@ -3707,6 +3726,40 @@
     <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
+    <Content Include="ProductDataSet.xsc">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSetProductCategory.xsc">
+      <DependentUpon>DataSetProductCategory.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSetProductCategory.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetProductCategory.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSetProductCategory.xss">
+      <DependentUpon>DataSetProductCategory.xsd</DependentUpon>
+    </Content>
+    <None Include="ProductDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ProductDataSet.xss">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReservationDataSet.xsc">
+      <DependentUpon>ReservationDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="ReservationDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReservationDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReservationDataSet.xss">
+      <DependentUpon>ReservationDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3858,6 +3911,8 @@
     <EmbeddedResource Include="Migrations\202305091620295_contact.resx">
       <DependentUpon>202305091620295_contact.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="report\ReportReservation.rdlc" />
+    <EmbeddedResource Include="report\ReportProduct.rdlc" />
     <EmbeddedResource Include="report\ReportRecruitment.rdlc" />
   </ItemGroup>
   <ItemGroup>

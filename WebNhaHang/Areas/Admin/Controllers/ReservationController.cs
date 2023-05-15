@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Microsoft.Reporting.WebForms;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,43 @@ namespace WebNhaHang.Areas.Admin.Controllers
             var items = db.OrderDetails.Where(x => x.OrderId == id).ToList();
             return PartialView(items);
         }
+        public ActionResult Reports(string ReportType)
+        {
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/report/ReportReservation.rdlc");
 
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "DataSetReservation";
+            reportDataSource.Value = db.Reservations.ToList();
+            localreport.DataSources.Add(reportDataSource);
+            string reportType = ReportType;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            if (reportType == "Excel")
+            {
+                fileNameExtension = "xlsx";
+            }
+            if (reportType == "Word")
+            {
+                fileNameExtension = "docx";
+            }
+            if (reportType == "PDF")
+            {
+                fileNameExtension = "pdf";
+            }
+            else
+            {
+                fileNameExtension = "jpg";
+            }
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderedByte;
+            renderedByte = localreport.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename= Reservation_report." + fileNameExtension);
+            return File(renderedByte, fileNameExtension);
+
+        }
         [HttpPost]
         public ActionResult UpdateTT(int id, int trangthai)
         {

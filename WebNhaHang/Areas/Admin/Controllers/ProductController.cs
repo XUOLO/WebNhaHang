@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Microsoft.Reporting.WebForms;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
         public ActionResult Index(int? page)
         {
             IEnumerable<Product> items = db.Products.OrderByDescending(x=>x.id);
-            var pageSize = 10;
+            var pageSize = 2;
             if (page == null)
             {
                 page = 1;
@@ -29,7 +30,43 @@ namespace WebNhaHang.Areas.Admin.Controllers
             ViewBag.Page = page;
             return View(items);
         }
+        public ActionResult Reports(string ReportType)
+        {
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/report/ReportProduct.rdlc");
 
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "DataSetProduct";
+            reportDataSource.Value = db.Products.ToList();
+            localreport.DataSources.Add(reportDataSource);
+            string reportType = ReportType;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            if (reportType == "Excel")
+            {
+                fileNameExtension = "xlsx";
+            }
+            if (reportType == "Word")
+            {
+                fileNameExtension = "docx";
+            }
+            if (reportType == "PDF")
+            {
+                fileNameExtension = "pdf";
+            }
+            else
+            {
+                fileNameExtension = "jpg";
+            }
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderedByte;
+            renderedByte = localreport.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename= Product_report." + fileNameExtension);
+            return File(renderedByte, fileNameExtension);
+
+        }
         public ActionResult Add()
         {
             ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");

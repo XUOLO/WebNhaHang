@@ -5,7 +5,7 @@
 
 
 }
-
+ 
 <link href="~/Content/cssformres/css/menu.css" rel="stylesheet" />
 
 <!DOCTYPE html>
@@ -32,6 +32,7 @@
             max-width: 500px;
             margin: 0 auto;
             margin-top: 4%;
+            color: white;
         }
 
         img {
@@ -49,10 +50,12 @@
             justify-content: space-between;
             font-size: 14px;
             margin-bottom: 20px;
+            color:white;
         }
 
             .nutrition-facts span {
                 margin-right: 20px;
+                color: white;
             }
         .btn-back {
             position: fixed;
@@ -67,43 +70,52 @@
             cursor: pointer;
             margin-top: 4%;
         }
+        .bg {
+         
+            background-image: url('../../Content/assets/images/bgfood (Custom) (1).jpeg');
+            margin-top: -40px;
+        }
     </style>
-    <div class="btn-back" onclick="window.history.back();">Quay lại</div>
-    @if (Model != null)
-    {
-
-
-        if (Model.ProductImage != null && Model.ProductImage.Any())
+    <div class="bg">
+        
+        <div class="btn-back" onclick="window.history.back();">Quay lại</div>
+        @if (Model != null)
         {
 
-            foreach (var item in Model.ProductImage)
+
+            if (Model.ProductImage != null && Model.ProductImage.Any())
             {
-                if (item.IsDefault)
+
+                foreach (var item in Model.ProductImage)
                 {
+                    if (item.IsDefault)
+                    {
 
 
 
 
-                    <div class="food-container">
-                        <img src="@item.Image" alt="Tên món ăn" data-image="@item.Image">
-                        <h2>@Model.Title</h2>
-                        <div class="nutrition-facts">
-                            <span>@Html.Raw(Model.Detail)</span>
+                        <div class="food-container">
+                            <img src="@item.Image" alt="Tên món ăn" data-image="@item.Image">
+                            <h2>@Model.Title</h2>
+                            <div class="nutrition-facts">
+                                <span>@Html.Raw(Model.Detail)</span>
+                            </div>
+
+                            <div class="description">
+                                <h3>Mô tả:</h3>
+                                <p>@Model.Description</p>
+
+                            </div>
                         </div>
+                    }
 
-                        <div class="description">
-                            <h3>Mô tả:</h3>
-                            <p>@Model.Description</p>
-
-                        </div>
-                    </div>
                 }
 
+
             }
-
-
         }
-    }
+    </div>
+  
 </body>
 </html>
 @section scripts{

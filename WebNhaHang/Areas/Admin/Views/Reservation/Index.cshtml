@@ -28,27 +28,33 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Danh sách đơn đặt bàn</h3>
-
-
+            <div style="text-align:right;">
+                @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
+                @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
+                @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
+                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
+                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
+            </div>
+           
         </div>
         <div class="card-body">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="dataTable">
                 <thead>
                     <tr>
                         <th>#</th>
-                         
+
                         <th>Tên khách hàng</th>
                         <th>SDT</th>
                         <th>Email</th>
                         <th>Ghi chú</th>
                         <th>Thời gian </th>
-                        
+
                         <th>Loại bàn</th>
                         <th>Số người</th>
                         <th>Ngày tạo</th>
                         @*<th>Trạng thái</th>*@
-                         
+
                         <th></th>
                     </tr>
                 </thead>
@@ -67,7 +73,7 @@
                                 <td>@item.DateTime</td>
                                 <td>@item.Room</td>
                                 <td>@item.NumberOfPeople</td>
-                                 
+
                                 @*<td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>*@
                                 <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
                                 <td>
@@ -133,10 +139,33 @@
 </div>
 
 
-
+<script src="~/Content/assets/js/export.js"></script>
 @section scripts{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-        $(document).ready(function(){
+        function fnExcelReport(id, name) {
+            var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+            tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+            tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+            tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+            tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+            tab_text = tab_text + "<table border='1px' style='color:black'>";
+
+
+            var exportTable = $('#' + id).clone();
+            exportTable.find('th').last().remove();
+            exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+            exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+            tab_text = tab_text + exportTable.html();
+            tab_text = tab_text + '</table></body></html>';
+            var fileName = "Danh sách đặt bàn" + '.xls';
+
+            //Save the file
+            var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+            window.saveAs(blob, fileName);
+        }
+        $(document).ready(function () {
             $('body').on('click', '.btnCapNhat', function () {
                 var id = $(this).data("id");
                 $('#txtOrderId').val(id);
@@ -153,9 +182,9 @@
                     success: function (res) {
 
                         if (res.Success) {
-                        location.reload();
+                            location.reload();
+                        }
                     }
-                }
                 });
 
             });
