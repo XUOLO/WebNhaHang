@@ -54,9 +54,9 @@ namespace WebNhaHang
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "909456126833711",
+               appSecret: "ca2c0c82eae679c473a6f6e2fb4974d3");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

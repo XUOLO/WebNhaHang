@@ -51,6 +51,9 @@
     <Reference Include="CKFinder">
       <HintPath>..\..\DA_WEBBH\ckfinder\bin\Debug\CKFinder.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="IronSoftware.Drawing.Common, Version=2023.4.4.0, Culture=neutral, PublicKeyToken=8d7e55c97b3e9835, processorArchitecture=MSIL">
       <HintPath>..\packages\IronSoftware.System.Drawing.2023.4.4\lib\netstandard2.0\IronSoftware.Drawing.Common.dll</HintPath>
     </Reference>
@@ -309,10 +312,15 @@
     <Compile Include="Migrations\202305091620295_contact.Designer.cs">
       <DependentUpon>202305091620295_contact.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305161024013_user.cs" />
+    <Compile Include="Migrations\202305161024013_user.Designer.cs">
+      <DependentUpon>202305161024013_user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
+    <Compile Include="Models\DB_Entities.cs" />
     <Compile Include="Models\EF\Aplication.cs" />
     <Compile Include="Models\EF\ApplicationViewModel.cs" />
     <Compile Include="Models\EF\Category.cs" />
@@ -399,11 +407,13 @@
     <Content Include="Asset\css\application.css" />
     <Content Include="Asset\css\bootstrap.min.css" />
     <Content Include="Asset\css\ContactCss.css" />
+    <Content Include="Asset\css\dropdowntop.css" />
     <Content Include="Asset\css\elegant-icons.css" />
     <Content Include="Asset\css\font-awesome.min.css" />
     <Content Include="Asset\css\jquery-ui.min.css" />
     <Content Include="Asset\css\nice-select.css" />
     <Content Include="Asset\css\owl.carousel.min.css" />
+    <Content Include="Asset\css\Product.css" />
     <Content Include="Asset\css\slicknav.min.css" />
     <Content Include="Asset\css\style.css" />
     <Content Include="Asset\css\styleproduct.css" />
@@ -593,28 +603,10 @@
     <Content Include="Asset\js\mixitup.min.js" />
     <Content Include="Asset\js\owl.carousel.min.js" />
     <Content Include="Content\assets\images\149302-20341f60.png" />
-    <Content Include="Content\assets\images\306de93024f09dd25146e8c8a1332a94.jpg" />
-    <Content Include="Content\assets\images\90dfc32645e2b5b6d8b07919fffb8492.jpg" />
-    <Content Include="Content\assets\images\a.jpg" />
-    <Content Include="Content\assets\images\adddidasshoe1-removebg-preview.png" />
-    <Content Include="Content\assets\images\adidas.jpg" />
     <Content Include="Content\assets\images\bgfood %28Custom%29 %281%29.jpeg" />
     <Content Include="Content\assets\images\bgfood.png" />
-    <Content Include="Content\assets\images\blog1.jpg" />
-    <Content Include="Content\assets\images\blog2.jpg" />
-    <Content Include="Content\assets\images\blog3.jpg" />
-    <Content Include="Content\assets\images\blog4.jpg" />
-    <Content Include="Content\assets\images\conntactt.jpg" />
-    <Content Include="Content\assets\images\e214b3e19e953c84370bb32d59db8dad.jpg" />
-    <Content Include="Content\assets\images\Flying-Shoes-Logo-Design-removebg-preview.png" />
-    <Content Include="Content\assets\images\Flying-Shoes-Logo-Design.jpg" />
-    <Content Include="Content\assets\images\Hand-Drawn-Shoe-Logo-Templates.jpg" />
+    <Content Include="Content\assets\images\loginbg.jpg" />
     <Content Include="Content\assets\images\logo.png" />
-    <Content Include="Content\assets\images\logoshoes.jpg" />
-    <Content Include="Content\assets\images\Men%27s.jpg.png" />
-    <Content Include="Content\assets\images\nike.jpg" />
-    <Content Include="Content\assets\images\vans.jpg" />
-    <Content Include="Content\assets\images\women%27s.jpg.png" />
     <Content Include="Content\assets\js\categories_custom.js" />
     <Content Include="Content\assets\js\contact_custom.js" />
     <Content Include="Content\assets\js\custom.js" />
@@ -3836,6 +3828,7 @@
       <DependentUpon>_WebNhaHang_20230414061241DataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>
@@ -3910,6 +3903,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305091620295_contact.resx">
       <DependentUpon>202305091620295_contact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305161024013_user.resx">
+      <DependentUpon>202305161024013_user.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="report\ReportReservation.rdlc" />
     <EmbeddedResource Include="report\ReportProduct.rdlc" />
