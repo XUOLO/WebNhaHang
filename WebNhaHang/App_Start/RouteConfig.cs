@@ -61,6 +61,12 @@ namespace WebNhaHang
                defaults: new { controller = "Product", action = "Detail", alias = UrlParameter.Optional },
                namespaces: new[] { "WebNhaHang.Controllers" }
            );
+            routes.MapRoute(
+              name: "ShoppingCart",
+              url: "Gio-hang",
+              defaults: new { controller = "ShoppingCart", action = "Index", alias = UrlParameter.Optional },
+              namespaces: new[] { "WebNhaHang.Controllers" }
+          );
 
             routes.MapRoute(
                 name: "Default",

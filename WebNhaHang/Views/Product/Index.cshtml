@@ -26,31 +26,31 @@
 
         @if (Model != null && Model.Any())
         {
-            <div class="menu-section active" id="appetizers">
+        <div class="menu-section active" id="appetizers">
 
-                @foreach (var item in Model)
+            @foreach (var item in Model)
+            {
+                var strImage = "";
+                var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                if (img != null)
                 {
-                    var strImage = "";
-                    var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
-                    if (img != null)
-                    {
-                        strImage = img.Image;
-                    }
-                    <div class="menu-item @item.ProductCategory.Alias">
-                        <img src="@strImage" alt="@item.Title">
-
-                        <h4><a href="/chi-tiet/@item.Alias-p@(item.id)">@item.Title</a></h4>
-
-                        <span class="price">@WebNhaHang.Common.Common.FormatNumber(item.Price, 0) VND</span>
-
-
-
-
-
-                    </div>
-
+                    strImage = img.Image;
                 }
+            <div class="menu-item @item.ProductCategory.Alias">
+                <img src="@strImage" alt="@item.Title">
+
+                <h4><a href="/chi-tiet/@item.Alias-p@(item.id)">@item.Title</a></h4>
+
+                <span class="price">@WebNhaHang.Common.Common.FormatNumber(item.Price, 0) VND</span>
+
+                <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.id"><i class="fa fa-shopping-cart " aria-hidden="true"></i> Thêm vào giỏ hàng</a></div>
+               
+
+
             </div>
+               
+            }
+        </div>
         }
     </div>
     

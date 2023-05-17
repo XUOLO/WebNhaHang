@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+ 
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -171,18 +172,20 @@ namespace WebNhaHang.Areas.Admin.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public ActionResult Delete(int id)
-        //{
-        //    var item = db..Find(id);
-        //    if (item != null)
-        //    {
-        //        db.Products.Remove(item);
-        //        db.SaveChanges();
-        //        return Json(new { success = true });
-        //    }
-        //    return Json(new { success = false });
-        //}
+       //public async Task<IActionResult> DeleteUser(string id)
+       // {
+       //     var user = await UserManager.FindByIdAsync(id);
+       //     if(user == null)
+       //     {
+       //         return  View("NotFound");
+       //     }
+
+       //     else
+       //     {
+       //         var result = await UserManager.DeleteAsync(user);
+       //         return  View("index");
+       //     }
+       // }
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

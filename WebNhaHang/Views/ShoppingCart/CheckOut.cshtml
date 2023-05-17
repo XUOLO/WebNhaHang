@@ -1,0 +1,100 @@
+﻿ 
+@{
+    ViewBag.Title = "Thanh toán";
+}
+<style>
+    .error{color:red;}
+</style>
+<link href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col product_section clearfix">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/home/index">Home</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar -->
+                <!-- Main Content -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>Thanh Toán</h1>
+                        <p>Bạn hãy kiểm tra lại thông tin đơn hàng</p>
+                    </div>
+
+                </div>
+                <hr />
+                @if (ViewBag.CheckCart != null)
+                {
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div  id="show_success"></div>
+                           @Html.Action("Partial_CheckOut", "ShoppingCart")
+                        </div>
+                        <div class="col-md-3">
+
+                            @Html.Action("Partial_item_ThanhToan", "ShoppingCart")
+
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        Bạn chưa có sản phẩm nào.Quay lại trang <a href="/san-pham">sản phẩm</a> để mua
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+@section scripts{
+    <script src="~/content/assets/js/categories_custom.js"></script>
+        <script>
+            function OnFailure(rs) {
+                if (!rs.success) {
+                    $('#show_success').html("Bạn đặt hàng không thành công");
+                }
+            }
+        
+            $(document).ready(function () {
+                $('#myForm').validate({
+                    rules: {
+                        'CustomerName': {
+                            required: true
+                        },
+                        'Phone':{
+                            required: true
+                        },
+                        'Address':{
+                            required: true
+                        },
+                        'Email':{
+                            required: true
+                            
+                        }
+                    },
+                    messages: {
+                        'CustomerName':'Bạn không được để trống',
+                        'Phone': 'Bạn không được để trống',
+                        'Address': 'Bạn không được để trống',
+                        'Email': 'Email không hợp lệ'
+                    }
+                });
+            });
+        </script>
+}
+
