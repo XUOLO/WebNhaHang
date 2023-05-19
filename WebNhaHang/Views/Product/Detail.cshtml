@@ -1,84 +1,228 @@
 ﻿@model WebNhaHang.Models.EF.Product
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = "Chi tiết món ăn";
 
+
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
 
 
 }
  
-<link href="~/Content/cssformres/css/menu.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Chi tiết món ăn</title>
-   
+
 </head>
 
 <body>
+
+
+  
     <style>
-        body {
+        .product-image {
+            width: 40%;
+        }
+        .navbar-dark .navbar-brand img {
+            margin-top: 105%;
+        }
+            .product-image img {
+                max-width: 100%;
+                height: auto;
+                width:90%;
+            }
+
+        .product-details {
+            display: flex;
+          
+            margin-bottom:-5%;
+            top:-51px;
+            
+            
         }
 
-        .food-container {
+        .product-image {
+            width: 40%;
+            position: relative;
+        }
+
+            .product-image img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        .product-discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f00;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            width: 60%;
+            padding-left: 20px;
+        }
+
+        .product-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #f00;
+            text-decoration-line: line-through;
+        }
+
+        .product-sale-price {
+            font-size: 22px;
+            color: #333;
+            font-weight: bold;
+        
+        }
+
+        .product-description {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .product-reviews {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-star {
+            width: 20px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        .product-review-count {
+            font-size: 16px;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .add-to-cart {
+            background-color: #0f0;
+            color: #fff;
+           
+            padding: 10px 15px;
+            
+        }
+        .quantity_selector {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+            .quantity_selector span {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .quantity_selector span i {
+                    font-size: 20px;
+                    color: #333;
+                }
+
+                .quantity_selector span#quantity_value {
+                    font-size: 16px;
+                }
+
+        .quantity {
+            width: 50 px;
+            margin-left: 10 px;
+            border: 1 px solid #ccc;
+            text-align: center;
+        }
+
+        .increase-quantity {
+            background-color: #00f;
+            color: #fff;
+            border-radius: 20 px; /* make the buttons round */
+            padding: 10 px15 px;
+            margin-left: 10 px;
+            cursor: pointer;
+        }
+        .quantity {
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            margin: 0 auto;
-            margin-top: 4%;
-            color: white;
+            margin-top: 20px;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        .nutrition-facts {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            margin-bottom: 20px;
-            color:white;
-        }
-
-            .nutrition-facts span {
-                margin-right: 20px;
-                color: white;
+            .quantity span {
+                font-size: 18px;
+                color: #333;
             }
-        .btn-back {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: #f8f8f8;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            color: #333;
-            cursor: pointer;
-            margin-top: 4%;
-        }
-        .bg {
-         
-            background-image: url('../../Content/assets/images/bgfood (Custom) (1).jpeg');
-            margin-top: -40px;
-        }
-    </style>
-    <div class="bg">
 
-        <div class="btn-back" onclick="window.history.back();">Quay lại</div>
+        .quantity_selector {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+            .quantity_selector span {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .quantity_selector span i {
+                    font-size: 20px;
+                    color: #333;
+                }
+
+                .quantity_selector span#quantity_value {
+                    font-size: 16px;
+                }
+
+        .red_button {
+            background-color: #f00;
+            color: #fff;
+ 
+            border-radius: 0px;
+            padding: 6px 16px;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .product_favorite {
+            width: 40px;
+            height: 40px;
+            border: none;
+        }
+
+    </style>
+    <section class="product-details">
         @if (Model != null)
         {
 
@@ -91,33 +235,35 @@
                     if (item.IsDefault)
                     {
 
+                        <div class="product-image">
+                            <img src="@item.Image" alt="Product">
+                            
+                        </div>
+                        <div class="product-info">
+                            <h2 class="product-name">@Model.Title</h2>
 
+                            <p class="product-sale-price">@Model.Price</p> <!-- add a sale price for the product -->
+                            <p class="product-description">@Model.Description</p>
 
-
-                        <div class="food-container">
-                            <img src="@item.Image" alt="Tên món ăn" data-image="@item.Image">
-                            <h2>@Model.Title</h2>
-                            <div class="nutrition-facts">
-                                <span>@Html.Raw(Model.Detail)</span>
-                            </div>
-
-                            <div class="description">
-                                <h3>Mô tả:</h3>
-                                <p>@Model.Description</p>
-
+                            <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                                <span>Quantity:</span>
+                                <div class="quantity_selector">
+                                    <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    <span id="quantity_value">1</span>
+                                    <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="red_button add_to_cart_buttonnnn"><a href="#" class="btnAddToCart" data-id="@Model.id">add to cart</a></div>
+                                <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
                             </div>
                         </div>
-
-                         
                     }
-
                 }
-
-
             }
         }
-    </div>
-  
+                </section>
+
+ 
+
 </body>
 </html>
 @section scripts{

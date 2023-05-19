@@ -13,21 +13,10 @@ namespace WebNhaHang.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Product
-        public ActionResult Index( int? page)
+        public ActionResult Index( )
         {
-IEnumerable<Product> items = db.Products.OrderByDescending(x => x.id);
-            
-            
-            var pageSize = 3;
-            if (page == null)
-            {
-                page = 1;
-            }
-            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            items = items.ToPagedList(pageIndex, pageSize);
-            ViewBag.PageSize = pageSize;
-            ViewBag.Page = page;
-            return View(items);
+            var products = db.Products.ToList();
+            return View(products);
         }
          
   
@@ -75,7 +64,7 @@ IEnumerable<Product> items = db.Products.OrderByDescending(x => x.id);
         }
         public ActionResult partial_ItemsByCateId()
         {
-            var items = db.Products.Where(x => x.IsHome && x.IsActive).Take(20).ToList();
+            var items = db.Products.Where(x => x.IsHome && x.IsActive).Take(24).ToList();
             return PartialView(items);
         }
         public ActionResult partial_ProductHot()

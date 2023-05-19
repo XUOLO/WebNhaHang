@@ -9,6 +9,7 @@ using WebNhaHang.Models;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RecuitmentController : Controller
     {
         // GET: Admin/Recuitment

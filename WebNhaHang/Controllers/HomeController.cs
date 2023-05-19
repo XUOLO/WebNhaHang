@@ -19,7 +19,10 @@ namespace WebNhaHang.Controllers
         {
             return View();
         }
-
+        public ActionResult About()
+        {
+            return View();
+        }
         //GET: Register
 
         public ActionResult Register()

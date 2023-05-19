@@ -22,21 +22,21 @@ namespace WebNhaHang.Controllers
             return PartialView("_Menutop", items);
         }
 
-        public ActionResult MenuProductCategory()
-        {
-            var items = db.ProductCategories.Where(x=>x.IsActive).ToList();
-            return PartialView("_MenuProductCategory", items);
+        //public ActionResult MenuProductCategory()
+        //{
+        //    var items = db.ProductCategories.Where(x=>x.IsActive).ToList();
+        //    return PartialView("_MenuProductCategory", items);
             
             
-        }
-        public ActionResult MenuLeft(int? id)
+        //}
+        public ActionResult MenuFood(int? id)
         {
             if (id != null)
             {
                 ViewBag.CateId = id;
             }
             var items = db.ProductCategories.ToList();
-            return PartialView("_MenuLeft", items);
+            return PartialView("_MenuFood", items);
         }
 
         public ActionResult MenuArrivals()

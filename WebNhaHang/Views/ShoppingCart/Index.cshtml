@@ -3,12 +3,16 @@
 @{
     ViewBag.Title = "Giỏ hàng";
 
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
+
 
 }
-
-<link href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
+<style>
+</style>
+<link href="~/Asset/css/bootstrap.min.css" rel="stylesheet" />
+ 
 <link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_styles.css">
-<link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_responsive.css">
+  
 <div class="container product_section_container">
     <div class="row">
         <div class="col product_section clearfix">
@@ -17,7 +21,7 @@
 
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li class="active"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
                 </ul>
             </div>
@@ -33,17 +37,17 @@
                 </div>
                 <div class="col-md-12">
                     @if (ViewBag != null)
-            {
-                    <div class="text-right  ">
-                         
-                        <a href="#" class="primary-btn btnDeleteAll">Delete</a>
-                        <a href="/thanh-toan" class="primary-btn">Proceed to checkout</a>
-                             
-                            
-                        
-                    </div>
-            }
-                    
+                    {
+                        <div class="text-right proceddd ">
+
+                            <a href="#" class="primary-btn btnDeleteAll">Delete</a>
+                            <a href="/thanh-toan" class="primary-btn">Proceed to checkout</a>
+
+
+
+                        </div>
+                    }
+
                 </div>
             </div>
 

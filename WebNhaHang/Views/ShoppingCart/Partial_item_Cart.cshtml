@@ -2,66 +2,72 @@
 @using WebNhaHang.Common
 @{
     ViewBag.Title = "Partial_item_Cart";
+
+ 
+
 }
+ 
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Asset/css/styleproduct.css" rel="stylesheet" />
 @if (Model != null && Model.Any())
 {
     var i = 0;
     var tongtien = decimal.Zero;
-<table class="table">
-    <tr class="text-center">
-        <th>STT</th>
-        <th>Ảnh sản phẩm</th>
-        <th>Tên sản phẩm</th>
-        <th>Danh mục</th>
-        <th>Giá</th>
-        <th style="width:150px;">Số lượng</th>
-        <th>Thành tiền</th>
-        <th style="width:200px;">
+    <table class="table">
+        <tr class="text-center">
+            <th>STT</th>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh mục</th>
+            <th>Giá</th>
+            <th style="width:150px;">Số lượng</th>
+            <th>Thành tiền</th>
+            <th style="width:200px;">
 
-        </th>
-    </tr>
-   
-    @foreach (var item in Model)
-    {
-        tongtien += item.TotalPrice;
-
-        <tr class="text-center" id="trow_@item.ProductId">
-            <td>@(i + 1)</td>
-            <td><img src="@item.ProductImg" width="60" /></td>
-            <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
-            <td>@item.CategoryName</td>
-            <td>@Common.FormatNumber(item.Price) VND</td>
-            <td><input type="number" class="form-control updatecartitem" data-productid="@item.ProductId" id="quantity-@item.ProductId" value="@item.Quantity" onkeypress="return valideNumber()" min="1" /></td>
-
-            <th>@Common.FormatNumber(item.TotalPrice, 2)<span> VND</span></th>
-            <td>
-
-                <a href="#" data-id="@item.ProductId" class="   btnDelete"><i class="fa fa-close"></i> </a>
-                 
-            </td>
-
+            </th>
         </tr>
-        i++;
-    }
-    <tr>
 
-        <th colspan="6" class="text-right">Tông tiền:</th>
-        <th class="text-center">@Common.FormatNumber(tongtien, 0)<span> VND</span></th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            tongtien += item.TotalPrice;
+
+            <tr class="text-center" id="trow_@item.ProductId">
+                <td>@(i + 1)</td>
+                <td><img src="@item.ProductImg" width="60" /></td>
+                <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
+                <td>@item.CategoryName</td>
+                <td>@Common.FormatNumber(item.Price) VND</td>
+                <td><input type="number" class="form-control updatecartitem" data-productid="@item.ProductId" id="quantity-@item.ProductId" value="@item.Quantity" onkeypress="return valideNumber()" min="1" /></td>
+
+                <th>@Common.FormatNumber(item.TotalPrice, 2)<span> VND</span></th>
+                <td>
+
+                    <a href="#" data-id="@item.ProductId" class="   btnDelete"><i class="fa fa-close"></i> </a>
+
+                </td>
+
+            </tr>
+            i++;
+        }
+        <tr>
+
+            <th colspan="6" class="text-right">Tông tiền:</th>
+            <th class="text-center">@Common.FormatNumber(tongtien, 0)<span> VND</span></th>
+            <th></th>
+        </tr>
 
 
 
 
 
-</table>
+    </table>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="continue__btn">
                 <a href="/home/index">Continue Shopping</a>
             </div>
         </div>
-         
+
     </div>
 }
 else
@@ -69,37 +75,37 @@ else
     <tr>
         <td colspan="7">Không có sản phẩm trong giỏ hàng!!!</td>
     </tr>
-    }
- 
+}
+
 
 <script>
-        function valideNumber() {
-            var charCode = (event.which) ? event.which : event.keyCode;
-            if (charCode >= 48 && charCode <= 57) {
-                return true;
-            } else {
-                return false;
-            }
+    function valideNumber() {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode >= 48 && charCode <= 57) {
+            return true;
+        } else {
+            return false;
         }
+    }
 
 
-     $(document).ready(function () {
-                    $(".updatecartitem").change(function (event) {
-                        event.preventDefault();
-                        var productid = $(this).attr("data-productid");
-                        var quantity = $("#quantity-" + productid).val();
-                        console.log(quantity);
-                        $.ajax({
-                            type: "POST",
-                            url: "/shoppingcart/update",
-                            data: {
-                                id: productid,
-                                quantity: quantity
-                            },
-                            success: function (result) {
-                                window.location.href = "";
-                            }
-                        });
-                    });
-                });
+    $(document).ready(function () {
+        $(".updatecartitem").change(function (event) {
+            event.preventDefault();
+            var productid = $(this).attr("data-productid");
+            var quantity = $("#quantity-" + productid).val();
+            console.log(quantity);
+            $.ajax({
+                type: "POST",
+                url: "/shoppingcart/update",
+                data: {
+                    id: productid,
+                    quantity: quantity
+                },
+                success: function (result) {
+                    window.location.href = "";
+                }
+            });
+        });
+    });
 </script>

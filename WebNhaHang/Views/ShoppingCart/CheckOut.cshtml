@@ -1,10 +1,19 @@
-﻿ 
+﻿
 @{
     ViewBag.Title = "Thanh toán";
+
+
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
+
+
 }
 <style>
-    .error{color:red;}
+    .error {
+        color: red;
+    }
+    }
 </style>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_responsive.css">
@@ -36,8 +45,8 @@
                 {
                     <div class="row">
                         <div class="col-md-9">
-                            <div  id="show_success"></div>
-                           @Html.Action("Partial_CheckOut", "ShoppingCart")
+                            <div id="show_success"></div>
+                            @Html.Action("Partial_CheckOut", "ShoppingCart")
                         </div>
                         <div class="col-md-3">
 
@@ -58,43 +67,43 @@
             </div>
         </div>
     </div>
-   
+
 </div>
 
 @section scripts{
     <script src="~/content/assets/js/categories_custom.js"></script>
-        <script>
-            function OnFailure(rs) {
-                if (!rs.success) {
-                    $('#show_success').html("Bạn đặt hàng không thành công");
-                }
+    <script>
+        function OnFailure(rs) {
+            if (!rs.success) {
+                $('#show_success').html("Bạn đặt hàng không thành công");
             }
-        
-            $(document).ready(function () {
-                $('#myForm').validate({
-                    rules: {
-                        'CustomerName': {
-                            required: true
-                        },
-                        'Phone':{
-                            required: true
-                        },
-                        'Address':{
-                            required: true
-                        },
-                        'Email':{
-                            required: true
-                            
-                        }
+        }
+
+        $(document).ready(function () {
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
                     },
-                    messages: {
-                        'CustomerName':'Bạn không được để trống',
-                        'Phone': 'Bạn không được để trống',
-                        'Address': 'Bạn không được để trống',
-                        'Email': 'Email không hợp lệ'
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true
+
                     }
-                });
+                },
+                messages: {
+                    'CustomerName': 'Bạn không được để trống',
+                    'Phone': 'Bạn không được để trống',
+                    'Address': 'Bạn không được để trống',
+                    'Email': 'Email không hợp lệ'
+                }
             });
-        </script>
+        });
+    </script>
 }
 

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.Product>
+@{
+    ViewBag.Title = "partial_ItemsByCateId";
+}
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        var strImage = "";
+        var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+        if (img != null)
+        {
+            strImage = img.Image;
+        }
+        <div class="tab-content">
+            <div id="@item.ProductCategory.Alias" class="tab-pane fade show p-0 active">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center">
+                            <img class="flex-shrink-0 img-fluid rounded" src="@strImage" alt="@item.Title" style="width: 80px;">
+                            <div class="w-100 d-flex flex-column text-start ps-4">
+                                <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                    <a href="/chi-tiet/@item.Alias-p@(item.id)"><span>@item.Title</span></a>
+                                    <span class="text-primary">@WebNhaHang.Common.Common.FormatNumber(item.Price, 0)</span>
+                                </h5>
+                                <small class="fst-italic">@item.Description</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.id">add to cart</a></div>
+                </div>
+            </div>
+            </div>
+            }
+            }

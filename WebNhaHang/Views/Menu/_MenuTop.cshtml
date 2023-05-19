@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebNhaHang.Models.EF.Category>
 
-<ul class="u-nav u-unstyled u-nav-1">
+<div class="navbar-nav ms-auto py-0 pe-4">
     @if (Model != null && Model.Any())
     {
 
@@ -10,17 +10,14 @@
             {
                 item.Alias = "";
             }
-             
 
-            <li class="u-nav-item">
-                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/@item.Alias" style="padding: 10px 20px;">@item.Title</a>
-            </li>
+            <a class="nav-item nav-link" href="/@item.Alias" style="padding: 10px 20px;">@item.Title</a>
 
 
         }
 
 
     }
-</ul>
-
  
+
+    </div>

@@ -1,7 +1,7 @@
 ﻿@model WebNhaHang.Models.EF.ApplicationViewModel
 @{
-    ViewBag.Title = "Application";
-    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Form ứng tuyển";
+    Layout = "/Views/Shared/_LayoutOther.cshtml";
 }
 <link href="/Asset/css/application.css" rel="stylesheet" />
 @*<html>
@@ -65,7 +65,11 @@
     </html>*@
 
 
-
+<style>
+    .navbar-dark .navbar-brand img{
+        margin-top:105%;
+    }
+</style>
 
 
 @using (Html.BeginForm())

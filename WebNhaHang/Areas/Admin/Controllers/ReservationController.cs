@@ -9,6 +9,7 @@ using WebNhaHang.Models;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
     public class ReservationController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -19,6 +19,13 @@ namespace WebNhaHang
                defaults: new { controller = "Contact", action = "Index", alias = UrlParameter.Optional },
                namespaces: new[] { "WebNhaHang.Controllers" }
            );
+
+            routes.MapRoute(
+               name: "About us",
+               url: "About-us",
+               defaults: new { controller = "Home", action = "About", alias = UrlParameter.Optional },
+               namespaces: new[] { "WebNhaHang.Controllers" }
+           );
             routes.MapRoute(
               name: "Menu",
               url: "Thuc-don",

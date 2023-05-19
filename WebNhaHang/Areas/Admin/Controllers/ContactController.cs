@@ -8,6 +8,7 @@ using WebNhaHang.Models;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
     public class ContactController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

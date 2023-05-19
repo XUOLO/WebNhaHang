@@ -251,7 +251,10 @@
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecuitmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReservationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RevenueController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\ViewModel\EM_TotalPrice.cs" />
+    <Compile Include="Areas\Admin\ViewModel\VM_Revenue.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -442,6 +445,7 @@
     <Content Include="Asset\css\slicknav.min.css" />
     <Content Include="Asset\css\style.css" />
     <Content Include="Asset\css\styleproduct.css" />
+    <Content Include="Asset\css\stylerestaurant.css" />
     <Content Include="Asset\fonts\ElegantIcons.svg" />
     <Content Include="Asset\fonts\fontawesome-webfont.svg" />
     <Content Include="Asset\img\banner\banner-1.jpg" />
@@ -627,9 +631,61 @@
     <Content Include="Asset\js\main.js" />
     <Content Include="Asset\js\mixitup.min.js" />
     <Content Include="Asset\js\owl.carousel.min.js" />
+    <Content Include="Asset\lib\animate\animate.css" />
+    <Content Include="Asset\lib\animate\animate.min.css" />
+    <Content Include="Asset\lib\counterup\counterup.min.js" />
+    <Content Include="Asset\lib\easing\easing.js" />
+    <Content Include="Asset\lib\easing\easing.min.js" />
+    <Content Include="Asset\lib\img\5660510982_7_1_16.jpg" />
+    <Content Include="Asset\lib\img\about-1.jpg" />
+    <Content Include="Asset\lib\img\about-2.jpg" />
+    <Content Include="Asset\lib\img\about-3.jpg" />
+    <Content Include="Asset\lib\img\about-4.jpg" />
+    <Content Include="Asset\lib\img\bg-hero.jpg" />
+    <Content Include="Asset\lib\img\hero.png" />
+    <Content Include="Asset\lib\img\menu-1.jpg" />
+    <Content Include="Asset\lib\img\menu-2.jpg" />
+    <Content Include="Asset\lib\img\menu-3.jpg" />
+    <Content Include="Asset\lib\img\menu-4.jpg" />
+    <Content Include="Asset\lib\img\menu-5.jpg" />
+    <Content Include="Asset\lib\img\menu-6.jpg" />
+    <Content Include="Asset\lib\img\menu-7.jpg" />
+    <Content Include="Asset\lib\img\menu-8.jpg" />
+    <Content Include="Asset\lib\img\team-1.jpg" />
+    <Content Include="Asset\lib\img\team-2.jpg" />
+    <Content Include="Asset\lib\img\team-3.jpg" />
+    <Content Include="Asset\lib\img\team-4.jpg" />
+    <Content Include="Asset\lib\img\testimonial-1.jpg" />
+    <Content Include="Asset\lib\img\testimonial-2.jpg" />
+    <Content Include="Asset\lib\img\testimonial-3.jpg" />
+    <Content Include="Asset\lib\img\testimonial-4.jpg" />
+    <Content Include="Asset\lib\img\video.jpg" />
+    <Content Include="Asset\lib\main.js" />
+    <Content Include="Asset\lib\owlcarousel\assets\ajax-loader.gif" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.carousel.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.carousel.min.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.theme.default.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.theme.default.min.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.theme.green.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.theme.green.min.css" />
+    <Content Include="Asset\lib\owlcarousel\assets\owl.video.play.png" />
+    <Content Include="Asset\lib\owlcarousel\owl.carousel.js" />
+    <Content Include="Asset\lib\owlcarousel\owl.carousel.min.js" />
+    <Content Include="Asset\lib\tempusdominus\css\tempusdominus-bootstrap-4.css" />
+    <Content Include="Asset\lib\tempusdominus\css\tempusdominus-bootstrap-4.min.css" />
+    <Content Include="Asset\lib\tempusdominus\js\moment-timezone.min.js" />
+    <Content Include="Asset\lib\tempusdominus\js\moment.min.js" />
+    <Content Include="Asset\lib\tempusdominus\js\tempusdominus-bootstrap-4.js" />
+    <Content Include="Asset\lib\tempusdominus\js\tempusdominus-bootstrap-4.min.js" />
+    <Content Include="Asset\lib\waypoints\links.php" />
+    <Content Include="Asset\lib\waypoints\waypoints.min.js" />
+    <Content Include="Asset\lib\wow\wow.js" />
+    <Content Include="Asset\lib\wow\wow.min.js" />
     <Content Include="Content\assets\images\149302-20341f60.png" />
+    <Content Include="Content\assets\images\bg-hero.jpg" />
     <Content Include="Content\assets\images\bgfood %28Custom%29 %281%29.jpeg" />
     <Content Include="Content\assets\images\bgfood.png" />
+    <Content Include="Content\assets\images\hero.png" />
     <Content Include="Content\assets\images\loginbg.jpg" />
     <Content Include="Content\assets\images\logo.png" />
     <Content Include="Content\assets\js\categories_custom.js" />
@@ -3531,6 +3587,11 @@
     <Content Include="Content\cssRes\Page-1.css" />
     <Content Include="Content\cssRes\reserv.css" />
     <Content Include="Content\cssRes\reserv2.css" />
+    <Content Include="Content\DetailProduct\jquery.js" />
+    <Content Include="Content\DetailProduct\nicepage.css" />
+    <Content Include="Content\DetailProduct\nicepage.js" />
+    <Content Include="Content\foodtemplate\script.js" />
+    <Content Include="Content\foodtemplate\stylefoood.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\nicepage.css" />
     <Content Include="Content\PagedList.css" />
@@ -3750,6 +3811,9 @@
     <Content Include="DataSetProductCategory.xsc">
       <DependentUpon>DataSetProductCategory.xsd</DependentUpon>
     </Content>
+    <Content Include="Asset\lib\owlcarousel\LICENSE" />
+    <Content Include="Areas\Admin\Views\Revenue\AjaxHandle.cshtml" />
+    <Content Include="Areas\Admin\Views\Revenue\Index.cshtml" />
     <None Include="DataSetProductCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetProductCategory.Designer.cs</LastGenOutput>
@@ -3838,12 +3902,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Menu\_MenuTop.cshtml" />
     <Content Include="Views\Reservation\Partial_CheckOut.cshtml" />
-    <Content Include="Views\Reservation\Index.cshtml" />
     <Content Include="Views\Reservation\CheckOut_Success.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
-    <Content Include="Views\Menu\_MenuProductCategory.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Menu\_MenuLeft.cshtml" />
+    <Content Include="Views\Menu\_MenuFood.cshtml" />
     <Content Include="Views\Product\ProductCategory.cshtml" />
     <Content Include="Views\Recruitment\Index.cshtml" />
     <Content Include="Views\Product\partial_ProductHot.cshtml" />
@@ -3861,6 +3923,9 @@
     <Content Include="Views\ShoppingCart\Partial_CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_item_Cart.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_item_ThanhToan.cshtml" />
+    <Content Include="Views\Menu\_MenuArrivals.cshtml" />
+    <Content Include="Views\Product\partial_ItemsByCateId.cshtml" />
+    <Content Include="Views\Shared\_LayoutOther.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.ProductCategory>
+@{
+    ViewBag.Title = "_MenuArrivals";
+}
+
+
+
+@if (Model != null && Model.Any())
+{
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+        <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
+        <h1 class="mb-5">Most Popular Items</h1>
+    </div>
+    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+
+
+
+
+            @foreach (var item in Model)
+            {
+                if (item.Alias.Equals("mon-nuong"))
+                {
+            <li class="nav-item">
+                <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#@item.Alias">
+
+                    <div class="ps-3">
+
+                        <h6 class="mt-n1 mb-0">@item.Title</h6>
+                    </div>
+                </a>
+            </li>
+                }
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 " data-bs-toggle="pill" href="#@item.Alias">
+
+                        <div class="ps-3">
+
+                            <h6 class="mt-n1 mb-0">@item.Title</h6>
+                        </div>
+                    </a>
+                </li>
+
+            }
+
+
+        </ul>
+    </div>
+
+    
+        @Html.Action("partial_ItemsByCateId", "Product")
+
+     
+
+}
+ 

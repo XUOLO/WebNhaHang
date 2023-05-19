@@ -1,5 +1,8 @@
 ﻿@model WebNhaHang.Models.EF.User
-
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,77 +46,77 @@
                             </div>
 
                             @*<div class="line">
-                                <span>or</span>
-                            </div>
+                                    <span>or</span>
+                                </div>
 
-                            <ul class="flow-btn-cont">
-                                <li><a href="#" class="fa-btn">Facebook</a></li>
-                                <li><a href="#" class="goog-btn">Google</a></li>
-                                <li><a href="#" class="twit-btn">Twitter</a></li>
-                            </ul>*@
+                                <ul class="flow-btn-cont">
+                                    <li><a href="#" class="fa-btn">Facebook</a></li>
+                                    <li><a href="#" class="goog-btn">Google</a></li>
+                                    <li><a href="#" class="twit-btn">Twitter</a></li>
+                                </ul>*@
                         </form>
                     }
                 </div>
                 <!-- ============================Registar====section=============== -->
 
-               
 
 
-            <div id="registar">
-                @using (Html.BeginForm("Register", "Home", FormMethod.Post))
-                {
 
-                    @Html.AntiForgeryToken()
-                    <form action="">
-                        <div class="form-row">
+                <div id="registar">
+                    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <form action="">
+                            <div class="form-row">
+                                <div class="input-box">
+                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-group" })
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-box">
+                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-group" })
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
                             <div class="input-box">
-                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-group" })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-group" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="input-box">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-group" })
+                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                             <div class="input-box">
-                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-group" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-group" })
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                <small class="form-text text-muted">We'll never share your password with anyone else.</small>
                             </div>
-                        </div>
-                        
-                        <div class="input-box">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-group" })
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
-                        </div>
+                            <div class="btn-cont">
 
-                        <div class="input-box">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-group" })
-                            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="input-box">
-                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-group" })
-                            @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                            <small class="form-text text-muted">We'll never share your password with anyone else.</small>
-                        </div>
+                                <button type="submit" class="submite-btn registar-btn" value="Create"> Register  </button>
+                            </div>
 
-                        <div class="btn-cont">
-                            
-                            <button type="submit" class="submite-btn registar-btn" value="Create"> Register  </button>
-                        </div>
+                            @*<div class="line">
+                                    <span>or register</span>
+                                </div>*@
 
-                        @*<div class="line">
-                            <span>or register</span>
-                        </div>*@
+                            @*<ul class="flow-btn-cont">
+                                    <li><a href="#" class="fa-btn">Facebook</a></li>
+                                    <li><a href="#" class="goog-btn">Google</a></li>
+                                    <li><a href="#" class="twit-btn">Twitter</a></li>
+                                </ul>*@
 
-                        @*<ul class="flow-btn-cont">
-                            <li><a href="#" class="fa-btn">Facebook</a></li>
-                            <li><a href="#" class="goog-btn">Google</a></li>
-                            <li><a href="#" class="twit-btn">Twitter</a></li>
-                        </ul>*@
-
-                    </form>
-                }
+                        </form>
+                    }
                 </div>
             </div>
         </div>
@@ -130,13 +133,14 @@
     }
 
     .form-wrapper {
-      
         background-image: url('../../Content/assets/images/loginbg.jpg');
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 100vh;
+        margin-bottom:-35px;
+        margin-top:-5%;
     }
 
     .form-container {

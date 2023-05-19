@@ -1,0 +1,19 @@
+﻿@model IEnumerable<WebNhaHang.Areas.Admin.ViewModel.VM_Revenue>
+
+@{ int j = 1;}
+@foreach (var re in Model)
+{
+    <tr>
+        <td>
+            @j
+        </td>
+        <td>
+            @re.createAt.ToString("dd-MMM-yyyy")
+        </td>
+        <td>
+            @re.TotalPrice
+        </td>
+        @{ j += j;}
+
+    </tr>
+}

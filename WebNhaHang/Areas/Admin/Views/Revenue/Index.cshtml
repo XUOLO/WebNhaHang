@@ -1,0 +1,154 @@
+﻿ 
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var result = ViewBag.result;
+    var resultMonth = ViewBag.resultMonth;
+}
+<style>
+</style>
+<div style="padding:0px 20px">
+    <h2>Món Ăn Có Doanh Thu Cao nhất</h2>
+    <table class=" table table-bordered bg-white table-striped table-hover" style="text-align:center">
+        <tr>
+            <th>
+                Số thứ tự
+            </th>
+            <th>
+                Tên món ăn
+            </th>
+            <th>
+                Tổng giá đã bán
+            </th>
+        </tr>
+        @{int i = 1; }
+        @foreach (var re in result)
+        {
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @re.name
+                </td>
+                <td>
+                    @re.TotalPrice ₫
+                </td>
+                @{ i = i + 1;}
+
+            </tr>
+        }
+    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-6"> </div>
+            <div class="col-6" style="text-align:right;">
+                @Html.PagedListPager((IPagedList)result, pageMonAn => Url.Action("Index", new { pageMonAn }))
+            </div>
+        </div>
+    </div>
+    <div style="margin-top:80px">
+
+        <h2>Doanh Thu Theo Từng Ngày  </h2>
+
+        <div style="margin-top:20px;margin-bottom:20px;">
+            <select id="Id" style="padding:10px 20px;">
+                <option>Chọn tháng tổng Tổng kết danh thu theo tháng</option>
+                <option value="1">Tháng 1</option>
+                <option value="2">Tháng 2</option>
+                <option value="3">Tháng 3</option>
+                <option value="4">Tháng 4</option>
+                <option value="5">Tháng 5</option>
+                <option value="6">Tháng6</option>
+                <option value="7">Tháng 7</option>
+                <option value="8">Tháng 8</option>
+                <option value="9">Tháng 9</option>
+                <option value="10">Tháng 10</option>
+                <option value="11">Tháng 11</option>
+                <option value="12">Tháng12</option>
+
+            </select>
+        </div>
+        <table class=" table table-bordered bg-white table-striped table-hover" style="text-align:center">
+            <tr>
+                <th>
+                    Số thứ tự
+                </th>
+                <th>
+                    Ngày
+                </th>
+                <th>
+                    Tổng doanh thu trong ngày
+                </th>
+            </tr>
+            <tbody id="booksDiv">
+                @{ int j = 1;}
+                @foreach (var re in resultMonth)
+                {
+                    <tr>
+                        <td>
+                            @j
+                        </td>
+                        <td>
+                            @re.createAt.ToString("dd-MMM-yyyy")
+                        </td>
+                        <td>
+                            @re.TotalPrice ₫
+                        </td>
+                        @{ j += j;}
+                    </tr>
+                }
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6"> </div>
+            <div class="col-6" style="text-align:right;">
+                @Html.PagedListPager((IPagedList)result, pageDanhThu => Url.Action("Index", new { pageDanhThu }))
+            </div>
+        </div>
+    </div>
+
+
+
+    <div>
+
+    </div>
+
+
+
+
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#Id").change(function () {
+            var id = $("#Id").val();
+
+            var booksDiv = $("#booksDiv");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/Admin/Revenue/AjaxHandle",
+                data: { "id": id },
+                success: function (data) {
+                    booksDiv.html('');
+                    booksDiv.html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve books.');
+                }
+            });
+        });
+    });
+</script>
