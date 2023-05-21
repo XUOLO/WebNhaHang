@@ -50,6 +50,7 @@ namespace WebNhaHang.Controllers
             return View();
 
         }
+ 
         public ActionResult AjaxHandle(int id)
         {
 

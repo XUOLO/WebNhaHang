@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -42,6 +43,18 @@ namespace WebNhaHang.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Aplication> Aplications { get; set; }
+
+        public DbSet<User> Userss { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //Database.SetInitializer<demoEntities>(null);
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
+
+
+        }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

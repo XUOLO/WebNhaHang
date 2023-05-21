@@ -24,6 +24,15 @@ namespace WebNhaHang.Controllers
         {
             return View(db.Reservations.ToList());
         }
+        public ActionResult InfoReservation()
+        {
+
+
+            List<Reservation> reservations = db.Reservations.ToList();
+            return View(reservations);
+        }
+         
+   
         public ActionResult CheckOut_Success()
         {
             return View();

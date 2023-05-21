@@ -27,7 +27,12 @@ namespace WebNhaHang.Models.EF
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
 
         public string Password { get; set; }
-      
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        public string Phone { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        public string Address { get; set; }
         [NotMapped]
         [Required]
         [System.ComponentModel.DataAnnotations.Compare("Password")]

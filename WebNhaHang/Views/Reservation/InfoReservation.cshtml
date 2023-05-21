@@ -1,0 +1,74 @@
+﻿@model List<WebNhaHang.Models.EF.Reservation>
+
+@{
+    ViewBag.Title = "InfoReservation";
+}
+
+ 
+
+
+<table class="table">
+    
+      
+
+
+    @if (Session["FullName"] != null)
+    {
+        string email = Session["Email"].ToString();
+        string fullName = Session["FullName"].ToString();
+        foreach (var user in Model)
+        {
+            if (user.Email == email)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumberOfPeople)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateBy)
+                        </td>z
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifieDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifieBy)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+
+
+            }
+        }
+    }
+            </table>

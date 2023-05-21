@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -37,24 +38,24 @@ namespace WebNhaHang.Controllers
         {
             if (ModelState.IsValid)
             {
-                var check = _db.Users.FirstOrDefault(s => s.Email == _user.Email);
+                var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
                 if (check == null)
                 {
                     _user.Password = GetMD5(_user.Password);
-                    _db.Configuration.ValidateOnSaveEnabled = false;
-                    _db.Users.Add(_user);
-                    _db.SaveChanges();
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.Userss.Add(_user);
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.error = "Email already exists";
-                    return View();
+                    return RedirectToAction("Login");
                 }
 
 
             }
-            return View();
+            return RedirectToAction("Index");
 
 
         }
@@ -64,7 +65,20 @@ namespace WebNhaHang.Controllers
             return View();
         }
 
+        public ActionResult ThongTinTaiKhoan()
+        {
+ 
+            List<User> users =db.Userss.ToList();
+            return View(users);
 
+        }
+        public ActionResult InfoReservation()
+        {
+
+
+            List<Reservation> reservations = db.Reservations.ToList();
+            return View(reservations);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,13 +89,15 @@ namespace WebNhaHang.Controllers
 
 
                 var f_password = GetMD5(password);
-                var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
+                var data = db.Userss.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
                 if (data.Count() > 0)
                 {
                     //add session
                     Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
                     Session["Email"] = data.FirstOrDefault().Email;
                     Session["idUser"] = data.FirstOrDefault().idUser;
+               
+              
                     return RedirectToAction("Index");
                 }
                 else
@@ -92,7 +108,51 @@ namespace WebNhaHang.Controllers
             }
             return View();
         }
+        public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
+        {
+            Session["thongbao_password"] = "";
+            string thongbao = "";
+            if (currentPassword == null || newPassword == null)
+            {
+                thongbao = "Bạn chưa nhập thông tin";
+            }
 
+            if (newPassword == confirmPassword)
+            {
+                var f_password = GetMD5(currentPassword);
+                var user = db.Userss.Where(s => s.Email == id && s.Password == f_password).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Password = newPassword;
+                    if (ModelState.IsValid)
+                    {
+                        user.Password = GetMD5(user.Password);
+                        db.Configuration.ValidateOnSaveEnabled = false;
+           
+                        db.SaveChanges();
+
+                        thongbao = "Đã thay đổi mật khẩu";
+
+   
+
+                    }
+                }
+  
+
+                else
+                {
+                    thongbao = "Mật khẩu sai";
+                }
+
+
+            }
+            else
+            {
+                thongbao = "Mật khẩu không giống nhau";
+            }
+            TempData["thongbao_password"] = thongbao;
+            return RedirectToAction("ThongTinTaiKhoan");
+        }
 
         //Logout
         public ActionResult Logout()
@@ -100,8 +160,12 @@ namespace WebNhaHang.Controllers
             Session.Clear();//remove session
             return RedirectToAction("index");
         }
-
-
+        public ActionResult Order()
+        {
+            var products = db.Products.ToList();
+            return View(products);
+            
+        }
 
         //create a string MD5
         public static string GetMD5(string str)

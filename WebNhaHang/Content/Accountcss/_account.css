@@ -1,0 +1,62 @@
+﻿.check-out-section {
+    background-color: #f5f5f5;
+}
+
+.myaccount-tab-menu a {
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+    .myaccount-tab-menu a.active {
+        background-color: #f33535;
+        color: #fff;
+        padding-right: 24.5px;
+        margin-bottom: 2px;
+    }
+
+.account-details-form input[type="text"],
+.account-details-form input[type="email"],
+.account-details-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.account-details-form button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom:10px;
+}
+
+    .account-details-form button:hover {
+        background-color: #007BFF;
+    }
+.myaccount-tab-menu a:hover {
+    background-color: #f33535;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hiệu ứng khi chuyển đổi giữa các tab */
+.tab-content .tab-pane {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+    .tab-content .tab-pane.active {
+        opacity: 1;
+        visibility: visible;
+    }

@@ -1,0 +1,70 @@
+﻿@model List<WebNhaHang.Models.EF.Reservation>
+
+@{
+    ViewBag.Title = "InfoReservation";
+}
+
+
+
+
+<table class="table">
+
+
+
+
+    @if (Session["FullName"] != null)
+    {
+        string email = Session["Email"].ToString();
+        string fullName = Session["FullName"].ToString();
+        foreach (var user in Model)
+        {
+            if (user.Email == email)
+            {
+                
+                    <tr>
+                        <td>
+                           @user.Code
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @user.CreateDate
+                        </td>
+                        <td>
+                            @user.CreateDate
+                        </td>
+                        <td>
+                            @user.DateTime
+                        </td>
+                        <td>
+                            @user.Name
+                        </td>
+                        <td>
+                            @user.Note
+                        </td>
+                        <td>
+                            @user.NumberOfPeople
+                        </td>
+                        <td>
+                            @user.CreateBy
+                        </td>
+                        <td>
+                            @user.Room
+
+                        </td>
+                        <td>
+                            @user.ModifieBy
+                        </td>
+                        <td>
+                            @user.ModifieDate
+                        </td>
+                        
+                    </tr>
+                
+
+
+            }
+        }
+    }
+</table>

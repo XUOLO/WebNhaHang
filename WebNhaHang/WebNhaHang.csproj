@@ -51,6 +51,12 @@
     <Reference Include="CKFinder">
       <HintPath>..\..\DA_WEBBH\ckfinder\bin\Debug\CKFinder.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
     </Reference>
@@ -185,12 +191,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -384,6 +384,30 @@
     <Compile Include="Migrations\202305200629257_dtbaasee.cs" />
     <Compile Include="Migrations\202305200629257_dtbaasee.Designer.cs">
       <DependentUpon>202305200629257_dtbaasee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210757203_ussers.cs" />
+    <Compile Include="Migrations\202305210757203_ussers.Designer.cs">
+      <DependentUpon>202305210757203_ussers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210758140_usserssssssss.cs" />
+    <Compile Include="Migrations\202305210758140_usserssssssss.Designer.cs">
+      <DependentUpon>202305210758140_usserssssssss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210800239_ussersss.cs" />
+    <Compile Include="Migrations\202305210800239_ussersss.Designer.cs">
+      <DependentUpon>202305210800239_ussersss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210803370_ussersssa.cs" />
+    <Compile Include="Migrations\202305210803370_ussersssa.Designer.cs">
+      <DependentUpon>202305210803370_ussersssa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210843358_ussersssaadr.cs" />
+    <Compile Include="Migrations\202305210843358_ussersssaadr.Designer.cs">
+      <DependentUpon>202305210843358_ussersssaadr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305210855150_ussersssaadrer.cs" />
+    <Compile Include="Migrations\202305210855150_ussersssaadrer.Designer.cs">
+      <DependentUpon>202305210855150_ussersssaadrer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -725,6 +749,7 @@
     <Content Include="Asset\lib\waypoints\waypoints.min.js" />
     <Content Include="Asset\lib\wow\wow.js" />
     <Content Include="Asset\lib\wow\wow.min.js" />
+    <Content Include="Content\Accountcss\_account.css" />
     <Content Include="Content\assets\images\149302-20341f60.png" />
     <Content Include="Content\assets\images\bg-hero.jpg" />
     <Content Include="Content\assets\images\bgfood %28Custom%29 %281%29.jpeg" />
@@ -732,6 +757,7 @@
     <Content Include="Content\assets\images\hero.png" />
     <Content Include="Content\assets\images\loginbg.jpg" />
     <Content Include="Content\assets\images\logo.png" />
+    <Content Include="Content\assets\images\null.png" />
     <Content Include="Content\assets\js\categories_custom.js" />
     <Content Include="Content\assets\js\contact_custom.js" />
     <Content Include="Content\assets\js\custom.js" />
@@ -3861,6 +3887,8 @@
     <Content Include="Asset\lib\owlcarousel\LICENSE" />
     <Content Include="Areas\Admin\Views\Revenue\AjaxHandle.cshtml" />
     <Content Include="Areas\Admin\Views\Revenue\Index.cshtml" />
+    <Content Include="Content\Accountcss\_account.scss" />
+    <Content Include="Asset\sass\_account.scss" />
     <None Include="DataSetProductCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetProductCategory.Designer.cs</LastGenOutput>
@@ -3973,7 +4001,9 @@
     <Content Include="Views\Menu\_MenuArrivals.cshtml" />
     <Content Include="Views\Product\partial_ItemsByCateId.cshtml" />
     <Content Include="Views\Shared\_LayoutOther.cshtml" />
-    <Content Include="Views\Home\ThongtinUser.cshtml" />
+    <Content Include="Views\Home\ThongTinTaiKhoan.cshtml" />
+    <Content Include="Views\Reservation\InfoReservation.cshtml" />
+    <Content Include="Views\Home\InfoReservation.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>
@@ -4084,6 +4114,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305200629257_dtbaasee.resx">
       <DependentUpon>202305200629257_dtbaasee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210757203_ussers.resx">
+      <DependentUpon>202305210757203_ussers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210758140_usserssssssss.resx">
+      <DependentUpon>202305210758140_usserssssssss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210800239_ussersss.resx">
+      <DependentUpon>202305210800239_ussersss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210803370_ussersssa.resx">
+      <DependentUpon>202305210803370_ussersssa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210843358_ussersssaadr.resx">
+      <DependentUpon>202305210843358_ussersssaadr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305210855150_ussersssaadrer.resx">
+      <DependentUpon>202305210855150_ussersssaadrer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="report\ReportReservation.rdlc" />
     <EmbeddedResource Include="report\ReportProduct.rdlc" />
