@@ -341,6 +341,50 @@
     <Compile Include="Migrations\202305161024013_user.Designer.cs">
       <DependentUpon>202305161024013_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305200410173_usertemp.cs" />
+    <Compile Include="Migrations\202305200410173_usertemp.Designer.cs">
+      <DependentUpon>202305200410173_usertemp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200440528_user1.cs" />
+    <Compile Include="Migrations\202305200440528_user1.Designer.cs">
+      <DependentUpon>202305200440528_user1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200511067_userr.cs" />
+    <Compile Include="Migrations\202305200511067_userr.Designer.cs">
+      <DependentUpon>202305200511067_userr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200512333_userr1.cs" />
+    <Compile Include="Migrations\202305200512333_userr1.Designer.cs">
+      <DependentUpon>202305200512333_userr1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200514179_userr11.cs" />
+    <Compile Include="Migrations\202305200514179_userr11.Designer.cs">
+      <DependentUpon>202305200514179_userr11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200518390_userr111.cs" />
+    <Compile Include="Migrations\202305200518390_userr111.Designer.cs">
+      <DependentUpon>202305200518390_userr111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200521303_userr114.cs" />
+    <Compile Include="Migrations\202305200521303_userr114.Designer.cs">
+      <DependentUpon>202305200521303_userr114.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200535043_dt.cs" />
+    <Compile Include="Migrations\202305200535043_dt.Designer.cs">
+      <DependentUpon>202305200535043_dt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200536024_dtb.cs" />
+    <Compile Include="Migrations\202305200536024_dtb.Designer.cs">
+      <DependentUpon>202305200536024_dtb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200613496_dtba.cs" />
+    <Compile Include="Migrations\202305200613496_dtba.Designer.cs">
+      <DependentUpon>202305200613496_dtba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305200629257_dtbaasee.cs" />
+    <Compile Include="Migrations\202305200629257_dtbaasee.Designer.cs">
+      <DependentUpon>202305200629257_dtbaasee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -3600,6 +3644,9 @@
     <Content Include="Content\Template\send4.html" />
     <Content Include="Content\Template\send1.html" />
     <Content Include="Content\Template\send2.html" />
+    <Content Include="Content\Template\send5.html" />
+    <Content Include="Content\Template\send6.html" />
+    <Content Include="Content\Template\send7.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3926,6 +3973,7 @@
     <Content Include="Views\Menu\_MenuArrivals.cshtml" />
     <Content Include="Views\Product\partial_ItemsByCateId.cshtml" />
     <Content Include="Views\Shared\_LayoutOther.cshtml" />
+    <Content Include="Views\Home\ThongtinUser.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>
@@ -4003,6 +4051,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305161024013_user.resx">
       <DependentUpon>202305161024013_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200410173_usertemp.resx">
+      <DependentUpon>202305200410173_usertemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200440528_user1.resx">
+      <DependentUpon>202305200440528_user1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200511067_userr.resx">
+      <DependentUpon>202305200511067_userr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200512333_userr1.resx">
+      <DependentUpon>202305200512333_userr1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200514179_userr11.resx">
+      <DependentUpon>202305200514179_userr11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200518390_userr111.resx">
+      <DependentUpon>202305200518390_userr111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200521303_userr114.resx">
+      <DependentUpon>202305200521303_userr114.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200535043_dt.resx">
+      <DependentUpon>202305200535043_dt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200536024_dtb.resx">
+      <DependentUpon>202305200536024_dtb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200613496_dtba.resx">
+      <DependentUpon>202305200613496_dtba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305200629257_dtbaasee.resx">
+      <DependentUpon>202305200629257_dtbaasee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="report\ReportReservation.rdlc" />
     <EmbeddedResource Include="report\ReportProduct.rdlc" />

@@ -178,7 +178,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 @Html.Action("MenuTop", "Menu")
-                <a href="" class="btn btn-primary py-2 px-4">Đặt bàn</a>
+                <a href="/reservation/create" class="btn btn-primary py-2 px-4">Đặt bàn</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>
                     <div class="dropdown-menu m-0">
@@ -186,18 +186,24 @@
                         @if (Session["FullName"] == null)
                         {
 
-
-                            <a href="~/Home/Login" class="dropdown-item">Login</a>
-                        }
-                        else
-                        {
-                            <a href="" class="dropdown-item">Đơn đặt bàn</a>
-                            <a href="" class="dropdown-item">Thông tin tài khoản</a>
                             <a href="/Gio-hang" class="dropdown-item">
 
 
                                 <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
                             </a>
+                            <a href="~/Home/Login" class="dropdown-item">Login</a>
+                        }
+                        else
+                        {
+                            <a href="/Gio-hang" class="dropdown-item">
+
+
+                                <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
+                            </a>
+                            <a href="~/Home/Login" class="dropdown-item">Login</a>
+                            <a href="" class="dropdown-item">Đơn đặt bàn</a>
+                            <a href="/home/thongtinuser" class="dropdown-item">Thông tin tài khoản</a>
+
                             <a href="@Url.Action("Logout", "Home")" class="dropdown-item">Logout</a>
                         }
                     </div>

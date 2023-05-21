@@ -189,26 +189,29 @@ namespace WebNhaHang.Controllers
                     foreach (var sp in cart.items)
                     {
                         strSanPham += "<tr>";
+                     
                         strSanPham += "<td>" + sp.ProductName + "</td>";
                         strSanPham += "<td>" + sp.Quantity + "</td>";
+                        strSanPham += "<td>" + WebNhaHang.Common.Common.FormatNumber(sp.Price, 0) + "</td>";
                         strSanPham += "<td>" + WebNhaHang.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
                         strSanPham += "</tr>";
                         thanhtien += sp.Price * sp.Quantity;
                     }
-                    TongTien = thanhtien;
-                    string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send2.html"));
+                    TongTien = thanhtien+30000;
+                    string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send7.html"));
                     contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);
                     contentCustomer = contentCustomer.Replace("{{SanPham}}", strSanPham);
                     contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
                     contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", order.CustomerName);
                     contentCustomer = contentCustomer.Replace("{{Phone}}", order.Phone);
+                    
                     contentCustomer = contentCustomer.Replace("{{Email}}", order.Mail);
                     contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
                     contentCustomer = contentCustomer.Replace("{{ThanhTien}}", WebNhaHang.Common.Common.FormatNumber(thanhtien, 0));
                     contentCustomer = contentCustomer.Replace("{{TongTien}}", WebNhaHang.Common.Common.FormatNumber(TongTien, 0));
                     WebNhaHang.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Mail);
 
-                    string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send1.html"));
+                    string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send5.html"));
                     contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
                     contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
                     contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
@@ -228,4 +231,6 @@ namespace WebNhaHang.Controllers
             return Json(code);
         }
     }
+
+ 
 }
