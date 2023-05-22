@@ -22,7 +22,8 @@ namespace WebNhaHang.Models.EF
         public string Note { get; set; }
         [StringLength(250)]
         public string Room { get; set; }
-    
+        public int Status { get; set; }
+
         public string NumberOfPeople { get; set; }
         public DateTime DateTime { get; set; }
 

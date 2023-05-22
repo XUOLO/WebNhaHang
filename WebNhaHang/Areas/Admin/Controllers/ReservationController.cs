@@ -78,12 +78,12 @@ namespace WebNhaHang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateTT(int id, int trangthai)
         {
-            var item = db.Orders.Find(id);
+            var item = db.Reservations.Find(id);
             if (item != null)
             {
-                db.Orders.Attach(item);
-                item.TypePayment = trangthai;
-                db.Entry(item).Property(x => x.TypePayment).IsModified = true;
+                db.Reservations.Attach(item);
+                item.Status = trangthai;
+                db.Entry(item).Property(x => x.Status).IsModified = true;
                 db.SaveChanges();
                 return Json(new { message = "Success", Success = true });
             }

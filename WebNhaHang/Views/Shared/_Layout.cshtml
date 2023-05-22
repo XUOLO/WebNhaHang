@@ -107,6 +107,8 @@
             z-index: 9999;
             animation: slideDown .5s ease-in-out forwards;
         }
+
+ 
     </style>
     <script>
         window.addEventListener('scroll', function () {
@@ -116,56 +118,7 @@
     </script>
     <!-- header -->
     <!-- end header inner -->
-    @*<header class="sticky-header">
-
-            <div class="container">
-                <div class="logo">
-                    <a href="/home"><img src="~/Content/cssformres/images/logo.png" alt="Logo"></a>
-                </div>
-                <nav>
-                    @Html.Action("MenuTop", "Menu")
-
-                </nav>
-                <div class="dropdown">
-                    <button class="dropbtn">Tài khoản</button>
-                    <div class="dropdown-content">
-                        <a href="/admin/home">Admin</a>
-                        <a href="#">Đơn đặt bàn  </a>
-                        <a href="#">Thông tin tài khoản</a>
-                        @if (Session["FullName"] == null)
-                        {
-                            <a href="~/Home/Login">Login</a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("Logout", "Home")">Logout</a>
-                        }
-                    </div>
-                </div>
-                @if (Session["FullName"] == null)
-                {
-                    <a href="/home/login">
-                        <p><i class="fa fa-user login"> Login</i></p>
-
-
-                    </a> }
-                else
-                {
-
-                    <p class="logouttt">Hi <i class="fa fa-user loginnnnnnnn"></i>@Session["FullName"].ToString()  </p>
-
-                }
-
-
-                <a href="/Gio-hang">
-                    <i class="fa fa-shopping-bag"></i>
-                    <span class="checkout_items" id="checkout_items">0</span>
-                    <p>My Cart</p>
-                </a>
-
-
-            </div>
-        </header>*@
+   
     <div class="container-xxl position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
             <a href="/" class="navbar-brand p-0">
@@ -176,7 +129,13 @@
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                @Html.Action("MenuTop", "Menu")
+               
+                        @Html.Action("MenuTop", "Menu")
+                    
+                         
+            
+
+
                 <a href="/reservation/create" class="btn btn-primary py-2 px-4">Đặt bàn</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>
@@ -185,20 +144,22 @@
                         @if (Session["FullName"] == null)
                         {
 
-                            <a href="/Gio-hang" class="dropdown-item">
+                            @*<a href="/Gio-hang" class="dropdown-item">
 
 
-                                <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                            </a>
+                        <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
+                    </a>*@
                             <a href="~/Home/Login" class="dropdown-item">Login</a>
                         }
                         else
                         {
-                            <a href="/Gio-hang" class="dropdown-item">
+                            @*<a href="/Gio-hang" class="dropdown-item">
 
 
-                                <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                            </a>
+                        <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
+                    </a>*@
+
+
                             <a href="~/Home/Login" class="dropdown-item">Login</a>
                             <a href="" class="dropdown-item">Đơn đặt bàn</a>
                             <a href="/home/ThongTinTaiKhoan" class="dropdown-item">Thông tin tài khoản</a>
@@ -207,7 +168,7 @@
                         }
                     </div>
                 </div>
-
+               
                 @if (Session["FullName"] == null)
                 {
                     <a href="/home/login" class="nav-item nav-link">
@@ -244,6 +205,7 @@
             </div>
         </div>
     </div>
+
     @RenderBody()
 <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-1cad">
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Reporting.WebForms;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,10 +21,7 @@ namespace WebNhaHang.Controllers
         {
             
         } 
-        public ActionResult Index()
-        {
-            return View(db.Reservations.ToList());
-        }
+      
         public ActionResult InfoReservation()
         {
 
@@ -31,8 +29,28 @@ namespace WebNhaHang.Controllers
             List<Reservation> reservations = db.Reservations.ToList();
             return View(reservations);
         }
-         
-   
+
+        public ActionResult Index(string SearchString, int? page)
+        {
+            var pageSize = 3;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Reservation> items = db.Reservations.OrderByDescending(x => x.id);
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x => x.Code.ToLower().Contains(SearchString.ToLower()) ||
+ x.Email.ToLower().Contains(SearchString.ToLower()) ||
+ x.Phone.ToLower().Contains(SearchString.ToLower())).ToList();
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
+            return View(items);
+        }
         public ActionResult CheckOut_Success()
         {
             return View();
@@ -81,10 +99,11 @@ namespace WebNhaHang.Controllers
                 DateTime = model.GetDateTime(),
                 Room = model.Room,
                 NumberOfPeople = model.NumberOfPeople,
+                Status=model.Status,
             };
             Random rd = new Random();
             course.Code = "MS" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
-            
+           
             course.CreateDate = DateTime.Now;
             course.ModifieDate = DateTime.Now;
             db.Reservations.Add(course);

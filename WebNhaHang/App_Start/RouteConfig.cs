@@ -63,6 +63,12 @@ namespace WebNhaHang
                namespaces: new[] { "WebNhaHang.Controllers" }
            );
             routes.MapRoute(
+           name: "FindReservation",
+           url: "tim-kiem",
+           defaults: new { controller = "Reservation", action = "Index", alias = UrlParameter.Optional },
+           namespaces: new[] { "WebNhaHang.Controllers" }
+          );
+            routes.MapRoute(
                name: "detailProduct",
                url: "chi-tiet/{alias}-p{id}",
                defaults: new { controller = "Product", action = "Detail", alias = UrlParameter.Optional },

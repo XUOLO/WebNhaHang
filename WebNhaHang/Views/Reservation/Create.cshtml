@@ -45,7 +45,7 @@
                 @Html.AntiForgeryToken()
                 <div class="form-date-w3-agileits">
                     @Html.LabelFor(m => m.Name, new { @class = "fa fa-user", @value = "Tên" })
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = ""  })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "" })
                     @Html.ValidationMessageFor(m => m.Name)
                 </div>
                 <div class="form-date-w3-agileits">
@@ -83,10 +83,15 @@
                     </label>
                     @Html.DropDownListFor(m => m.NumberOfPeople, new SelectList(ViewBag.Peoples, "Value", "Text"), new { @class = "form-control" })
                 </div>
+
+
+                @Html.HiddenFor(x => x.Status, new { @class = "",@name="Status",@value="1" })
+
+
                 <div class="clear"></div>
                 <div class="make">
                     <input type="submit" value="Make a Reservation">
-                    <button  onclick="window.history.back();">Quay lại</button>
+                    <button onclick="window.history.back();">Quay lại</button>
                 </div>
             }
         </div>

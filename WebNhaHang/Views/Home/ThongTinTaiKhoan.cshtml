@@ -2,12 +2,20 @@
 
 @{
     ViewBag.Title = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_LayoutOther.cshtml"; 
 }
 
 
 <link href="~/Content/Accountcss/_account.css" rel="stylesheet" />
 <section class="check-out-section pt-40 pb-50">
-
+    <style>
+        .mautab a {
+            margin-right: -11%;
+        }
+        .navbar-dark .navbar-brand img {
+            margin-top: 105%;
+        }
+    </style>
     @if (Session["FullName"] != null)
     {
         string email = Session["Email"].ToString();
@@ -23,17 +31,19 @@
                     <div class="row" style="justify-content:center">
                         <div class="col-lg-3 col-12 mb-30">
                             <div class="myaccount-tab-menu nav" role="tablist">
-                                <a href="#dashboad" class="active">
+                                <a href="/home/thongtintaikhan" class="active">
                                     <i class="fas fa-tachometer-alt"></i>
                                     Thông tin tài khoản
                                 </a>
-
-                                <a href="/home/order">
-                                    <i class="fa fa-cart-arrow-down"></i>
-                                    Sản phẩm mua sau
-                                </a>
+                                <div class="mautab">
 
 
+                                    <a href="/home/order">
+                                        <i class="fa fa-cart-arrow-down"></i>
+                                        Sản phẩm mua sau
+                                    </a>
+
+                                </div>
 
 
                                 <a href="/Home/InfoReservation">

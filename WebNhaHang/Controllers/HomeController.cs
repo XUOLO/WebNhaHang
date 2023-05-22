@@ -183,5 +183,48 @@ namespace WebNhaHang.Controllers
             return byte2String;
         }
 
+
+
+        // Đã đặt bàn
+        public ActionResult CheckDatBan(string id, string check)
+        {
+            if (id == null || check == null || id == "" || check == "")
+            {
+                return View("error");
+            }
+            else
+            {
+                var tr = db.Reservations.Where(s => s.Code == id).FirstOrDefault();
+                if (tr != null && check == "200")
+                {
+                    tr.Status = 1; // Xác nhận đơn hàng
+                }
+                else if (tr != null && check == "300")
+                {
+                    tr.Status = -1; //Hủy
+                }
+                else if (tr != null && check == "400")
+                {
+                    tr.Status = 2; // Giao hàng Thành công
+                }
+                else if (tr != null && check == "500")
+                {
+                    tr.Status = -2; // Giao Thất Bại
+                }
+                else if (tr != null && check == "000")
+                {
+                    tr.Status = 0; //Mua lại
+                }
+                if (ModelState.IsValid)
+                {
+                    db.SaveChanges();
+                }
+                return RedirectToAction("InfoReservation");
+
+            }
+
+        }
+
+
     }
 }

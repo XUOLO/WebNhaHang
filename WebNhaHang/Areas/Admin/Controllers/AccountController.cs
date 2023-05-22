@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
- 
+
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-         
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -130,6 +130,18 @@ namespace WebNhaHang.Areas.Admin.Controllers
             var items = db.Users.ToList();
             return View(items);
         }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.Users.Find(id);
+            if (item != null)
+            {
+                db.Users.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -148,7 +160,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email,FullName=model.FullName,Phone=model.Phone };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, FullName = model.FullName, Phone = model.Phone };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -156,7 +168,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
                     UserManager.AddToRole(user.Id, model.Role);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                
+
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -172,20 +184,22 @@ namespace WebNhaHang.Areas.Admin.Controllers
             return View(model);
         }
 
-       //public async Task<IActionResult> DeleteUser(string id)
-       // {
-       //     var user = await UserManager.FindByIdAsync(id);
-       //     if(user == null)
-       //     {
-       //         return  View("NotFound");
-       //     }
+        //public async Task<IActionResult> DeleteUser(string id)
+        // {
+        //     var user = await UserManager.FindByIdAsync(id);
+        //     if(user == null)
+        //     {
+        //         return  View("NotFound");
+        //     }
 
-       //     else
-       //     {
-       //         var result = await UserManager.DeleteAsync(user);
-       //         return  View("index");
-       //     }
-       // }
+        //     else
+        //     {
+        //         var result = await UserManager.DeleteAsync(user);
+        //         return  View("index");
+        //     }
+        // }
+
+       
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -193,6 +207,6 @@ namespace WebNhaHang.Areas.Admin.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-        
+
     }
 }

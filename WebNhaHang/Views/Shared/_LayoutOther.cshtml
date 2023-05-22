@@ -36,10 +36,7 @@
 </head>
 <body class="u-body u-xl-mode" data-lang="en">
     <style>
-        .navbar-dark .navbar-brand img {
-            margin-bottom: 100%;
-        }
-
+      
         .btn.btn-primary, .btn.btn-secondary {
             margin-left: 20px;
         }
@@ -186,20 +183,20 @@
                         @if (Session["FullName"] == null)
                         {
 
-                            <a href="/Gio-hang" class="dropdown-item">
+                            @*<a href="/Gio-hang" class="dropdown-item">
 
 
                                 <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                            </a>
+                            </a>*@
                             <a href="~/Home/Login" class="dropdown-item">Login</a>
                         }
                         else
                         {
-                            <a href="/Gio-hang" class="dropdown-item">
+                            @*<a href="/Gio-hang" class="dropdown-item">
 
 
                                 <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                            </a>
+                            </a>*@
                             <a href="~/Home/Login" class="dropdown-item">Login</a>
                             <a href="" class="dropdown-item">Đơn đặt bàn</a>
                             <a href="/home/ThongTinTaiKhoan" class="dropdown-item">Thông tin tài khoản</a>

@@ -53,9 +53,9 @@
                         <th>Loại bàn</th>
                         <th>Số người</th>
                         <th>Ngày tạo</th>
-                        @*<th>Trạng thái</th>*@
+                        <th>Trạng thái</th>
 
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,24 +64,39 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@i</td>
-                                <td>@item.Name</td>
-                                <td>@item.Phone</td>
-                                <td>@item.Email</td>
-                                <td>@item.Note</td>
-                                <td>@item.DateTime</td>
-                                <td>@item.Room</td>
-                                <td>@item.NumberOfPeople</td>
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.Name</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Email</td>
+                        <td>@item.Note</td>
+                        <td>@item.DateTime</td>
+                        <td>@item.Room</td>
+                        <td>@item.NumberOfPeople</td>
 
-                                @*<td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>*@
-                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    <a href="/admin/reservation/view/@item.id" class="btn btn-sm btn-success">Xem</a>
-                                    @*<a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>*@
-                                </td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
 
-                            </tr>
+                        <td>@(item.Status == 0 ? "chưa duyệt" : (item.Status == -1 ? "đã hủy" : "Đã duyệt"))</td>
+                        @if (item.Status.ToString() == "0")
+                        {
+                            <td>
+
+
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>
+
+                            </td>
+                        }
+                        else if (item.Status.ToString() == "1")
+                        {
+                            <td>
+
+
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>
+
+                            </td>
+                        }
+
+                    </tr>
                             i++;
                         }
 
@@ -122,8 +137,11 @@
                 <div class="form-group">
                     <label>Trạng thái</label>
                     <select class="form-control" id="ddTrangThai">
-                        <option value="2">
-                            Đã thanh toán
+                        <option value="1">
+                            Đã duyệt
+                        </option>
+                        <option value="-1">
+                            Hủy đơn
                         </option>
                     </select>
                 </div>
@@ -176,7 +194,7 @@
                 var id = $('#txtOrderId').val();
                 var tt = $('#ddTrangThai').val();
                 $.ajax({
-                    url: '/admin/order/UpdateTT',
+                    url: '/admin/reservation/UpdateTT',
                     type: 'POST',
                     data: { id: id, trangthai: tt },
                     success: function (res) {

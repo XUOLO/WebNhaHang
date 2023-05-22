@@ -32,7 +32,7 @@ namespace WebNhaHang.Models.EF
         public string Time { get; set; }
 
         [Required]
-        public byte Category { get; set; }
+        public int Status { get; set; }
         public IEnumerable<Reservation> Reservations { get; set; }
         public DateTime GetDateTime()
         {

@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <style>
+        .navbar-dark .navbar-brand img {
+            margin-top: 105%;
+        }
+    </style>
     <div class="form-wrapper">
         <div class="form-container">
             <h1 class="heading">Form</h1>
@@ -87,7 +91,19 @@
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
                         </div>
-                   
+
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "form-group" })
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "form-group" })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                        </div>
 
                         <div class="input-box">
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-group" })
@@ -139,6 +155,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        background-size:180%;
         min-height: 100vh;
         margin-bottom:-35px;
         margin-top:-5%;
@@ -147,7 +165,8 @@
     .form-container {
         background-color: #fff;
         min-width: 500px;
-        padding: 30px;
+        padding: 100px;
+        margin-bottom:3.5%;
     }
 
     .heading {

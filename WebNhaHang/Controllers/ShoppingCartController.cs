@@ -173,6 +173,8 @@ namespace WebNhaHang.Controllers
                         Price=x.Price
 
                     }));
+
+                    order.Quantity = cart.items.Count();
                     order.TotalAmount=cart.items.Sum(x=>(x.Price*x.Quantity));
                     order.TypePayment = req.TypePayment;
                     order.CreateDate = DateTime.Now;

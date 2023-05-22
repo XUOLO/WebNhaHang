@@ -13,7 +13,7 @@ namespace WebNhaHang.Models
     {
         public string FullName { get; set; }
         public string Phone { get; set; }
-        
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -39,7 +39,7 @@ namespace WebNhaHang.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Contact> Contacts { get; set; }
- 
+
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Aplication> Aplications { get; set; }

@@ -58,16 +58,17 @@
                         foreach (var item in Model)
                         {
                     <tr>
-                        <td>
+                        <td id="trow_@item.Id">
                             @i
                         </td>
-                        <td>@item.UserName</td>
-                        <td>@item.FullName</td>
-                        <td>@item.Email</td>
+                        <td >@item.UserName</td>
+                        <td >@item.FullName</td>
+                        <td  >@item.Email</td>
                          
                         <td>
                             @*<a href="/admin/account/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>*@
-                            <a href="#" class="btn btn-sm btn-danger btnDelete "data-user="@item.Id">Xóa</a>
+
+                            <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
                         </td>
                     </tr>
 i++;
@@ -87,3 +88,26 @@ i++;
 
 </section>
 <!-- /.content -->
+@section scripts{
+    <script>
+
+
+        $('body').on('click', '.btnDelete', function () {
+            var id = $(this).data("id");
+            var conf = confirm('Bạn có muốn xóa ?');
+            if (conf === true) {
+                $.ajax({
+                    url: '/admin/account/delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            $('#trow_' + id).remove();
+                        }
+                    }
+
+                });
+            }
+        });
+    </script>
+}
