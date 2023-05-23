@@ -119,7 +119,7 @@ namespace WebNhaHang.Controllers
             contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
             contentCustomer = contentCustomer.Replace("{{ThoiGian}}", course.DateTime.ToString());
              
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ", "Mã đặt bàn #" + course.Code, contentCustomer.ToString(), course.Email);
+            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã đặt bàn #" + course.Code, contentCustomer.ToString(), course.Email);
 
             //gui admin
             string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send4.html"));
@@ -132,7 +132,7 @@ namespace WebNhaHang.Controllers
             contentAdmin = contentAdmin.Replace("{{Phong}}", course.Room);
             contentAdmin = contentAdmin.Replace("{{SoNguoi}}", course.NumberOfPeople);
             contentAdmin = contentAdmin.Replace("{{ThoiGian}}", course.DateTime.ToString());
-            WebNhaHang.Common.Common.SendMail("Đơn đặt bàn nhà hàng BBQ", "Mã đặt bàn #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã đặt bàn #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
            
             return RedirectToAction("CheckOut_Success");  
      

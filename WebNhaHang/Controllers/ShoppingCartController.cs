@@ -150,7 +150,26 @@ namespace WebNhaHang.Controllers
 
         public ActionResult Partial_CheckOut()
         {
-            return PartialView();
+            OrderViewModel model = new OrderViewModel();
+            if (Session["FullName"]!=null)
+            {
+                // lấy thông tin của người dùng hiện tại
+                string email = Session["Email"].ToString();
+                // tạo một đối tượng DbContext để truy vấn dữ liệu
+                using (var db = new ApplicationDbContext())
+                {
+                    // lấy thông tin của user từ database
+                    var user = db.Userss.FirstOrDefault(u => u.Email == email);
+                    if (user != null)
+                    {
+                        // gán giá trị cho thuộc tính user của biến model
+                        model.user = user;
+                    }
+                }
+            }
+             
+            return PartialView(model);
+           
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -211,7 +230,7 @@ namespace WebNhaHang.Controllers
                     contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
                     contentCustomer = contentCustomer.Replace("{{ThanhTien}}", WebNhaHang.Common.Common.FormatNumber(thanhtien, 0));
                     contentCustomer = contentCustomer.Replace("{{TongTien}}", WebNhaHang.Common.Common.FormatNumber(TongTien, 0));
-                    WebNhaHang.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Mail);
+                    WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Mail);
 
                     string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send5.html"));
                     contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
@@ -223,7 +242,7 @@ namespace WebNhaHang.Controllers
                     contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
                     contentAdmin = contentAdmin.Replace("{{ThanhTien}}", WebNhaHang.Common.Common.FormatNumber(thanhtien, 0));
                     contentAdmin = contentAdmin.Replace("{{TongTien}}", WebNhaHang.Common.Common.FormatNumber(TongTien, 0));
-                    WebNhaHang.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+                    WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
                 
                     cart.ClearCart();
                     return RedirectToAction("CheckOutSuccess");

@@ -75,7 +75,7 @@ namespace WebNhaHang.Controllers
             contentCustomer = contentCustomer.Replace("{{DiaChi}}", course.Address);
             contentCustomer = contentCustomer.Replace("{{ViTri}}", course.Position);
             contentCustomer = contentCustomer.Replace("{{KinhNghiem}}", course.Experience);
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ", "Mã số #" + course.Code, contentCustomer.ToString(), course.Email);
+            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã số #" + course.Code, contentCustomer.ToString(), course.Email);
 
             //gui admin
             string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send2.html"));
@@ -85,7 +85,7 @@ namespace WebNhaHang.Controllers
             contentAdmin = contentAdmin.Replace("{{Phone}}", course.Phone);
             contentAdmin = contentAdmin.Replace("{{Email}}", course.Email);
             contentAdmin = contentAdmin.Replace("{{DiaChi}}", course.Address);
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ", "Mã số #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã số #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
             return RedirectToAction("Application_Success");
 
 

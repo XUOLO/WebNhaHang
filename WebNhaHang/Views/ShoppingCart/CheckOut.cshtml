@@ -38,34 +38,48 @@
                 </div>
 
                 <!-- Sidebar -->
-                <!-- Main Content -->
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1>Thanh Toán</h1>
-                        <p>Bạn hãy kiểm tra lại thông tin đơn hàng</p>
-                    </div>
-
-                </div>
-                <hr />
                 @if (ViewBag.CheckCart != null)
                 {
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div id="show_success"></div>
-                            @Html.Action("Partial_CheckOut", "ShoppingCart")
+                    if (Session["FullName"] != null)
+                    {<!-- Main Content -->
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1>Thanh Toán</h1>
+                                <p>Bạn hãy kiểm tra lại thông tin đơn hàng</p>
+                            </div>
+
                         </div>
-                        <div class="col-md-3">
+                        <hr />
 
-                            @Html.Action("Partial_item_ThanhToan", "ShoppingCart")
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div id="show_success"></div>
+
+                                @Html.Action("Partial_CheckOut", "ShoppingCart")
+
+
+                            </div>
+                            <div class="col-md-3">
+
+                                @Html.Action("Partial_item_ThanhToan", "ShoppingCart")
+
+                            </div>
 
                         </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Bạn chưa đăng nhập.Vui lòng <a href="/home/login">đăng nhập</a> để đặt món.
+                        </div>
+                    }
 
-                    </div>
                 }
                 else
                 {
                     <div>
-                        Bạn chưa có sản phẩm nào.Quay lại trang <a href="/san-pham">sản phẩm</a> để mua
+                        Bạn chưa có món nào.Quay lại trang <a href="/san-pham">thực đơn </a> để chọn món.
                     </div>
                 }
 

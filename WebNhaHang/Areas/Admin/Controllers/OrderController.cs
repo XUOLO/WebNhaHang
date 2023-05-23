@@ -9,7 +9,7 @@ using PagedList;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Employee")]
     public class OrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

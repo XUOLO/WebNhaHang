@@ -1,7 +1,9 @@
 ﻿@model WebNhaHang.Models.OrderViewModel
+
+
 @{
     ViewBag.Title = "Index";
-    
+
 }
 <link href="~/Asset/css/stylerestaurant.css" rel="stylesheet" />
 @using (Ajax.BeginForm("CheckOut", "ShoppingCart", new AjaxOptions
@@ -14,45 +16,95 @@
 {
     @Html.AntiForgeryToken()
 
-    <h3>Thông tin khách hàng</h3>
-    <div class="form-group">
-        <label>Customer name</label>
-        <input type="text" name="CustomerName" required class="form-control error" autocomplete="off" />
-    </div>
-    <div class="form-group">
-        <label>Phone</label>
-        <input type="text" name="Phone" required class="form-control" autocomplete="off" onkeypress="return valideNumber()" />
-    </div>
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" name="Address" required class="form-control" autocomplete="off" />
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="Mail" required class="form-control error" autocomplete="off" />
-    </div>
-    <div class="form-group">
-        <label>Payment</label>
-        <select class="form-control" name="TypePayment">
-            <option value="1" selected>COD</option>
-            <option value="2">Bank</option>
-        </select>
 
-    </div>
+   if (Session["FullName"] != null)
+    {
+        string email = Session["Email"].ToString();
+        string fullName = Session["FullName"].ToString();
+      
+            if (  Model.user.Email == email)
+            {
 
-    <div class="form-group">
 
-        <button type="submit" class=" btn btn-block site-btn">PLACE ORDER</button>
-    </div>
+                <h3>Thông tin người nhận </h3>
+                <div class="form-group">
+                    <label>Customer name</label>
+                    <input type="text" name="CustomerName" id="CustomerName" value="@fullName" class="form-control error" autocomplete="off" required />
 
-}
-<script>
-    function valideNumber() {
-        var charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode >= 48 && charCode <= 57) {
-            return true;
-        } else {
-            return false;
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" name="Phone" id="Phone" class="form-control"value="@Model.user.Phone" autocomplete="off" onkeypress="return valideNumber()" required />
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="Address" id="Address" class="form-control" value="@Model.user.Address"autocomplete="off" required />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="Mail" id="Mail" class="form-control error" value="@Model.user.Email" autocomplete="off" required />
+                </div>
+                <div class="form-group">
+                    <label>Payment</label>
+                    <select class="form-control" name="TypePayment">
+                        <option value="1" selected>COD</option>
+                        <option value="2">Bank</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <button type="submit" id="BuyNow" name="BuyNow" class=" btn btn-block site-btn">PLACE ORDER</button>
+                </div>
+
+
+            
+            }
         }
     }
-</script>
+
+
+            <script>
+                function valideNumber() {
+                    var charCode = (event.which) ? event.which : event.keyCode;
+                    if (charCode >= 48 && charCode <= 57) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                $(document).ready(function () {
+                    /* loadDsSanpham();*/
+                })
+
+                $(document).on('click', "button[name='BuyNow']", function () {
+
+
+                    console.log("s=" + s);
+                    // Lấy thông tin người mua
+                    var _username = $("#CustomerName").val();
+                    var _gmail = $("#Mail").val();
+                    var _address = $("#Address").val();
+                    var _phone = $("#Phone").val();
+                    var _checked = "no";
+
+
+                    if (_username.length != 0 || _gmail.length != 0 || _address.length != 0 || _phone.length != 0) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'info',
+                            title: 'Nhập thông tin hoặc đăng nhập tài khoản!',
+                            showConfirmButton: false,
+                            //timer: 1000,
+                            width: '100px',
+
+                        })
+                    }
+
+                });
+
+
+            </script>
+
