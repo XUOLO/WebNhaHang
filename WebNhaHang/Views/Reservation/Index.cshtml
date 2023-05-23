@@ -46,7 +46,7 @@
     }
 
         .pagination a {
-            color: black;
+            color: white;
             float: left;
             padding: 8px 16px;
             text-decoration: none;
@@ -84,6 +84,12 @@
         background-color: #fff;
         color: #212529;
         border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    section {
+        background-image: url('../../Content/assets/images/loginbg.jpg') ;
+        padding-top:70px;
+       
+        top: -48px;
     }
 
         .table td,
@@ -127,90 +133,94 @@
     /* Column content */
 
 </style>
-<div class="">
-    <div class="col-2">
-        @using (Html.BeginForm("Index", "Reservation", FormMethod.Get, new { }))
-        {
 
-
-
-
-
-
-
-            <div class="searchBox">
-
-
-                @Html.TextBox("SearchString", "", new { @class = "searchInput", @type = "text", @placeholder = "Search" })
-                <button type="submit" class="searchButton" href="#">
-                    <i class="material-icons">
-                        search
-                    </i>
-                </button>
-            </div>
-
-        }
-
-    </div>
-</div>
-<table class="table table-hover table-bordered " style="border:double">
-    <thead>
-        <tr>
-
-            <th>Stt</th>
-            <th>Mã đặt bàn</th>
-            <th>Người đặt  </th>
-            <th>Email</th>
-            <th>Ngày hẹn</th>
-            <th>Giờ hẹn</th>
-            <th>Ngày tạo</th>
-            <th>Số người</th>
-            <th>Loại phòng</th>
-
-
-
-
-
-
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
-
-            foreach (var item in Model)
+<section >
+    <div class="">
+        <div class="col-2">
+            @using (Html.BeginForm("Index", "Reservation", FormMethod.Get, new { }))
             {
 
-                <tr id="trow_@item.id">
-
-                    <td>@i</td>
-                    <td>@item.Code</td>
-                    <td>@item.Name</td>
-                    <td>@item.Email</td>
-                    <td>@item.DateTime.ToString("dd/MM/yyyy")</td>
-                    <td>@item.DateTime.ToString("HH:mm")</td>
-                    <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                    <td>@item.NumberOfPeople</td>
-                    <td>@item.Room</td>
 
 
 
-                </tr>
-                i++;
+
+
+
+                <div class="searchBox">
+
+
+                    @Html.TextBox("SearchString", "", new { @class = "searchInput", @type = "text", @placeholder = "Search" })
+                    <button type="submit" class="searchButton" href="#">
+                        <i class="material-icons">
+                            search
+                        </i>
+                    </button>
+                </div>
+
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="8"> Không có thông tin</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div class="row">
-    <div class="col-6"> </div>
-    <div class="col-6" style="text-align:right;">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+        </div>
     </div>
-</div>
+    <table class="table table-hover table-bordered " style="border:double">
+        <thead>
+            <tr>
+
+                <th>Stt</th>
+                <th>Mã đặt bàn</th>
+                <th>Người đặt  </th>
+                <th>Email</th>
+                <th>Ngày hẹn</th>
+                <th>Giờ hẹn</th>
+                <th>Ngày tạo</th>
+                <th>Số người</th>
+                <th>Loại phòng</th>
+
+
+
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+
+                foreach (var item in Model)
+                {
+
+                    <tr id="trow_@item.id">
+
+                        <td>@i</td>
+                        <td>@item.Code</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.DateTime.ToString("dd/MM/yyyy")</td>
+                        <td>@item.DateTime.ToString("HH:mm")</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.NumberOfPeople</td>
+                        <td>@item.Room</td>
+
+
+
+                    </tr>
+                    i++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8"> Không có thông tin</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-6"> </div>
+        <div class="col-6" style="text-align:right;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</section>
+

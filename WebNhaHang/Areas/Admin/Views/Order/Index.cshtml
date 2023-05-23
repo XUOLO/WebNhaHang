@@ -55,20 +55,32 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@i</td>
-                                <td>@item.Code</td>
-                                <td>@item.CustomerName</td>
-                                <td>@item.Phone</td>
-                                <td>@WebNhaHang.Common.Common.FormatNumber(item.TotalAmount, 0)<span> VND</span></td>
-                                <td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>
-                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
-                                    <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Cập nhật</a>
-                                </td>
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.Code</td>
+                        <td>@item.CustomerName</td>
+                        <td>@item.Phone</td>
+                        <td>@WebNhaHang.Common.Common.FormatNumber(item.TotalAmount, 0)<span> VND</span></td>
+                        @*<td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>*@
+                        <td>@(item.TypePayment == 0 ? "đã hủy" : (item.TypePayment == 1 ? "chờ thanh toán" : "đã thanh toán"))</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (item.TypePayment==0)
+                            {
+                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
 
-                            </tr>
+                               
+                            }
+                            else
+                            {
+                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Cập nhật</a>
+                            }
+
+                        </td>
+
+                    </tr>
                             i++;
                         }
 

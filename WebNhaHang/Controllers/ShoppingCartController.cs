@@ -179,7 +179,7 @@ namespace WebNhaHang.Controllers
                     order.TypePayment = req.TypePayment;
                     order.CreateDate = DateTime.Now;
                     order.ModifieDate = DateTime.Now;
-                    order.CreateBy = req.Phone;
+                    order.CreateBy = req.CustomerName;
                     Random rd = new Random();
                     order.Code = "DH" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
                     db.Orders.Add(order);

@@ -4047,6 +4047,7 @@
     <Content Include="Views\Home\ThongTinTaiKhoan.cshtml" />
     <Content Include="Views\Home\InfoReservation.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
+    <Content Include="Views\Home\Order.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>

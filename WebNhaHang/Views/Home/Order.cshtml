@@ -1,0 +1,178 @@
+﻿@model List<WebNhaHang.Models.EF.Order>
+
+@{
+    ViewBag.Title = "Thông tin đơn hàng";
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
+}
+
+
+
+
+
+<link href="~/Content/Accountcss/_account.css" rel="stylesheet" />
+<section class="check-out-section pt-40 pb-50">
+
+    <style>
+        .table-hover {
+            border-collapse: unset;
+        }
+
+        .mautab a {
+            margin-right: -11%;
+        }
+
+        .navbar-dark .navbar-brand img {
+            margin-top: 105%;
+        }
+    </style>
+    <div class="container" style="max-width:1440px">
+        <div class="row" style="justify-content:center">
+            <div class="col-lg-3 col-12 mb-30">
+                <div class="myaccount-tab-menu nav" role="tablist">
+                    <div>
+                        <a href="/home/thongtintaikhoan" class="active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Thông tin tài khoản
+                        </a>
+                    </div>
+
+                    <div class="mautab">
+
+                        <a href="/home/order ">
+                            <i class="fa fa-cart-arrow-down"></i>
+                            Món ăn đã đặt
+                        </a>
+
+                    </div>
+
+
+                    <div>
+                        <a href="/Home/InfoReservation">
+                            <i class="fa fa-user"></i>
+                            Quản lý đơn đặt bàn
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-8 mb-30">
+                <div class="tab-content" id="myaccountContent">
+                    <!-- Single Tab Content Start -->
+                    <div class="tab-pane fade active show" id="dashboad" role="tabpanel">
+                        <div class="myaccount-content">
+
+                            <div id="accordion">
+                                <div class="col-xl-5" style="max-width:100%;">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0" style="text-align:center"><b>Thông tin đơn món ăn </b></h5>
+                                        </div>
+
+
+                                        <table border="1" class="table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã đơn</th>
+                                                    <th>Tên khách hàng</th>
+                                                    <th>Email</th>
+                                                    <th>SĐT</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Trạng thái</th>
+
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                @if (Session["FullName"] != null)
+                                                {
+                                                    bool foundUser = false;
+                                                    string email = Session["Email"].ToString();
+                                                    string fullName = Session["FullName"].ToString();
+                                                    foreach (var user in Model)
+                                                    {
+                                                        if (user.Mail == email)
+                                                        {
+                                                <tr>
+                                                    <td style="text-align:center;">@user.Code</td>
+                                                    <td style="text-align:center;">@user.CustomerName</td>
+
+
+                                                    <td style="text-align:center;">@user.Mail</td>
+                                                    <td style="text-align:center;">@user.Phone</td>
+                                                    <td style="text-align:center;">@user.Address</td>
+
+                                                    <td style="text-align:center;">@user.CreateDate.ToString("dd/MM/yyyy")</td>
+                                                    <td style="text-align:center;">@user.TotalAmount </td>
+                                                    @if (user.TypePayment.ToString() == "1")
+                                                    {
+                                                        <td style="text-align:center;">  Chờ xác nhận       <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Hủy đơn </div></a></td>
+                                                    }
+                                                    else if (user.TypePayment.ToString() == "2")
+                                                    {
+                                                        <td style="text-align:center;">  Đã xác nhận      <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Hủy đơn </div></a> </td>
+
+                                                    }
+                                                    else if (user.TypePayment.ToString() == "0")
+                                                    {
+                                                        <td style="text-align:center; color:red;">  Đã hủy    <a href="@Url.Action("CheckNhanHang", "Home", new { id =  user.Code, check = "000" })"> <div>Mua lại</div></a>  </td>
+                                                    }
+
+                                                </tr>
+                                                            foundUser = true;
+                                                        }
+
+                                                    }
+                                                    if (!foundUser)
+                                                    {
+                                                        <tr>
+                                                            <td colspan="10">Bạn chưa đặt món nào quạy lại trang  <a href="/product/index"> thực đơn</a> để dặt món</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+
+
+
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</section>
+
+<script>
+    function valideNumber() {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode >= 48 && charCode <= 57) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
