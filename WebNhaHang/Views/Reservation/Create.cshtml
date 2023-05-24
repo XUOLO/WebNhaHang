@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-date-w3-agileits">
                     @Html.LabelFor(m => m.Phone, new { @class = "fa fa-phone" })
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "" })
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Nhập đúng số điện thoại" })
                     @Html.ValidationMessageFor(m => m.Phone)
                 </div>
                 <div class="form-date-w3-agileits">

@@ -1,0 +1,55 @@
+﻿
+
+
+
+
+
+@{
+    ViewBag.Title = "Thanh toán không thành công";
+
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
+
+
+}
+
+
+
+
+
+<style>
+    .h h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .btnn {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #0062cc;
+        }
+</style>
+
+
+
+<h1 class="h">Thanh toán không thành công</h1> <p>Xin lỗi, bạn không thể thanh toán đơn hàng này vì sản phẩm <span style="color:red;">@TempData["ProductName"]</span>. không đủ số lượng.</p> <p>Vui lòng quay lại giỏ hàng và chỉnh sửa số lượng hoặc xóa sản phẩm khỏi giỏ hàng.</p> <p>Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi.</p>
+
+<a href="@Url.Action("Index", "ShoppingCart")" class="btnn btn-primary">Quay lại giỏ hàng</a>

@@ -17,8 +17,10 @@ namespace WebNhaHang.Models
         public string Mail { get; set; }
         public int TypePayment { get; set; } 
         public User user { get; set; }
-   
-    }
+ 
+        public List<ShoppingCartItem> items { get; set; }
 
-   
+    }
+     
+
 }

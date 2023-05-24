@@ -36,6 +36,8 @@ namespace WebNhaHang.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(User _user)
         {
+            Session["thongbao_register"] = "";
+            string thongbao = "";
             if (ModelState.IsValid)
             {
                 var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
@@ -49,12 +51,13 @@ namespace WebNhaHang.Controllers
                 }
                 else
                 {
-                    ViewBag.error = "Email already exists";
+                   thongbao = "Email already exists";
                     return RedirectToAction("Login");
                 }
 
 
             }
+            TempData["thongbao_register"] = thongbao;
             return RedirectToAction("Index");
 
 

@@ -13,11 +13,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <style>
-        .navbar-dark .navbar-brand img {
-            margin-top: 105%;
-        }
-    </style>
+  
     <div class="form-wrapper">
         <div class="form-container">
             <h1 class="heading">Form</h1>
@@ -33,32 +29,33 @@
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <form action="">
-                            <div class="input-box">
-                                @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
-                            </div>
+                    <form action="">
+                        
+                        <div class="input-box">
+                            @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                        </div>
 
-                            <div class="input-box">
+                        <div class="input-box">
 
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-                            </div>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        </div>
 
-                            <div class="btn-cont">
-                                <button class="submite-btn" type="submit" name="submit">Login</button>
+                        <div class="btn-cont">
+                            <button class="submite-btn" type="submit" name="submit">Login</button>
 
-                                <a href="/account/ForgotPassword" class="float-right forget">Forgot password ?</a>
-                            </div>
+                            <a href="/account/ForgotPassword" class="float-right forget">Forgot password ?</a>
+                        </div>
 
-                            @*<div class="line">
-                                    <span>or</span>
-                                </div>
+                        @*<div class="line">
+            <span>or</span>
+        </div>
 
-                                <ul class="flow-btn-cont">
-                                    <li><a href="#" class="fa-btn">Facebook</a></li>
-                                    <li><a href="#" class="goog-btn">Google</a></li>
-                                    <li><a href="#" class="twit-btn">Twitter</a></li>
-                                </ul>*@
-                        </form>
+        <ul class="flow-btn-cont">
+            <li><a href="#" class="fa-btn">Facebook</a></li>
+            <li><a href="#" class="goog-btn">Google</a></li>
+            <li><a href="#" class="twit-btn">Twitter</a></li>
+        </ul>*@
+                    </form>
                     }
                 </div>
                 <!-- ============================Registar====section=============== -->
@@ -72,8 +69,11 @@
 
                         @Html.AntiForgeryToken()
                     <form action="">
+                         
                         <div class="form-row">
+
                             <div class="input-box">
+                                
                                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-group" })
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
@@ -86,6 +86,7 @@
                         </div>
 
                         <div class="input-box">
+                  <p style="color:crimson"> @TempData["thongbao_register"]</p>
                             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-group" })
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -94,9 +95,10 @@
 
                         <div class="input-box">
                             @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "form-group" })
-                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Nhập đúng sốđiện thoại" } })
 
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            
                         </div>
                         <div class="input-box">
                             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "form-group" })

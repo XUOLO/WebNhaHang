@@ -11,18 +11,17 @@
     .error {
         color: red;
     }
-    button.btn.btn-block.site-btn
-    {
-        background-color:green;
-        color:white;
+
+    button.btn.btn-block.site-btn {
+        background-color: green;
+        color: white;
     }
-    
 </style>
 <link href="~/Asset/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Asset/css/stylerestaurant.css" rel="stylesheet" />
- 
+
 <link rel="stylesheet" type="text/css" href="~/content/assets/styles/categories_styles.css">
- 
+
 <div class="container product_section_container">
     <div class="col-lg-12">
         <div class="row">
@@ -51,7 +50,7 @@
                         </div>
                         <hr />
 
-
+                        <div id="errorDiv" style="display:none; color:red;"></div>
                         <div class="row">
                             <div class="col-md-9">
                                 <div id="show_success"></div>
@@ -93,12 +92,11 @@
 @section scripts{
     <script src="~/content/assets/js/categories_custom.js"></script>
     <script>
-        function OnFailure(rs) {
-            if (!rs.success) {
-                $('#show_success').html("Bạn đặt hàng không thành công");
+        function Ònailure(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
             }
         }
-
         $(document).ready(function () {
             $('#myForm').validate({
                 rules: {
@@ -112,18 +110,44 @@
                         required: true
                     },
                     'Email': {
-                        required: true
-
+                        required: true,
+                        email: true
                     }
                 },
                 messages: {
-                    'CustomerName': 'Bạn không được để trống',
-                    'Phone': 'Bạn không được để trống',
-                    'Address': 'Bạn không được để trống',
-                    'Email': 'Email không hợp lệ'
+                    'CustomerName': 'Bạn khổng để trống trường này',
+                    'Phone': 'Bạn khổng để trống trường này',
+                    'Address': 'Bạn khổng để trống trường này',
+                    'Email': 'Email chưa hợp lệ'
                 }
             });
         });
+
+
+
+        $(document).ready(function () {
+$("#btnCheckout").click(function () {
+$.ajax({
+type: "POST",
+url: "@Url.Action("CheckOut", "Shoppingcart")",
+data: $("#checkoutForm").serialize(),
+success: function (data) {
+if (data.success) {
+window.location.href = "@Url.Action("CheckOutSuccess", "Shoppingcart")";
+} else {
+$("#errorDiv").text(data.message);
+$("#errorDiv").show();
+}
+},
+error: function () {
+alert("Có lỗi xảy ra, vui lòng thử lại sau");
+}
+});
+});
+});
+
+ 
     </script>
+
 }
 
