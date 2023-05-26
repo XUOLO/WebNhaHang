@@ -1,12 +1,12 @@
-﻿@model PagedList.PagedList<WebNhaHang.Models.EF.Order>
-@using PagedList.Mvc;
+﻿@model PagedList.IPagedList<WebNhaHang.Models.EF.Order>
 @using PagedList;
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Order information";
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 }
 
-
+ 
 
 
 
@@ -25,7 +25,7 @@
         .navbar-dark .navbar-brand img {
             margin-top: 105%;
         }
- 
+
 
 
 
@@ -103,45 +103,45 @@
             border: 1px solid rgba(0, 0, 0, 0.125);
         }
 
-       
 
-        .table td,
-        .table th {
-            padding: .75rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
 
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
-        }
+            .table td,
+            .table th {
+                padding: .75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+            }
 
-        .table tbody + tbody {
-            border-top: 2px solid #dee2e6;
-        }
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+            }
 
-        .table th {
-            font-weight: bold;
-            text-align: center;
-        }
+            .table tbody + tbody {
+                border-top: 2px solid #dee2e6;
+            }
 
-        .table td {
-            text-align: center;
-        }
+            .table th {
+                font-weight: bold;
+                text-align: center;
+            }
 
-        /* Column headers */
-        .table th[colspan="2"] {
-            text-align: left;
-        }
+            .table td {
+                text-align: center;
+            }
 
-        .table th[colspan="3"] {
-            text-align: center;
-        }
+            /* Column headers */
+            .table th[colspan="2"] {
+                text-align: left;
+            }
 
-        .table th[colspan="4"] {
-            text-align: right;
-        }
+            .table th[colspan="3"] {
+                text-align: center;
+            }
+
+            .table th[colspan="4"] {
+                text-align: right;
+            }
 
         /* Column content */
 
@@ -264,7 +264,7 @@
                                         <div class="row">
                                             <div class="col-6"> </div>
                                             <div class="col-6" style="text-align:right;">
-                                                @Html.PagedListPager(Model, page => Url.Action("Order", new { page }))
+                                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                                             </div>
                                         </div>
 
@@ -287,7 +287,7 @@
         </div>
     </div>
 
-    
+
 
 
 </section>

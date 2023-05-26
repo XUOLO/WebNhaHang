@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
@@ -74,8 +76,8 @@ namespace WebNhaHang.Controllers
 
         public ActionResult ThongTinTaiKhoan()
         {
- 
-            List<User> users =db.Userss.ToList();
+
+            List<User> users = db.Userss.ToList();
             return View(users);
 
         }
@@ -85,6 +87,141 @@ namespace WebNhaHang.Controllers
 
             List<Reservation> reservations = db.Reservations.ToList();
             return View(reservations);
+        }
+
+
+        public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
+        {
+            Session["thongbao_password"] = "";
+            string thongbao = "";
+            if (currentPassword == null || newPassword == null)
+            {
+                thongbao = "Bạn chưa nhập thông tin";
+            }
+
+            if (newPassword == confirmPassword)
+            {
+                var f_password = GetMD5(currentPassword);
+                var user = db.Userss.Where(s => s.Email == id && s.Password == f_password).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Password = newPassword;
+                    if (ModelState.IsValid)
+                    {
+                        user.Password = GetMD5(user.Password);
+                        db.Configuration.ValidateOnSaveEnabled = false;
+
+                        db.SaveChanges();
+
+                        thongbao = "Đã thay đổi mật khẩu";
+
+
+
+                    }
+                }
+
+
+                else
+                {
+                    thongbao = "Mật khẩu sai";
+                }
+
+
+            }
+            else
+            {
+                thongbao = "Mật khẩu không giống nhau";
+            }
+            TempData["thongbao_password"] = thongbao;
+            return RedirectToAction("ThongTinTaiKhoan");
+        }
+
+        //Logout
+        public ActionResult Logout()
+        {
+            Session.Clear();//remove session
+            return RedirectToAction("index");
+        }
+       
+
+        //create a string MD5
+        public static string GetMD5(string str)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] fromData = Encoding.UTF8.GetBytes(str);
+            byte[] targetData = md5.ComputeHash(fromData);
+            string byte2String = null;
+
+            for (int i = 0; i < targetData.Length; i++)
+            {
+                byte2String += targetData[i].ToString("x2");
+
+            }
+            return byte2String;
+        }
+
+
+
+        // Đã đặt bàn
+        public ActionResult CheckDatBan(string id, string check)
+        {
+            if (id == null || check == null || id == "" || check == "")
+            {
+                return View("error");
+            }
+            else
+            {
+                var tr = db.Reservations.Where(s => s.Code == id).FirstOrDefault();
+                if (tr != null && check == "300")
+                {
+                    tr.Status = -1; //Hủy
+                }
+
+                if (ModelState.IsValid)
+                {
+                    db.SaveChanges();
+                }
+                return RedirectToAction("InfoReservation");
+
+            }
+
+
+
+
+
+
+        }
+
+        // Đã đặt bàn
+        public ActionResult CheckNhanHang(string id, string check)
+        {
+            if (id == null || check == null || id == "" || check == "")
+            {
+                return View("error");
+            }
+            else
+            {
+                var tr = db.Orders.Where(s => s.Code == id).FirstOrDefault();
+                if (tr != null && check == "300")
+                {
+                    tr.TypePayment = 0; //Hủy
+                } else if (tr != null && check == "200")
+                {
+                    tr.TypePayment = 0; //da xac nhan
+                }
+
+                else if (tr != null && check == "000")
+                {
+                    tr.TypePayment = 1; //Mua lại
+                }
+                if (ModelState.IsValid)
+                {
+                    db.SaveChanges();
+                }
+                return RedirectToAction("order");
+
+            }
+
         }
 
         [HttpPost]
@@ -118,147 +255,6 @@ namespace WebNhaHang.Controllers
             }
             return View();
         }
-        public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
-        {
-            Session["thongbao_password"] = "";
-            string thongbao = "";
-            if (currentPassword == null || newPassword == null)
-            {
-                thongbao = "Bạn chưa nhập thông tin";
-            }
-
-            if (newPassword == confirmPassword)
-            {
-                var f_password = GetMD5(currentPassword);
-                var user = db.Userss.Where(s => s.Email == id && s.Password == f_password).FirstOrDefault();
-                if (user != null)
-                {
-                    user.Password = newPassword;
-                    if (ModelState.IsValid)
-                    {
-                        user.Password = GetMD5(user.Password);
-                        db.Configuration.ValidateOnSaveEnabled = false;
-           
-                        db.SaveChanges();
-
-                        thongbao = "Đã thay đổi mật khẩu";
-
-   
-
-                    }
-                }
-  
-
-                else
-                {
-                    thongbao = "Mật khẩu sai";
-                }
-
-
-            }
-            else
-            {
-                thongbao = "Mật khẩu không giống nhau";
-            }
-            TempData["thongbao_password"] = thongbao;
-            return RedirectToAction("ThongTinTaiKhoan");
-        }
-
-        //Logout
-        public ActionResult Logout()
-        {
-            Session.Clear();//remove session
-            return RedirectToAction("index");
-        }
-        public ActionResult Order()
-        {
-
-            List<Order> orders = db.Orders.ToList();
-            return View(orders);
-
-        }
-
-        //create a string MD5
-        public static string GetMD5(string str)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] fromData = Encoding.UTF8.GetBytes(str);
-            byte[] targetData = md5.ComputeHash(fromData);
-            string byte2String = null;
-
-            for (int i = 0; i < targetData.Length; i++)
-            {
-                byte2String += targetData[i].ToString("x2");
-
-            }
-            return byte2String;
-        }
- 
-
-
-        // Đã đặt bàn
-        public ActionResult CheckDatBan(string id, string check)
-        {
-            if (id == null || check == null || id == "" || check == "")
-            {
-                return View("error");
-            }
-            else
-            {
-                var tr = db.Reservations.Where(s => s.Code == id).FirstOrDefault();
-               if (tr != null && check == "300")
-                {
-                    tr.Status = -1; //Hủy
-                }
-               
-                if (ModelState.IsValid)
-                {
-                    db.SaveChanges();
-                }
-                return RedirectToAction("InfoReservation");
-
-            }
-
-
-
-
-
-
-        }
-
-        // Đã đặt bàn
-        public ActionResult CheckNhanHang(string id, string check)
-        {
-            if (id == null || check == null || id == "" || check == "")
-            {
-                return View("error");
-            }
-            else
-            {
-                var tr = db.Orders.Where(s => s.Code == id).FirstOrDefault();
-               if (tr != null && check == "300")
-                {
-                    tr.TypePayment = 0; //Hủy
-                }else if (tr != null && check == "200")
-                {
-                    tr.TypePayment = 0; //da xac nhan
-                }
-          
-                else if (tr != null && check == "000")
-                {
-                    tr.TypePayment = 1; //Mua lại
-                }
-                if (ModelState.IsValid)
-                {
-                    db.SaveChanges();
-                }
-                return RedirectToAction("order");
-
-            }
-
-        }
-
-
 
         [AllowAnonymous]
         public ActionResult Register()
@@ -266,7 +262,7 @@ namespace WebNhaHang.Controllers
             return View();
         }
         [HttpPost]
-  
+
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(User _user)
         {
@@ -281,20 +277,20 @@ namespace WebNhaHang.Controllers
                     _user.ActivationCode = Guid.NewGuid();
 
                     // Add user to database
-                    
-                     
+
+
 
                     // Send email verification
                     SendVerificationEmail(_user);
 
                     ViewBag.SuccessMessage = "Registration successful. Please check your email to confirm.";
-                    
+
 
 
                     _user.Password = GetMD5(_user.Password);
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Userss.Add(_user);
-                     await db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -310,29 +306,7 @@ namespace WebNhaHang.Controllers
 
 
         }
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(User modelUser)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        modelUser.IsEmailVerified = false;
-        //        modelUser.ActivationCode = Guid.NewGuid();
 
-        //        // Add user to database
-        //        db.Userss.Add(modelUser);
-        //        await db.SaveChangesAsync();
-
-        //        // Send email verification
-        //        SendVerificationEmail(modelUser);
-
-        //        ViewBag.SuccessMessage = "Registration successful. Please check your email to confirm.";
-        //        return View("Success");
-        //    }
-
-        //    return View(modelUser);
-        //}
 
         private void SendVerificationEmail(User modelUser)
         {
@@ -388,7 +362,7 @@ namespace WebNhaHang.Controllers
                 if (IsVerified)
                 {
                     TempData["SuccessMessage"] = "Your email address has been verified successfully.";
-                    return RedirectToAction("Login", "Home");
+                    return RedirectToAction("ConfirmEmailSuccess", "Home");
                 }
                 else
                 {
@@ -404,6 +378,99 @@ namespace WebNhaHang.Controllers
                 throw;
             }
         }
+
+
+
+        //// doi mat khau
+        public ActionResult ResetPasswordUser()
+        {
+            return View();
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+         
+        public async Task<ActionResult> ResetPasswordUser(string email)
+        {
+            // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu hay không
+            var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email));
+            if (user == null)
+            {
+                ViewBag.error = "Email does not exist.";
+                return View();
+            }
+
+ 
+            // Tạo mật khẩu mới
+            var newPassword = GenerateRandomPassword();
+
+                // Lưu mật khẩu mới vào cơ sở dữ liệu
+                user.Password = GetMD5(newPassword);
+         
+            db.Configuration.ValidateOnSaveEnabled = false;
+           
+
+                await  db.SaveChangesAsync();
+
+                // Gửi email chứa mật khẩu mới
+                SendPasswordResetEmail(user, newPassword);
+
+                ViewBag.SuccessMessage = "Your password has been reset. Please check your email for the new password.";
+            return View();
+
+        }
+
+        private void SendPasswordResetEmail(User user, string newPassword)
+        {
+            var verifyUrl = "/Home/VerifyEmail/" + user.ActivationCode.ToString();
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("xuanloc290901@gmail.com", "loc");
+            var toEmail = new MailAddress(user.Email);
+            var fromEmailPassword = "anvawekvdmnwjcwh";
+
+            string subject = "Your password has been reset";
+
+            string body = "<p>Hello   ,</p>" +
+                             "<p>Your password has been reset successfully. Your new password is: <strong>" + newPassword + "</strong></p>" +
+                             "<p>Please use this password to log in to your account and then change your password for security reasons.</p>" +
+                             "<br/><br/><a href='" + link + "'>" + link + "</a>";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+
+        private string GenerateRandomPassword()
+        {
+            // Tạo một chuỗi ngẫu nhiên có 8 ký tự
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var password = new string(
+               Enumerable.Repeat(chars, 10)
+               .Select(s => s[random.Next(s.Length)])
+               .ToArray());
+
+            return password;
+        }
+
+        
+
 
 
     }
