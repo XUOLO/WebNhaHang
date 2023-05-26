@@ -15,7 +15,7 @@ namespace WebNhaHang
 
             routes.MapRoute(
                name: "Contact",
-               url: "lien-he",
+               url: "contact",
                defaults: new { controller = "Contact", action = "Index", alias = UrlParameter.Optional },
                namespaces: new[] { "WebNhaHang.Controllers" }
            );
@@ -28,28 +28,28 @@ namespace WebNhaHang
            );
             routes.MapRoute(
               name: "Menu",
-              url: "Thuc-don",
+              url: "Menu",
               defaults: new { controller = "Product", action = "Index", alias = UrlParameter.Optional },
               namespaces: new[] { "WebNhaHang.Controllers" }
           );
             routes.MapRoute(
              name: "Recruitment",
-             url: "Tuyen-dung",
+             url: "Recruitment",
              defaults: new { controller = "Recruitment", action = "Index", alias = UrlParameter.Optional },
              namespaces: new[] { "WebNhaHang.Controllers" }
          );
             routes.MapRoute(
               name: "CheckOut",
-              url: "thanh-toan",
+              url: "CheckOut",
               defaults: new { controller = "ShoppingCart", action = "CheckOut", alias = UrlParameter.Optional },
               namespaces: new[] { "WebNhaHang.Controllers" }
           );
-            routes.MapRoute(
-               name: "Reservation",
-               url: "Dat-ban",
-               defaults: new { controller = "Reservation", action = "Create", alias = UrlParameter.Optional },
-               namespaces: new[] { "WebNhaHang.Controllers" }
-           );
+           // routes.MapRoute(
+           //    name: "Reservation",
+           //    url: "Dat-ban",
+           //    defaults: new { controller = "Reservation", action = "Create", alias = UrlParameter.Optional },
+           //    namespaces: new[] { "WebNhaHang.Controllers" }
+           //);
             routes.MapRoute(
               name: "CategoryProduct",
               url: "danh-muc-san-pham/{alias}-{id}",
@@ -64,7 +64,7 @@ namespace WebNhaHang
            );
             routes.MapRoute(
            name: "FindReservation",
-           url: "tim-kiem",
+           url: "search",
            defaults: new { controller = "Reservation", action = "Index", alias = UrlParameter.Optional },
            namespaces: new[] { "WebNhaHang.Controllers" }
           );
@@ -76,7 +76,7 @@ namespace WebNhaHang
            );
             routes.MapRoute(
               name: "ShoppingCart",
-              url: "Gio-hang",
+              url: "ShoppingCart",
               defaults: new { controller = "ShoppingCart", action = "Index", alias = UrlParameter.Optional },
               namespaces: new[] { "WebNhaHang.Controllers" }
           );

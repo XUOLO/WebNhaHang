@@ -129,60 +129,51 @@
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-               
-                        @Html.Action("MenuTop", "Menu")
-                    
-                         
-            
+
+                @Html.Action("MenuTop", "Menu")
 
 
-                <a href="/reservation/create" class="btn btn-primary py-2 px-4">Đặt bàn</a>
+
+
+
+                <a href="/reservation/create" class="btn btn-primary py-2 px-4">Book a table</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
                     <div class="dropdown-menu m-0">
                         <a href="/admin/home" class="dropdown-item">Admin</a>
                         @if (Session["FullName"] == null)
                         {
 
-                            <a href="/Gio-hang" class="dropdown-item">
+                            <a href="/ShoppingCart" class="dropdown-item">
 
 
-                        <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                    </a>
+                                <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
+                            </a>
                             <a href="~/Home/Login" class="dropdown-item">Login</a>
                         }
                         else
                         {
-                            <a href="/Gio-hang" class="dropdown-item">
+                            <a href="/ShoppingCart" class="dropdown-item">
 
 
-                        <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
-                    </a>
+                                <p>My Cart &nbsp; &nbsp;  <i class="fa fa-shopping-bag"><span class="checkout_items" id="checkout_items">0</span></i></p>
+                            </a>
 
 
-                            <a href="~/Home/Login" class="dropdown-item">Login</a>
-                            <a href="" class="dropdown-item">Đơn đặt bàn</a>
-                            <a href="/home/ThongTinTaiKhoan" class="dropdown-item">Thông tin tài khoản</a>
+
+
+                            <a href="/home/ThongTinTaiKhoan" class="dropdown-item">Account information</a>
 
                             <a href="@Url.Action("Logout", "Home")" class="dropdown-item">Logout</a>
                         }
                     </div>
                 </div>
-               
-                @if (Session["FullName"] == null)
+
+                @if (Session["FullName"] != null)
                 {
-                    <a href="/home/login" class="nav-item nav-link">
-                        <p><i class="fa fa-user login" nav-item nav-link> Login</i></p>
-
-
-                    </a>
-                }
-                else
-                {
-
                     <p class="logouttt">Hi <i class="fa fa-user loginnnnnnnn"></i>@Session["FullName"].ToString()  </p>
-
                 }
+                
             </div>
 
 
@@ -195,7 +186,7 @@
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6 text-center text-lg-start">
                         <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
-                        <p class="text-white animated slideInLeft mb-4 pb-2">Tôi hy vọng bạn đang thưởng thức bữa ăn của mình một cách trọn vẹn và thấy mỗi miếng cắn đều là một trải nghiệm thú vị.</p>
+                        <p class="text-white animated slideInLeft mb-4 pb-2">I hope you are enjoying your meal to the fullest and find every bite a pleasant experience.</p>
                         <a href="/reservation/create" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end overflow-hidden">
@@ -246,7 +237,7 @@
                             <span class="u-align-center u-file-icon u-icon u-icon-circle u-palette-4-base u-icon-1"><img src="~/Content/cssRes/images/646094-d1da5d31.png" alt=""></span>
                             <h6 class="u-align-center u-text u-text-3">Mail to us</h6>
                             <p class="u-align-center u-text u-text-2">
-                                Đội ngũ thân thiện của chúng tôi ở đây để giúp đỡ.<br>
+                                Our friendly team is here to help.<br>
                                 <a href="#" class="u-active-none u-border-active-palette-3-base u-border-hover-palette-3-base u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base u-btn-1">xuanloc290901@gmail.com </a>
                             </p>
                         </div>
@@ -269,7 +260,7 @@
                             <span class="u-align-center u-file-icon u-icon u-icon-circle u-palette-4-base u-icon-3"><img src="~/Content/cssRes/images/8066424-92fb1413.png" alt=""></span>
                             <h6 class="u-align-center u-text u-text-5">Phone</h6>
                             <p class="u-align-center u-text u-text-6">
-                                T2-T6 từ 8h-17h<br>
+                                Mon-Fri from 8:00 am to 5:00 pm<br>
                                 <a href="#" class="u-active-none u-border-active-palette-3-base u-border-hover-palette-3-base u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-active-palette-3-base u-text-hover-palette-3-base u-text-palette-3-base u-btn-3" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">0906303905</a>
                             </p>
                         </div>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebNhaHang.Models.ShoppingCartItem>
 @using WebNhaHang.Common
 @{
-    ViewBag.Title = "Giỏ hàng";
+    ViewBag.Title = "Cart";
 
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 
@@ -30,7 +30,7 @@
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li class="active"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                    <li class="active"><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Cart</a></li>
                 </ul>
             </div>
 
@@ -49,7 +49,7 @@
                     <div class="text-right proceddd ">
 
                         <a href="#" class="primary-btn btnDeleteAll">Delete</a>
-                        <a href="/thanh-toan" class="primary-btn"  >Proceed to checkout</a>
+                        <a href="/CheckOut" class="primary-btn"  >Proceed to checkout</a>
 
                         
 

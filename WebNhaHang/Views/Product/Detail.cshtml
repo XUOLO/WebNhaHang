@@ -1,6 +1,6 @@
 ﻿@model WebNhaHang.Models.EF.Product
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = "Product detail";
 
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 
@@ -87,12 +87,12 @@
                     </div>
                     @if (Model.PriceSale > 0)
                     {
-                        <div class="original_price">@WebNhaHang.Common.Common.FormatNumber(Model.Price, 0)</div>
-                        <div class="product_price">@WebNhaHang.Common.Common.FormatNumber(Model.PriceSale, 0)</div>
+                <div class="original_price">@WebNhaHang.Common.Common.FormatNumber(Model.Price, 0) VND</div>
+                
                     }
                     else
                     {
-                        <div class="product_price">@WebNhaHang.Common.Common.FormatNumber(Model.Price, 0)</div>
+                        <div class="product_price">@WebNhaHang.Common.Common.FormatNumber(Model.Price, 0) VND</div>
                     }
  
 

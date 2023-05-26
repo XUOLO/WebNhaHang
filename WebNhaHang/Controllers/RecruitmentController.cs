@@ -22,19 +22,18 @@ namespace WebNhaHang.Controllers
         public ActionResult Application()
         {
             List<SelectListItem> positions = new List<SelectListItem>();
-          
-            positions.Add(new SelectListItem() { Text = "Giám đốc quản trị kinh doanh", Value = "Giám đốc quản trị kinh doanh" });
-            positions.Add(new SelectListItem() { Text = "Nhân viên kinh doanhi", Value = "Nhân viên kinh doanh" });
-            positions.Add(new SelectListItem() { Text = "Nhân viên lễ tân", Value = "Nhân viên lễ tân" });
-            positions.Add(new SelectListItem() { Text = "Nhân viên phục vụ", Value = "Nhân viên phục vụ" });
+            positions.Add(new SelectListItem() { Text = "Business Administration Director", Value = "Business Administration Director" });
+            positions.Add(new SelectListItem() { Text = "Sales staff", Value = "Sales staff" });
+            positions.Add(new SelectListItem() { Text = "Receptionist", Value = "Receptionist" });
+            positions.Add(new SelectListItem() { Text = "Service Staff", Value = "Service Staff" });
 
             ViewBag.Positions = positions;
 
             List<SelectListItem> experiences = new List<SelectListItem>();
-            experiences.Add(new SelectListItem() { Text = "1 năm", Value = "1 năm" });
-            experiences.Add(new SelectListItem() { Text = "2 năm", Value = "2 năm" });
-            experiences.Add(new SelectListItem() { Text = "chưa có", Value = "chưa có" });
-         
+            experiences.Add(new SelectListItem() { Text = "1 year", Value = "1 year" });
+            experiences.Add(new SelectListItem() { Text = "2 years", Value = "2 years" });
+            experiences.Add(new SelectListItem() { Text = "not yet", Value = "not yet" });
+
             ViewBag.Experience = experiences;
 
             return View(new ApplicationViewModel());
@@ -75,17 +74,17 @@ namespace WebNhaHang.Controllers
             contentCustomer = contentCustomer.Replace("{{DiaChi}}", course.Address);
             contentCustomer = contentCustomer.Replace("{{ViTri}}", course.Position);
             contentCustomer = contentCustomer.Replace("{{KinhNghiem}}", course.Experience);
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã số #" + course.Code, contentCustomer.ToString(), course.Email);
+            WebNhaHang.Common.Common.SendMail("XuoLo BBQ Restaurant", "Code #" + course.Code, contentCustomer.ToString(), course.Email);
 
             //gui admin
             string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send2.html"));
             contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", course.FullName);
             contentAdmin = contentAdmin.Replace("{{ViTri}}", course.Position);
-            contentAdmin = contentAdmin.Replace("{{KinhNghiem}}", course.Experience);
+            contentAdmin = contentAdmin.Replace("{{Knowledge}}", course.Experience);
             contentAdmin = contentAdmin.Replace("{{Phone}}", course.Phone);
             contentAdmin = contentAdmin.Replace("{{Email}}", course.Email);
             contentAdmin = contentAdmin.Replace("{{DiaChi}}", course.Address);
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã số #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+            WebNhaHang.Common.Common.SendMail("XuoLo BBQ Restaurant", "Code #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
             return RedirectToAction("Application_Success");
 
 

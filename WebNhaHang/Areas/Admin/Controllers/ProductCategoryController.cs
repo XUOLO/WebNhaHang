@@ -16,7 +16,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
         // GET: Admin/ProductCategory
         public ActionResult Index(string SearchString, int? page)
         {
-            var pageSize = 3;
+            var pageSize = 5;
             if (page == null)
             {
                 page = 1;

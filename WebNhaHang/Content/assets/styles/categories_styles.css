@@ -599,33 +599,7 @@ section
 .navbar_user li a:hover
 {
 	color: #b5aec4;
-}
-.checkout a
-{
-	background: #eceff6;
-	border-radius: 50%;
-}
-.checkout_items
-{
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	top: 35px;
-	left: 22px;
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background: #fe4c50;
-	font-size: 12px;
-	color: #FFFFFF;
-}
-
+} 
 /*********************************
 3.5 Hamburger Menu
 *********************************/

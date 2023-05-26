@@ -25,25 +25,26 @@
     }
 </style>
 
-<section class="content"> 
+<section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Ảnh sản phẩm</h3>
+            <h3 class="card-title">Product image</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-danger" title="Collapse">
-                    Xóa hết
+                    Remove all
                 </button>
-               
-                <input type="button" value="Tải ảnh " class="btn btn-success" onclick="BrowserSever('txtImage');" />
+
+                <input type="button" value="Load Image" class="btn btn-success" onclick="BrowserSever('txtImage');" />
             </div>
         </div>
         <div class="card-body">
             <ul class="glImage">
-                @if (Model != null) { 
-                    foreach(var item in Model)
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
                     {
                         <li id="trow_@item.id">
                             <img src="@item.Image" width="200" />
@@ -55,13 +56,15 @@
 
                                 }
                                 @*else
-                                {
-                            <a href="#" data-id="@item.id" class="btn btn-sm btn-success btnDefault"><i class="fa fa-check"></i></a>
-                                }*@
+                                        {
+                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-success btnDefault"><i class="fa fa-check"></i></a>
+                                        }*@
 
                             </div>
 
-                        </li> 
+                        </li>
+
+
 
                     }
                 }
@@ -69,7 +72,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            
+
         </div>
         <!-- /.card-footer-->
     </div>

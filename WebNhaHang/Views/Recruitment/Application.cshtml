@@ -1,6 +1,6 @@
 ﻿@model WebNhaHang.Models.EF.ApplicationViewModel
 @{
-    ViewBag.Title = "Form ứng tuyển";
+    ViewBag.Title = "Form recruitment";
     Layout = "/Views/Shared/_LayoutOther.cshtml";
 }
 <link href="/Asset/css/application.css" rel="stylesheet" />
@@ -64,7 +64,7 @@
     </body>
     </html>*@
 
- 
+
 
 
 @using (Html.BeginForm())
@@ -97,10 +97,10 @@
     <div class=" form - group ">
         <fieldset>
             <legend><span class="number">2</span> Your Profile</legend>
-            <label><i class="" aria-hidden="true"></i> Vị trí</label>
+            <label><i class="" aria-hidden="true"></i>Location</label>
             @Html.DropDownListFor(model => model.Position, (IEnumerable<SelectListItem>)ViewBag.Positions, " Select a position", new { @class = "form - control ", @required = "" })
 
-            <label><i class="" aria-hidden="true"></i> Kinh nghiệm</label>
+            <label><i class="" aria-hidden="true"></i>Experience</label>
 
             @Html.DropDownListFor(model => model.Experience, (IEnumerable<SelectListItem>)ViewBag.Experience, " Select experience", new { @class = "form - control ", @required = "" })
         </fieldset>
@@ -131,12 +131,12 @@
     }
 </style>
 <script>
-        function valideNumber() {
-            var charCode = (event.which) ? event.which : event.keyCode;
-            if (charCode >= 48 && charCode <= 57) {
-                return true;
-            } else {
-                return false;
-            }
+    function valideNumber() {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode >= 48 && charCode <= 57) {
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>

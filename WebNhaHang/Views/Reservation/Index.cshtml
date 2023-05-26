@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @using PagedList;
 @{
-    ViewBag.Title = "Danh sách đơn đặt bàn";
+    ViewBag.Title = "List of table orders";
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 }
 
@@ -152,7 +152,7 @@
                     @Html.TextBox("SearchString", "", new { @class = "searchInput", @type = "text", @placeholder = "Search" })
                     <button type="submit" class="searchButton" href="#">
                         <i class="material-icons">
-                            search
+                            Search
                         </i>
                     </button>
                 </div>
@@ -166,14 +166,14 @@
             <tr>
 
                 <th>Stt</th>
-                <th>Mã đặt bàn</th>
-                <th>Người đặt  </th>
+                <th>Reservation Code</th>
+                <th>Customer name </th>
                 <th>Email</th>
-                <th>Ngày hẹn</th>
-                <th>Giờ hẹn</th>
-                <th>Ngày tạo</th>
-                <th>Số người</th>
-                <th>Loại phòng</th>
+                <th>Date of appointment</th>
+                <th>Time of appointment</th>
+                <th>Date Created</th>
+                <th>Number of people</th>
+                <th>Room type</th>
 
 
 
@@ -211,7 +211,7 @@
             else
             {
                 <tr>
-                    <td colspan="8"> Không có thông tin</td>
+                    <td colspan="8"> No information</td>
                 </tr>
             }
         </tbody>

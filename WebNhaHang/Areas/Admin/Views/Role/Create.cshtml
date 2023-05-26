@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity.EntityFramework
 @model  IdentityRole
 @{
-    ViewBag.Title = "Thêm  quyền";
+    ViewBag.Title = "Add permissions";
 }
 
- 
+
 
 
 <!-- Content Header (Page header) -->
@@ -14,40 +14,40 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link"> ViewBag.Title</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
 
     </ul>
 }
 
-<!-- Main content -->
+<!-- Main childtent -->
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Thêm quyền</h3>
- 
+            <h3 class="card-title"> Add permissions</h3>
+
         </div>
         <div class="card-body">
-             @using (Html.BeginForm("Create", "Role",FormMethod.Post))
+            @using (Html.BeginForm("Create", "Role", FormMethod.Post))
             {
-                 @Html.ValidationSummary(false)
-                 @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false)
+                @Html.AntiForgeryToken()
 
-                 <div class="form-group">
-                     <label>Tên quyền</label>
-                      @Html.TextBoxFor(x=>x.Name,new {@class="form-control"})
-                 </div>
-                 <div class="form-group">
-                     <button type="submit" class="btn btn-success">Thêm mới </button>
-                 </div>
+                <div class="form-group">
+                    <label>Permission Name</label>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Add New </button>
+                </div>
             }
         </div>
         <!-- /.card-body -->
@@ -57,6 +57,5 @@
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
-
 </section>
 <!-- /.content -->

@@ -2,7 +2,7 @@
 @using PagedList;
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Danh sách đơn hàng";
+    ViewBag.Title = "List of candidates";
 }
 @section naviheader{
     <ul class="navbar-nav">
@@ -10,17 +10,16 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/recruitment" class="nav-link">Danh sách người ứng tuyển </a>
+            <a href="/admin/recruitment" class="nav-link">List of candidates </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
-
 <!-- Main content -->
 <section class="content">
 
@@ -46,16 +45,16 @@
                     <tr>
                         <th>#</th>
 
-                        <th>Họ tên</th>
+                        <th>Name</th>
                         <th>SDT</th>
                         <th>Email</th>
-                        <th>Địa chỉ</th>
+                        <th>Address</th>
 
 
-                        <th>Vị trí ứng tuyển</th>
-                        <th>kinh nghiệm</th>
-                        <th>Ngày tạo</th>
-                        @*<th>Trạng thái</th>*@
+                        <th>Position applying</th>
+                        <th>experience</th>
+                        <th>Date Created</th>
+                        @*<th>Status</th>*@
 
                         <th></th>
                     </tr>

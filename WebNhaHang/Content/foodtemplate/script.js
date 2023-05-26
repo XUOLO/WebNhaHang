@@ -3,7 +3,7 @@
 const menuBtns = document.querySelectorAll('.menu-btn');
 const foodItems = document.querySelectorAll('.food-item');
 
-let activeBtn = "mon-nuong";
+let activeBtn = "grilled-food";
 
 showFoodMenu(activeBtn);
 

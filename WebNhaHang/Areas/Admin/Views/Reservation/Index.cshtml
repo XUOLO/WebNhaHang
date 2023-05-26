@@ -2,7 +2,7 @@
 @using PagedList;
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Danh sách đơn hàng";
+    ViewBag.Title = "Booking List";
 }
 @section naviheader{
     <ul class="navbar-nav">
@@ -10,13 +10,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/reservation" class="nav-link">Danh sách đơn đặt bàn </a>
+            <a href="/admin/reservation" class="nav-link">List of reservations </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
@@ -27,7 +27,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách đơn đặt bàn</h3>
+            <h3 class="card-title">List of reservations</h3>
             <div style="text-align:right;">
                 @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
                 @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
@@ -35,7 +35,7 @@
                 @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
                 <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
             </div>
-           
+
         </div>
         <div class="card-body">
 
@@ -44,16 +44,16 @@
                     <tr>
                         <th>#</th>
 
-                        <th>Tên khách hàng</th>
+                        <th>Customer name</th>
                         <th>SDT</th>
                         <th>Email</th>
-                        <th>Ghi chú</th>
-                        <th>Thời gian </th>
+                        <th>Notes</th>
+                        <th>Time </th>
 
-                        <th>Loại bàn</th>
-                        <th>Số người</th>
-                        <th>Ngày tạo</th>
-                        <th>Trạng thái</th>
+                        <th>Table Type</th>
+                        <th>Number of people</th>
+                        <th>Date Created</th>
+                        <th>Status</th>
 
                         <th>Action</th>
                     </tr>
@@ -81,8 +81,7 @@
                         {
                             <td>
 
-
-                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Update</a>
 
                             </td>
                         }
@@ -91,7 +90,7 @@
                             <td>
 
 
-                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Cập nhật</a>
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.id">Update</a>
 
                             </td>
                         }
@@ -127,7 +126,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <h4 class="modal-title">Update status</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -135,20 +134,20 @@
             <div class="modal-body">
                 <input type="hidden" id="txtOrderId" value="0" />
                 <div class="form-group">
-                    <label>Trạng thái</label>
-                    <select class="form-control" id="ddTrangThai">
+                    <label>Status</label>
+                    <select class="form-control" id="ddPageThai">
                         <option value="1">
-                            Đã duyệt
+                            Approved
                         </option>
                         <option value="-1">
-                            Hủy đơn
+                            Cancellation
                         </option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary  " id="btnLuu">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary " id="btnLuu">Save</button>
             </div>
         </div>
         <!-- /.modal-content -->

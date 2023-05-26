@@ -1,7 +1,8 @@
-﻿@model List<WebNhaHang.Models.EF.Order>
-
+﻿@model PagedList.PagedList<WebNhaHang.Models.EF.Order>
+@using PagedList.Mvc;
+@using PagedList;
 @{
-    ViewBag.Title = "Thông tin đơn hàng";
+    ViewBag.Title = "Order information";
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 }
 
@@ -24,6 +25,126 @@
         .navbar-dark .navbar-brand img {
             margin-top: 105%;
         }
+ 
+
+
+
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            color: #212529;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+            .table td,
+            .table th {
+                padding: .75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+            }
+
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            .table tbody + tbody {
+                border-top: 2px solid #dee2e6;
+            }
+
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+                border: 1px solid #ddd;
+                margin: 0 4px;
+            }
+
+                .pagination a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                    border: 1px solid #4CAF50;
+                }
+
+                .pagination a:hover:not(.active) {
+                    background-color: #ddd;
+                }
+
+
+            .pagination .disabled {
+                color: gray;
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .pagination .dots {
+                padding: 8px 16px;
+            }
+
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            color: #212529;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+       
+
+        .table td,
+        .table th {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .table th {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+
+        /* Column headers */
+        .table th[colspan="2"] {
+            text-align: left;
+        }
+
+        .table th[colspan="3"] {
+            text-align: center;
+        }
+
+        .table th[colspan="4"] {
+            text-align: right;
+        }
+
+        /* Column content */
+
     </style>
     <div class="container" style="max-width:1440px">
         <div class="row" style="justify-content:center">
@@ -32,7 +153,7 @@
                     <div>
                         <a href="/home/thongtintaikhoan" class="active">
                             <i class="fas fa-tachometer-alt"></i>
-                            Thông tin tài khoản
+                            Account information
                         </a>
                     </div>
 
@@ -40,7 +161,7 @@
 
                         <a href="/home/order ">
                             <i class="fa fa-cart-arrow-down"></i>
-                            Món ăn đã đặt
+                            Ordered food
                         </a>
 
                     </div>
@@ -49,7 +170,7 @@
                     <div>
                         <a href="/Home/InfoReservation">
                             <i class="fa fa-user"></i>
-                            Quản lý đơn đặt bàn
+                            Manage table orders
                         </a>
                     </div>
 
@@ -66,21 +187,21 @@
                                 <div class="col-xl-5" style="max-width:100%;">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5 class="card-title mb-0" style="text-align:center"><b>Thông tin đơn món ăn </b></h5>
+                                            <h5 class="card-title mb-0" style="text-align:center"><b>Order food  information </b></h5>
                                         </div>
 
 
                                         <table border="1" class="table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên khách hàng</th>
+                                                    <th>Code</th>
+                                                    <th>Customer name</th>
                                                     <th>Email</th>
-                                                    <th>SĐT</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>Create day</th>
+                                                    <th>Total amount</th>
+                                                    <th>Status</th>
 
                                                 </tr>
                                             </thead>
@@ -96,32 +217,32 @@
                                                     {
                                                         if (user.Mail == email)
                                                         {
-                                                <tr>
-                                                    <td style="text-align:center;">@user.Code</td>
-                                                    <td style="text-align:center;">@user.CustomerName</td>
+                                                            <tr>
+                                                                <td style="text-align:center;">@user.Code</td>
+                                                                <td style="text-align:center;">@user.CustomerName</td>
 
 
-                                                    <td style="text-align:center;">@user.Mail</td>
-                                                    <td style="text-align:center;">@user.Phone</td>
-                                                    <td style="text-align:center;">@user.Address</td>
+                                                                <td style="text-align:center;">@user.Mail</td>
+                                                                <td style="text-align:center;">@user.Phone</td>
+                                                                <td style="text-align:center;">@user.Address</td>
 
-                                                    <td style="text-align:center;">@user.CreateDate.ToString("dd/MM/yyyy")</td>
-                                                    <td style="text-align:center;">@user.TotalAmount </td>
-                                                    @if (user.TypePayment.ToString() == "1")
-                                                    {
-                                                        <td style="text-align:center;">  Chờ xác nhận       <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Hủy đơn </div></a></td>
-                                                    }
-                                                    else if (user.TypePayment.ToString() == "2")
-                                                    {
-                                                        <td style="text-align:center;">  Đã xác nhận      <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Hủy đơn </div></a> </td>
+                                                                <td style="text-align:center;">@user.CreateDate.ToString("dd/MM/yyyy")</td>
+                                                                <td style="text-align:center;">@user.TotalAmount VND</td>
+                                                                @if (user.TypePayment.ToString() == "1")
+                                                                {
+                                                                    <td style="text-align:center;">   Waiting for confirmation       <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel order </div></a></td>
+                                                                }
+                                                                else if (user.TypePayment.ToString() == "2")
+                                                                {
+                                                                    <td style="text-align:center;">  Confirmed    <a href="@Url.Action("CheckNhanHang", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel order </div></a> </td>
 
-                                                    }
-                                                    else if (user.TypePayment.ToString() == "0")
-                                                    {
-                                                        <td style="text-align:center; color:red;">  Đã hủy    <a href="@Url.Action("CheckNhanHang", "Home", new { id =  user.Code, check = "000" })"> <div>Mua lại</div></a>  </td>
-                                                    }
+                                                                }
+                                                                else if (user.TypePayment.ToString() == "0")
+                                                                {
+                                                                    <td style="text-align:center; color:red;">  Canceled    <a href="@Url.Action("CheckNhanHang", "Home", new { id =  user.Code, check = "000" })"> <div>Buy again</div></a>  </td>
+                                                                }
 
-                                                </tr>
+                                                            </tr>
                                                             foundUser = true;
                                                         }
 
@@ -129,7 +250,7 @@
                                                     if (!foundUser)
                                                     {
                                                         <tr>
-                                                            <td colspan="10">Bạn chưa đặt món nào quay lại trang  <a href="/product/index"> thực đơn</a> để dặt món</td>
+                                                            <td colspan="10">You have not ordered anything yet go back to <a href="/product/index"> menu</a> to order</td>
                                                         </tr>
                                                     }
                                                 }
@@ -140,6 +261,12 @@
 
                                         </table>
 
+                                        <div class="row">
+                                            <div class="col-6"> </div>
+                                            <div class="col-6" style="text-align:right;">
+                                                @Html.PagedListPager(Model, page => Url.Action("Order", new { page }))
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -160,8 +287,7 @@
         </div>
     </div>
 
-
-
+    
 
 
 </section>

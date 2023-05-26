@@ -3,7 +3,7 @@
 
 @using PagedList.Mvc;
 @using PagedList;
-@{ViewBag.Title = "Danh sách sản phẩm";
+@{ViewBag.Title = "Product List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,13 +13,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/admin/Product" class="nav-link">@ViewBag.Title</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <script src="~/Content/assets/js/export.js"></script>
- 
+
 <script>
     function fnExcelReport(id, name) {
         var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
@@ -38,8 +38,6 @@
         tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
         tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
         tab_text = tab_text + "<table border='1px' style='color:black'>";
-
-
         var exportTable = $('#' + id).clone();
         exportTable.find('th').last().remove();
         exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
@@ -47,7 +45,7 @@
 
         tab_text = tab_text + exportTable.html();
         tab_text = tab_text + '</table></body></html>';
-        var fileName = "Danh sách sản phẩm" + '.xls';
+        var fileName = "Product List" + '.xls';
 
         //Save the file
         var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
@@ -59,11 +57,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý sản phẩm</h1>
+                <h1>Product Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/home">Homepage</a></li>
                     <li class="breadcrumb-item active">@ViewBag.Title</li>
                 </ol>
             </div>
@@ -84,9 +82,9 @@
                 @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
                 @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
                 @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
-                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })| 
-                <a href="/admin/Product/Add" class="btn btn-primary">Thêm mới</a>
-                <a href="3" class="btn btn-danger" id="BtnDeleteAll">Xóa</a>
+                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
+                <a href="/admin/Product/Add" class="btn btn-primary">Add New</a>
+                <a href="3" class="btn btn-danger" id="BtnDeleteAll">Delete</a>
                 <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
             </div>
 
@@ -99,15 +97,15 @@
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>Stt</th>
-                        <th>Hình ảnh</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Danh mục</th>
-                        <th>Số lượng</th>
-                        <th>Giá</th>
-                        <th>Ngày tạo</th>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Date Created</th>
                         <th>Home</th>
                         <th>Hot</th>
-                        <th class="text-center">Hiển thị</th>
+                        <th class="text-center">Display</th>
 
                         <th style="width:150px;"></th>
 
@@ -144,9 +142,9 @@
                                     <a hreff='#' data-id="@item.id" class="btnActive">@Html.Raw(strCheck)</a>
                                 </td>
                                 <td>
-                                    <a href="/admin/Product/Edit/@item.id" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="/admin/Product/Edit/@item.id" class="btn btn-sm btn-primary">Edit</a>
 
-                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
                             i++;
@@ -155,7 +153,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="4"> Không có bản ghi nào</td>
+                            <td colspan="4"> No records</td>
                         </tr>
                     }
                 </tbody>
@@ -185,8 +183,8 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
 
-     
- 
+
+
         function fnExcelReport(id, name) {
             var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
             tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
@@ -203,13 +201,13 @@
 
             tab_text = tab_text + exportTable.html();
             tab_text = tab_text + '</table></body></html>';
-            var fileName = "Danh sách món ăn" + '.xls';
+            var fileName = "List of dishes" + '.xls';
 
             //Save the file
             var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
             window.saveAs(blob, fileName);
         }
- 
+
         $(document).ready(function () {
 
             //hiển thị form load ảnh
@@ -221,7 +219,7 @@
                 height: '600',
                 width: '1000',
                 resizable: true,
-                title: 'Quản lý ảnh sản phẩm',
+                title: 'Manage product photos',
                 close: function () {
                     window.location.reload();
                 }
@@ -235,7 +233,7 @@
             $('body').on('click', '#BtnDeleteAll', function (e) {
                 e.preventDefault();
                 var str = "";
-                debugger;
+
                 var checkbox = $(this).parents('.card').find('tr td input:checkbox');
                 var i = 0;
                 checkbox.each(function () {
@@ -257,7 +255,7 @@
                 });
 
                 if (str.length > 0) {
-                    var conf = confirm('Bạn có muốn xóa hết không?');
+                    var conf = confirm('Do you want to delete them all?');
                     if (conf === true) {
                         $.ajax({
                             url: '/admin/Product/deleteAll',
@@ -286,7 +284,7 @@
             });
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
-                var conf = confirm('Bạn có muốn xóa ?');
+                var conf = confirm('Do you want to delete ?');
                 if (conf === true) {
                     $.ajax({
                         url: '/admin/Product/delete',

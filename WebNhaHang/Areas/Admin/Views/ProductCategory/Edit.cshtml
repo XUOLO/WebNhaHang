@@ -1,6 +1,6 @@
 ﻿@model WebNhaHang.Models.EF.ProductCategory
 @{
-    ViewBag.Title = "Cập nhật danh mục sản phẩm";
+    ViewBag.Title = "Update product catalog";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,41 +10,38 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">Trang chủ</a>
+            <a href="/admin" class="nav-link">Homepage</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/ProductCategory" class="nav-link">danh mục sản phẩm</a>
+            <a href="/admin/ProductCategory" class="nav-link">product catalog</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
-    </ul>
-}
-
+    </ul>}
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Thêm mới danh mục sản phẩm</h1>
+                <h1>Add new product list</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">danh mục sản phẩm</a></li>
-                    <li class="breadcrumb-item active">Cập nhật</li>
+                    <li class="breadcrumb-item"><a href="#">product catalog</a></li>
+                    <li class="breadcrumb-item active">Update</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Thông tin Cập nhật danh mục sản phẩm</h3>
+            <h3 class="card-title">Product catalog updates</h3>
 
         </div>
         <div class="card-body">
@@ -57,50 +54,50 @@
                         @Html.ValidationSummary(true)
                         @Html.HiddenFor(x => x.id)
                         <!-- your steps content here -->
-                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tiêu đề  </label>
-                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Tiêu đề" })
-                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
-                        </div>
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tiêu đề  </label>
+                                @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Tiêu đề" })
+                                @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                            </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Alias</label>
-                            @Html.TextAreaFor(x => x.Alias, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">Ảnh đại diện</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    @Html.TextBoxFor(x => x.Icon, new { @id = "txtImage", @class = "form-control" })
-                                </div>
-                                <div class="input-group-append">
-                                    <input type="button" value="Tải ảnh " onclick="BrowserSever('txtImage');" />
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Alias</label>
+                                @Html.TextAreaFor(x => x.Alias, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Ảnh đại diện</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        @Html.TextBoxFor(x => x.Icon, new { @id = "txtImage", @class = "form-control" })
+                                    </div>
+                                    <div class="input-group-append">
+                                        <input type="button" value="Tải ảnh " onclick="BrowserSever('txtImage');" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Seo title</label>
-                            @Html.TextAreaFor(x => x.SeoTitle, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">SeoDescription</label>
-                            @Html.TextAreaFor(x => x.SeoDescription, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Seo Keywords</label>
-                            @Html.TextAreaFor(x => x.SeoKeywords, new { @class = "form-control" })
-                        </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Seo title</label>
+                                @Html.TextAreaFor(x => x.SeoTitle, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">SeoDescription</label>
+                                @Html.TextAreaFor(x => x.SeoDescription, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Seo Keywords</label>
+                                @Html.TextAreaFor(x => x.SeoKeywords, new { @class = "form-control" })
+                            </div>
 
-                        <div class="form-group">
-                            <a href="/admin/ProductCategory" class="btn btn-danger">Quay Lại</a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                            <div class="form-group">
+                                 <a href="/admin/ProductCategory" class="btn btn-danger">Back</a>
+                                 <button type="submit" class="btn btn-primary">Submit</button>
+                             </div>
 
-                    </div>
+                         </div>
 
-                    }
+                     }
 
                 </div>
             }

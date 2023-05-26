@@ -43,13 +43,13 @@
         transition: all 0.3s ease;
     }
 
-        .btn:hover {
-            background-color: #0062cc;
-        }
+    .btn:hover {
+        background-color: #0062cc;
+    }
 </style>
 
 
 
-<h1 class="h">Thanh toán không thành công</h1> <p>Xin lỗi, bạn không thể thanh toán đơn hàng này vì sản phẩm <span style="color:red;">@TempData["ProductName"]</span>. không đủ số lượng.</p> <p>Vui lòng quay lại giỏ hàng và chỉnh sửa số lượng hoặc xóa sản phẩm khỏi giỏ hàng.</p> <p>Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi.</p>
+<h1 class="h">Payment failed</h1> <p>Sorry, you cannot pay for this order because of product <span style="color:red;">@TempData["ProductName "]</span>. The quantity is not enough.</p> <p>Please return to the cart and edit the quantity or remove the product from the cart.</p> <p>Thank you for shopping in our store. .</p>
 
-<a href="@Url.Action("Index", "ShoppingCart")" class="btnn btn-primary">Quay lại giỏ hàng</a>
+<a href="@Url.Action("Index", "ShoppingCart")" class="btnn btn-primary">Back to cart</a>

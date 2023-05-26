@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebNhaHang.Models;
 using WebNhaHang.Models.EF;
 
@@ -26,42 +30,42 @@ namespace WebNhaHang.Controllers
         }
         //GET: Register
 
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
         //POST: Register
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(User _user)
-        {
-            Session["thongbao_register"] = "";
-            string thongbao = "";
-            if (ModelState.IsValid)
-            {
-                var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
-                if (check == null)
-                {
-                    _user.Password = GetMD5(_user.Password);
-                    db.Configuration.ValidateOnSaveEnabled = false;
-                    db.Userss.Add(_user);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                   thongbao = "Email already exists";
-                    return RedirectToAction("Login");
-                }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Register(User _user)
+        //{
+        //    Session["thongbao_register"] = "";
+        //    string thongbao = "";
+        //    if (ModelState.IsValid)
+        //    {
+        //        var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
+        //        if (check == null)
+        //        {
+        //            _user.Password = GetMD5(_user.Password);
+        //            db.Configuration.ValidateOnSaveEnabled = false;
+        //            db.Userss.Add(_user);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //           thongbao = "Email already exists";
+        //            return RedirectToAction("Login");
+        //        }
 
 
-            }
-            TempData["thongbao_register"] = thongbao;
-            return RedirectToAction("Index");
+        //    }
+        //    TempData["thongbao_register"] = thongbao;
+        //    return RedirectToAction("Index");
 
 
-        }
+        //}
 
         public ActionResult Login()
         {
@@ -89,18 +93,21 @@ namespace WebNhaHang.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
                 var f_password = GetMD5(password);
-                var data = db.Userss.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
-                if (data.Count() > 0)
+                var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email) && s.Password.Equals(f_password));
+                if (user != null)
                 {
+                    if (user.IsEmailVerified == false)
+                    {
+                        ViewBag.error = "Your email has not been verified yet. Please check your email.";
+                        return RedirectToAction("Login");
+                    }
+
                     //add session
-                    Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
-                    Session["Email"] = data.FirstOrDefault().Email;
-                    Session["idUser"] = data.FirstOrDefault().idUser;
-               
-              
+                    Session["FullName"] = user.FirstName + " " + user.LastName;
+                    Session["Email"] = user.Email;
+                    Session["idUser"] = user.idUser;
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -250,5 +257,154 @@ namespace WebNhaHang.Controllers
             }
 
         }
+
+
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+  
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(User _user)
+        {
+            Session["thongbao_register"] = "";
+            string thongbao = "";
+            if (ModelState.IsValid)
+            {
+                var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
+                if (check == null)
+                {
+                    _user.IsEmailVerified = false;
+                    _user.ActivationCode = Guid.NewGuid();
+
+                    // Add user to database
+                    
+                     
+
+                    // Send email verification
+                    SendVerificationEmail(_user);
+
+                    ViewBag.SuccessMessage = "Registration successful. Please check your email to confirm.";
+                    
+
+
+                    _user.Password = GetMD5(_user.Password);
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.Userss.Add(_user);
+                     await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    thongbao = "Email already exists";
+                    return RedirectToAction("Login");
+                }
+
+
+            }
+            TempData["thongbao_register"] = thongbao;
+            return RedirectToAction("Index");
+
+
+        }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Register(User modelUser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        modelUser.IsEmailVerified = false;
+        //        modelUser.ActivationCode = Guid.NewGuid();
+
+        //        // Add user to database
+        //        db.Userss.Add(modelUser);
+        //        await db.SaveChangesAsync();
+
+        //        // Send email verification
+        //        SendVerificationEmail(modelUser);
+
+        //        ViewBag.SuccessMessage = "Registration successful. Please check your email to confirm.";
+        //        return View("Success");
+        //    }
+
+        //    return View(modelUser);
+        //}
+
+        private void SendVerificationEmail(User modelUser)
+        {
+            var verifyUrl = "/Home/VerifyEmail/" + modelUser.ActivationCode.ToString();
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("xuanloc290901@gmail.com", "loc");
+            var toEmail = new MailAddress(modelUser.Email);
+            var fromEmailPassword = "anvawekvdmnwjcwh";
+
+            string subject = "Your account is successfully created";
+
+            string body = "<br/><br/>We are excited to tell you that your account is successfully created. Please click on the below link to verify your account" +
+                            "<br/><br/><a href='" + link + "'>" + link + "</a>";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+
+
+
+        public ActionResult VerifyEmail(string id)
+        {
+            try
+            {
+                bool IsVerified = false;
+                db.Configuration.ValidateOnSaveEnabled = false; // This line avoids validation of entity at SaveChanges
+                var user = db.Userss.Where(u => u.ActivationCode == new Guid(id)).FirstOrDefault();
+                if (user != null)
+                {
+                    user.IsEmailVerified = true;
+                    db.SaveChanges();
+                    IsVerified = true;
+                }
+
+                if (IsVerified)
+                {
+                    TempData["SuccessMessage"] = "Your email address has been verified successfully.";
+                    return RedirectToAction("Login", "Home");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Invalid verification code. Please try again.";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Message: " + e.Message);
+                Console.WriteLine("Inner Exception: " + e.InnerException?.Message);
+                Console.WriteLine("StackTrace: " + e.StackTrace);
+                throw;
+            }
+        }
+
+
     }
 }

@@ -60,21 +60,21 @@ namespace WebNhaHang.Controllers
         public ActionResult Create()
         {
             List<SelectListItem> rooms = new List<SelectListItem>();
-            rooms.Add(new SelectListItem() { Text = "Bàn", Value = "Bàn" });
-            rooms.Add(new SelectListItem() { Text = "Bàn đơn", Value = "Bàn đơn" });
-            rooms.Add(new SelectListItem() { Text = "Bàn đôi", Value = "Bàn đôi" });
-            rooms.Add(new SelectListItem() { Text = "Bàn 6 người", Value = "Bàn 6 người" });
-            rooms.Add(new SelectListItem() { Text = "Bàn dài", Value = "Dàn dài" });
-           
+            rooms.Add(new SelectListItem() { Text = "Table", Value = "Table" });
+            rooms.Add(new SelectListItem() { Text = "Single Table", Value = "Single Table" });
+            rooms.Add(new SelectListItem() { Text = "Double Table", Value = "Double Table" });
+            rooms.Add(new SelectListItem() { Text = "Table for 6", Value = "Table for 6" });
+            rooms.Add(new SelectListItem() { Text = "Long Table", Value = "Long Table" });
+
             ViewBag.Rooms = rooms;
             List<SelectListItem> peoples = new List<SelectListItem>();
-            peoples.Add(new SelectListItem() { Text = "Người", Value = "0" });
-            peoples.Add(new SelectListItem() { Text = "1 Người", Value = "1" });
-            peoples.Add(new SelectListItem() { Text = "2 Người", Value = "2" });
-            peoples.Add(new SelectListItem() { Text = "3 Người", Value = "3" });
-            peoples.Add(new SelectListItem() { Text = "4 Người", Value = "4" });
-            peoples.Add(new SelectListItem() { Text = "5 Người", Value = "5" });
-            peoples.Add(new SelectListItem() { Text = "6 Người", Value = "6" });
+            peoples.Add(new SelectListItem() { Text = "Person", Value = "0" });
+            peoples.Add(new SelectListItem() { Text = "1 Person", Value = "1" });
+            peoples.Add(new SelectListItem() { Text = "2 People", Value = "2" });
+            peoples.Add(new SelectListItem() { Text = "3 People", Value = "3" });
+            peoples.Add(new SelectListItem() { Text = "4 People", Value = "4" });
+            peoples.Add(new SelectListItem() { Text = "5 People", Value = "5" });
+            peoples.Add(new SelectListItem() { Text = "6 People", Value = "6" });
             peoples.Add(new SelectListItem() { Text = "More", Value = "12" });
             ViewBag.Peoples = peoples;
 
@@ -118,22 +118,21 @@ namespace WebNhaHang.Controllers
             contentCustomer = contentCustomer.Replace("{{SoNguoi}}", course.NumberOfPeople);
             contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
             contentCustomer = contentCustomer.Replace("{{ThoiGian}}", course.DateTime.ToString());
-             
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã đặt bàn #" + course.Code, contentCustomer.ToString(), course.Email);
+            WebNhaHang.Common.Common.SendMail("XuoLo BBQ Restaurant", "Table Reservation Code #" + course.Code, contentCustomer.ToString(), course.Email);
 
             //gui admin
             string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send4.html"));
             contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", course.Name);
-            contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+            contentAdmin = contentAdmin.Replace("{{RightDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
             contentAdmin = contentAdmin.Replace("{{MaDon}}", course.Code);
             contentAdmin = contentAdmin.Replace("{{Phone}}", course.Phone);
             contentAdmin = contentAdmin.Replace("{{Email}}", course.Email);
-            contentAdmin = contentAdmin.Replace("{{GhiChu}}", course.Note);
+            contentAdmin = contentAdmin.Replace("{{Recording}}", course.Note);
             contentAdmin = contentAdmin.Replace("{{Phong}}", course.Room);
             contentAdmin = contentAdmin.Replace("{{SoNguoi}}", course.NumberOfPeople);
-            contentAdmin = contentAdmin.Replace("{{ThoiGian}}", course.DateTime.ToString());
-            WebNhaHang.Common.Common.SendMail("Nhà hàng BBQ XuoLo", "Mã đặt bàn #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
-           
+            contentAdmin = contentAdmin.Replace("{{Times}}", course.DateTime.ToString());
+            WebNhaHang.Common.Common.SendMail("XuoLo BBQ Restaurant", "Table Reservation Code #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+
             return RedirectToAction("CheckOut_Success");  
      
        

@@ -10,7 +10,7 @@
 <link href="~/Asset/css/stylerestaurant.css" rel="stylesheet" />
 @if (Model != null && Model.Any())
 {
-    <h3>GIỎ HÀNG<span style="float:right;"><small>SL:@Model.Count()</small> </span></h3>
+    <h3>Cart <span style="float:right;"><small>SL:@Model.Count()</small> </span></h3>
  
     var tongtien = decimal.Zero;
     <div style="border:1px solid#808080;">
@@ -20,13 +20,13 @@
                 tongtien += item.TotalPrice;
                 <tr>
                     <td>@item.ProductName</td>
-                    <td>@Common.FormatNumber(item.Price, 0)</td>
+                    <td>@Common.FormatNumber(item.Price, 0) VND</td>
                 </tr>
 
             }
             <tr>
                 <td>Tổng tiền</td>
-                <td>@Common.FormatNumber(tongtien, 0)</td>
+                <td>@Common.FormatNumber(tongtien, 0) VND</td>
             </tr>
 
 

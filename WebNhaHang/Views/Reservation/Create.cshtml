@@ -30,27 +30,27 @@
     <h1> Restaurant Reservation Form</h1>
     <div class="bg-agile">
         <div class="booking-suggestion text">
-            <h3>Gợi ý đặt bàn</h3>
+            <h3>Suggestions to book a table</h3>
             <ul>
-                <li>Đi 1 người: đặt bàn đơn</li>
-                <li>Đi 2 người: đặt bàn đôi</li>
-                <li>Đi nhóm 4-6 người: đặt bàn 6 người.</li>
-                <li>Đi nhóm 6-12 người: đặt bàn dài</li>
-                <li>Đi nhóm &gt;12 người: gọi trực tiếp Hotline: 0906303905</li>
-            </ul>
+                <li>One person: book a single table</li>
+                <li>Going 2 people: book a double table</li>
+                <li>For groups of 4-6 people: book a table for 6 people.</li>
+                <li>Going in a group of 6-12 people: book a long table</li>
+                <li>Go in a group over 12 people: call directly Hotline: 0906303905</li>
+            </ul>   
         </div>
         <div class="book-reservation">
             @using (Html.BeginForm(Model.Action, "Reservation"))
             {
                 @Html.AntiForgeryToken()
                 <div class="form-date-w3-agileits">
-                    @Html.LabelFor(m => m.Name, new { @class = "fa fa-user", @value = "Tên" })
+                    @Html.LabelFor(m => m.Name, new { @class = "fa fa-user", @value = "" })
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "" })
                     @Html.ValidationMessageFor(m => m.Name)
                 </div>
                 <div class="form-date-w3-agileits">
                     @Html.LabelFor(m => m.Phone, new { @class = "fa fa-phone" })
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Nhập đúng số điện thoại" })
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @required = "", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Enter the correct phone number" })
                     @Html.ValidationMessageFor(m => m.Phone)
                 </div>
                 <div class="form-date-w3-agileits">
@@ -74,24 +74,24 @@
                     @Html.ValidationMessageFor(m => m.Time)
                 </div>
                 <div class="form-left-agileits-w3layouts bottom-w3ls">
-                    <label><i class="fa fa-home" aria-hidden="true"></i> Loại bàn :</label>
+                    <label><i class="fa fa-home" aria-hidden="true"></i> Table type :</label>
                     @Html.DropDownListFor(m => m.Room, new SelectList(ViewBag.Rooms, "Value", "Text"), new { @class = "form-control" })
                 </div>
                 <div class="form-left-agileits-w3layouts">
                     <label>
-                        <i class="fa fa-users" aria-hidden="true"></i> Số người :
+                        <i class="fa fa-users" aria-hidden="true"></i> Number of people :
                     </label>
                     @Html.DropDownListFor(m => m.NumberOfPeople, new SelectList(ViewBag.Peoples, "Value", "Text"), new { @class = "form-control" })
                 </div>
 
 
-                @Html.HiddenFor(x => x.Status, new { @class = "",@name="Status",@value="1" })
+                @Html.HiddenFor(x => x.Status, new { @class = "", @name = "Status", @value = "1" })
 
 
                 <div class="clear"></div>
                 <div class="make">
                     <input type="submit" value="Make a Reservation">
-                    <button onclick="window.history.back();">Quay lại</button>
+                    <button onclick="window.history.back();">Back</button>
                 </div>
             }
         </div>

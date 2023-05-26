@@ -19,7 +19,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
         public ActionResult Index(int? page)
         {
             IEnumerable<Product> items = db.Products.OrderByDescending(x=>x.id);
-            var pageSize = 2;
+            var pageSize = 10;
             if (page == null)
             {
                 page = 1;

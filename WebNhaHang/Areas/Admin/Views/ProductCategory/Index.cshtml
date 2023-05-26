@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @using PagedList;
 @{
-    ViewBag.Title = "Danh sách danh mục";
+    ViewBag.Title = "Category List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,13 +12,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/admin/productcategory" class="nav-link">@ViewBag.Title</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
@@ -31,19 +31,17 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý danh mục</h1>
+                <h1>Manage Categories</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/home">Homepage</a></li>
                     <li class="breadcrumb-item active">@ViewBag.Title</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
-
 <!-- Main content -->
 <section class="content">
 
@@ -53,8 +51,8 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/productcategory/Add" class="btn btn-primary">Thêm mới</a>
-                <a href="3" class="btn btn-danger" id="BtnDeleteAll">Xóa</a>
+                <a href="/admin/productcategory/Add" class="btn btn-primary">Add New</a>
+                <a href="3" class="btn btn-danger" id="BtnDeleteAll">Delete</a>
             </div>
         </div>
         <div class="card-body">
@@ -233,7 +231,7 @@
                             </div>
 
                         </div>
-                       
+
 
                     }
 
@@ -244,11 +242,11 @@
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>Stt</th>
-                        <th>Hình ảnh</th>
-                        <th>Tiêu đề  </th>
-                        <th>Ngày tạo</th>
+                        <th>Image</th>
+                        <th>Title </th>
+                        <th>Date Created</th>
 
-                        <th class="text-center">Hiển thị</th>
+                        <th class="text-center">Display</th>
 
                         <th style="width:150px;"></th>
 
@@ -318,7 +316,7 @@
             $('body').on('click', '#BtnDeleteAll', function (e) {
                 e.preventDefault();
                 var str = "";
-                debugger;
+
                 var checkbox = $(this).parents('.card').find('tr td input:checkbox');
                 var i = 0;
                 checkbox.each(function () {
@@ -338,9 +336,8 @@
 
 
                 });
-
                 if (str.length > 0) {
-                    var conf = confirm('Bạn có muốn xóa hết không?');
+                    var conf = confirm('Do you want to delete them all?');
                     if (conf === true) {
                         $.ajax({
                             url: '/admin/productcategory/deleteAll',
@@ -369,7 +366,7 @@
             });
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
-                var conf = confirm('Bạn có muốn xóa ?');
+                var conf = confirm('Do you want to delete ?');
                 if (conf === true) {
                     $.ajax({
                         url: '/admin/productcategory/delete',

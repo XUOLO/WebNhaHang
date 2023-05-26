@@ -32,7 +32,7 @@
                 <div class="breadcrumbs d-flex flex-row align-items-center">
                     <ul>
                         <li><a href="/home/index">Home</a></li>
-                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Cart</a></li>
                     </ul>
                 </div>
 
@@ -43,10 +43,9 @@
                     {<!-- Main Content -->
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <h1>Thanh Toán</h1>
-                                <p>Bạn hãy kiểm tra lại thông tin đơn hàng</p>
+                                <h1>Payment</h1>
+                                <p>Please check your order information</p>
                             </div>
-
                         </div>
                         <hr />
 
@@ -70,7 +69,7 @@
                     else
                     {
                         <div>
-                            Bạn chưa đăng nhập.Vui lòng <a href="/home/login">đăng nhập</a> để đặt món.
+                            You are not logged in. Please <a href="/home/login">login</a> to order.
                         </div>
                     }
 
@@ -78,7 +77,7 @@
                 else
                 {
                     <div>
-                        Bạn chưa có món nào.Quay lại trang <a href="/san-pham">thực đơn </a> để chọn món.
+                        You don't have any dishes yet. Return to <a href="/san-pham">menu </a> page to choose an item.
                     </div>
                 }
 
@@ -94,7 +93,7 @@
     <script>
         function Ònailure(rs) {
             if (!rs.Success) {
-                $('#show_success').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
+                $('#show_success').html("Your purchase failed! Please try again");
             }
         }
         $(document).ready(function () {
@@ -115,10 +114,10 @@
                     }
                 },
                 messages: {
-                    'CustomerName': 'Bạn khổng để trống trường này',
-                    'Phone': 'Bạn khổng để trống trường này',
-                    'Address': 'Bạn khổng để trống trường này',
-                    'Email': 'Email chưa hợp lệ'
+                    'CustomerName': 'You cannot leave this field blank',
+                    'Phone': 'You cannot leave this field blank',
+                    'Address': 'You cannot leave this field blank',
+                    'Email': 'Email is not valid'
                 }
             });
         });

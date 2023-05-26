@@ -22,7 +22,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
 
             }
             var pageNumber = page ?? 1;
-            var pageSize = 2;
+            var pageSize = 10;
             ViewBag.Page = pageNumber;
             ViewBag.PageSize = pageSize;
             return View(items.ToPagedList(pageNumber, pageSize));

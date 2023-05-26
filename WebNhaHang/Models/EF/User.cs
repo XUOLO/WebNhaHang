@@ -41,5 +41,8 @@ namespace WebNhaHang.Models.EF
         {
             return this.FirstName + " " + this.LastName;
         }
+
+        public bool IsEmailVerified { get; set; }
+        public Guid ActivationCode { get; set; } = Guid.NewGuid();
     }
 }
