@@ -483,6 +483,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\EF\ReservationViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\resetpassviewModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ValidTime.cs" />
     <Compile Include="ProductDataSet.Designer.cs">
@@ -3725,6 +3726,8 @@
     <Content Include="Content\Template\send2.html" />
     <Content Include="Content\Template\send5.html" />
     <Content Include="Content\Template\send6.html" />
+    <Content Include="Content\Template\sendcf.html" />
+    <Content Include="Content\Template\sendrs.html" />
     <Content Include="Content\Template\send7.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -4048,8 +4051,9 @@
     <Content Include="Views\Home\ConfirmEmailPage.cshtml" />
     <Content Include="Views\Home\ConfirmEmailSuccess.cshtml" />
     <Content Include="Views\Home\ConfirmEmailFailed.cshtml" />
-    <Content Include="Views\Home\ResetPasswordUser.cshtml" />
     <Content Include="Views\Order\index.cshtml" />
+    <Content Include="Views\Home\loginurl.cshtml" />
+    <Content Include="Views\Home\RsPasswordUser.cshtml" />
     <None Include="_WebNhaHang_20230414061241DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_WebNhaHang_20230414061241DataSet.Designer.cs</LastGenOutput>

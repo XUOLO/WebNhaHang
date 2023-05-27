@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebNhaHang.Models;
 using WebNhaHang.Models.EF;
+using Facebook;
 
 namespace WebNhaHang.Controllers
 {
@@ -24,12 +25,18 @@ namespace WebNhaHang.Controllers
         // GET: Home
         public ActionResult Index()
         {
+             
             return View();
         }
+
+  
         public ActionResult About()
         {
             return View();
         }
+
+
+
         //GET: Register
 
         //public ActionResult Register()
@@ -224,12 +231,51 @@ namespace WebNhaHang.Controllers
 
         }
 
+
+
+        public ActionResult FacebookRedirect(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Get("/oauth/access_token", new
+            {
+                client_id = "596973132440118",
+                client_scret = "f2510918c6235351e7eb47ff808c9c63",
+                redirect_uri = "https://localhost:44339/Home/FacebookRedirect",
+                code = code
+            });
+            fb.AccessToken = result.access_token;
+            dynamic me = fb.Get("/me?fields=name,email");
+            string name = me.name;
+            string email = me.email;
+            return RedirectToAction("loginurl");
+        }
+    [HttpPost]
+        public ActionResult loginurl()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = "596973132440118",
+                redirect_url = "https://localhost:44339/Home/FacebookRedirect",
+                scope = "public_profile,email"
+            });
+
+            ViewBag.loginUrl = loginUrl;
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
+
+
+           
             if (ModelState.IsValid)
-            {
+            { 
+                 
+
+
                 var f_password = GetMD5(password);
                 var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email) && s.Password.Equals(f_password));
                 if (user != null)
@@ -256,6 +302,10 @@ namespace WebNhaHang.Controllers
             return View();
         }
 
+        public ActionResult ConfirmEmailPage()
+        {
+            return View();
+        }
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -291,7 +341,7 @@ namespace WebNhaHang.Controllers
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Userss.Add(_user);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ConfirmEmailPage");
                 }
                 else
                 {
@@ -308,42 +358,11 @@ namespace WebNhaHang.Controllers
         }
 
 
-        private void SendVerificationEmail(User modelUser)
+     
+        public ActionResult ConfirmEmailSuccess()
         {
-            var verifyUrl = "/Home/VerifyEmail/" + modelUser.ActivationCode.ToString();
-            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-
-            var fromEmail = new MailAddress("xuanloc290901@gmail.com", "loc");
-            var toEmail = new MailAddress(modelUser.Email);
-            var fromEmailPassword = "anvawekvdmnwjcwh";
-
-            string subject = "Your account is successfully created";
-
-            string body = "<br/><br/>We are excited to tell you that your account is successfully created. Please click on the below link to verify your account" +
-                            "<br/><br/><a href='" + link + "'>" + link + "</a>";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
-            {
-                smtp.Send(message);
-            }
+            return View();
         }
-
-
 
         public ActionResult VerifyEmail(string id)
         {
@@ -386,54 +405,96 @@ namespace WebNhaHang.Controllers
         {
             return View();
         }
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-         
-        public async Task<ActionResult> ResetPasswordUser(string email)
+        public ActionResult RsPasswordUser()
         {
-            // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu hay không
-            var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email));
-            if (user == null)
-            {
-                ViewBag.error = "Email does not exist.";
-                return View();
-            }
-
- 
-            // Tạo mật khẩu mới
-            var newPassword = GenerateRandomPassword();
-
-                // Lưu mật khẩu mới vào cơ sở dữ liệu
-                user.Password = GetMD5(newPassword);
-         
-            db.Configuration.ValidateOnSaveEnabled = false;
            
-
-                await  db.SaveChangesAsync();
-
-                // Gửi email chứa mật khẩu mới
-                SendPasswordResetEmail(user, newPassword);
-
-                ViewBag.SuccessMessage = "Your password has been reset. Please check your email for the new password.";
             return View();
-
         }
-
-        private void SendPasswordResetEmail(User user, string newPassword)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RsPasswordUser( string email )
         {
-            var verifyUrl = "/Home/VerifyEmail/" + user.ActivationCode.ToString();
+            if (ModelState.IsValid)
+            {
+                var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email));
+                if (user == null)
+                {
+                    ViewBag.error = "Email does not exist.";
+                    return View();
+                }
+                ViewBag.SuccessMessage = "Your password has been reset. Please check your email for the new password.";
+                var newPassword = GenerateRandomPassword();
+                user.Password = GetMD5(newPassword);
+
+                string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("/Content/template/sendrs.html"));
+              
+                 
+                contentCustomer = contentCustomer.Replace("{{newpass}}", newPassword);
+              
+                WebNhaHang.Common.Common.SendMail("BBQ Restaurant XuoLo", "New Password", contentCustomer.ToString(), user.Email);
+                db.Configuration.ValidateOnSaveEnabled = false;
+
+
+                await db.SaveChangesAsync();
+
+
+
+
+               
+
+            } return View();
+        }
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public async Task<ActionResult> ResetPasswordUser(string email)
+        //{
+        //    // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu hay không
+        //    var user = db.Userss.FirstOrDefault(s => s.Email.Equals(email));
+        //    if (user == null)
+        //    {
+        //        ViewBag.error = "Email does not exist.";
+        //        return View();
+        //    }
+        //    var newPassword = GenerateRandomPassword();
+
+        //    user.Password = GetMD5(newPassword);
+        //    // Send email verification
+        //    SendPasswordResetEmail(user, newPassword);
+
+        //    ViewBag.SuccessMessage = "Your password has been reset. Please check your email for the new password.";
+
+
+
+
+         
+
+        //    // Lưu mật khẩu mới vào cơ sở dữ liệu
+            
+
+        //    db.Configuration.ValidateOnSaveEnabled = false;
+
+
+        //    await db.SaveChangesAsync();
+
+
+          
+                
+        //    return View();
+
+        //}
+        private void SendVerificationEmail(User modelUser)
+        {
+            var verifyUrl = "/Home/VerifyEmail/" + modelUser.ActivationCode.ToString();
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("xuanloc290901@gmail.com", "loc");
-            var toEmail = new MailAddress(user.Email);
+            var fromEmail = new MailAddress("xuanloc290901@gmail.com", "BBQ Restaurant XuoLo");
+            var toEmail = new MailAddress(modelUser.Email);
             var fromEmailPassword = "anvawekvdmnwjcwh";
 
-            string subject = "Your password has been reset";
+            string subject = "Your account is successfully created";
 
-            string body = "<p>Hello   ,</p>" +
-                             "<p>Your password has been reset successfully. Your new password is: <strong>" + newPassword + "</strong></p>" +
-                             "<p>Please use this password to log in to your account and then change your password for security reasons.</p>" +
-                             "<br/><br/><a href='" + link + "'>" + link + "</a>";
+            string body = "<br/><br/>We are excited to tell you that your account is successfully created. Please click on the below link to verify your account" +
+                            "<br/><br/><a href='" + link + "'>" + link + "</a>";
 
             var smtp = new SmtpClient
             {
@@ -455,6 +516,45 @@ namespace WebNhaHang.Controllers
                 smtp.Send(message);
             }
         }
+
+        private void SendPasswordResetEmail(User user, string newPassword)
+        {
+            var verifyUrl = "/Home/login/";
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("final0167@gmail.com", "BBQ Restaurant XuoLo");
+            var toEmail = new MailAddress(user.Email);
+            var fromEmailPassword = "fczprexnbisgxzpg";
+
+            string subject = "Your password has been reset";
+
+            string body = "<p>Hello,"  + user.FirstName + "" + user.LastName +"</p>"+
+                             "<p>Your password has been reset successfully. Your new password is: <strong>" + newPassword + "</strong></p>" +
+                             "<p>Please use this password to log in to your account and then change your password for security reasons.</p>" +
+                             "<br/><br/><a href=''> Login </a>";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false, // set this to false before assigning credentials
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                smtp.Send(message);
+            }
+
+        }
+
 
         private string GenerateRandomPassword()
         {
