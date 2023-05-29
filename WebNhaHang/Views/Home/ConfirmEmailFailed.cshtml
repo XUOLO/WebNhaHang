@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Confirm Email Failed";
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
 }
 
 <h2>Sorry, Your Email Address Could Not Be Confirmed</h2>
-
+<p>@TempData["thongbao_login"]</p>
 <p>We couldn't confirm your email address. Please check the confirmation link and try again.</p>

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebNhaHang.Models.ApplicationUser>
 @{
-    ViewBag.Title = "Quản  lý tài khoản";
+    ViewBag.Title = "Account Management";
 }
 
 
@@ -11,13 +11,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/admin" class="nav-link">ViewBag.Title </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
 
     </ul>
@@ -29,10 +29,10 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Danh sách tài khoản</h3>
+            <h3 class="card-title"> List of accounts</h3>
 
             <div class="card-tools">
-                <a href="/admin/account/create" class="btn btn-success">Thêm mới</a>
+                <a href="/admin/account/create" class="btn btn-success">Add New</a>
             </div>
         </div>
         <div class="card-body">
@@ -40,12 +40,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tài khoản </th>
-                        <th>Họ tên</th>
+                        <th>Account</th>
+                        <th>Name</th>
                         <th>Email</th>
-                       
+
                         <th></th>
-                        
+
 
                     </tr>
 
@@ -57,21 +57,21 @@
                         var i = 1;
                         foreach (var item in Model)
                         {
-                    <tr>
-                        <td id="trow_@item.Id">
-                            @i
-                        </td>
-                        <td >@item.UserName</td>
-                        <td >@item.FullName</td>
-                        <td  >@item.Email</td>
-                         
-                        <td>
-                            @*<a href="/admin/account/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>*@
+                            <tr>
+                                <td id="trow_@item.Id">
+                                    @i
+                                </td>
+                                <td>@item.UserName</td>
+                                <td>@item.FullName</td>
+                                <td>@item.Email</td>
 
-                            <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                        </td>
-                    </tr>
-i++;
+                                <td>
+                                    @*<a href="/admin/account/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>*@
+
+                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Delete</a>
+                                </td>
+                            </tr>
+                            i++;
                         }
 
                     }
@@ -94,7 +94,7 @@ i++;
 
         $('body').on('click', '.btnDelete', function () {
             var id = $(this).data("id");
-            var conf = confirm('Bạn có muốn xóa ?');
+            var conf = confirm('Do you want to delete ?');
             if (conf === true) {
                 $.ajax({
                     url: '/admin/account/delete',

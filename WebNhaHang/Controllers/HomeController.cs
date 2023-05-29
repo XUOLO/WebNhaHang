@@ -15,6 +15,7 @@ using System.Web.Security;
 using WebNhaHang.Models;
 using WebNhaHang.Models.EF;
 using Facebook;
+using System.Text.RegularExpressions;
 
 namespace WebNhaHang.Controllers
 {
@@ -96,17 +97,66 @@ namespace WebNhaHang.Controllers
             return View(reservations);
         }
 
+  
+
+        //public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
+        //{
+        //    Session["thongbao_password"] = "";
+        //    string thongbao = "";
+        //    if (currentPassword == null || newPassword == null)
+        //    {
+        //        thongbao = "You have not entered information";
+        //    }
+
+
+
+        //    if (newPassword == confirmPassword)
+        //    {
+        //        var f_password = GetMD5(currentPassword);
+        //        var user = db.Userss.Where(s => s.Email == id && s.Password == f_password).FirstOrDefault();
+        //        if (user != null)
+        //        {
+        //            user.Password = newPassword;
+        //            if (ModelState.IsValid)
+        //            {
+        //                user.Password = GetMD5(user.Password);
+        //                db.Configuration.ValidateOnSaveEnabled = false;
+
+        //                db.SaveChanges();
+
+        //                thongbao = "Password changed";
+
+
+
+        //            }
+        //        }
+
+
+        //        else
+        //        {
+        //            thongbao = "Wrong password";
+        //        }
+
+
+        //    }
+        //    else
+        //    {
+        //        thongbao = "Passwords are not the same";
+        //    }
+        //    TempData["thongbao_password"] = thongbao;
+        //    return RedirectToAction("ThongTinTaiKhoan");
+        //}
 
         public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
         {
             Session["thongbao_password"] = "";
             string thongbao = "";
-            if (currentPassword == null || newPassword == null)
+            string errorMessage = ValidatePassword(currentPassword, newPassword);
+            if (!string.IsNullOrEmpty(errorMessage))
             {
-                thongbao = "Bạn chưa nhập thông tin";
+                thongbao = errorMessage;
             }
-
-            if (newPassword == confirmPassword)
+            else if (newPassword == confirmPassword)
             {
                 var f_password = GetMD5(currentPassword);
                 var user = db.Userss.Where(s => s.Email == id && s.Password == f_password).FirstOrDefault();
@@ -120,28 +170,42 @@ namespace WebNhaHang.Controllers
 
                         db.SaveChanges();
 
-                        thongbao = "Đã thay đổi mật khẩu";
-
-
-
+                        thongbao = "Password changed";
                     }
                 }
-
-
                 else
                 {
-                    thongbao = "Mật khẩu sai";
+                    thongbao = "Wrong password";
                 }
-
-
             }
             else
             {
-                thongbao = "Mật khẩu không giống nhau";
+                thongbao = "Passwords are not the same";
             }
             TempData["thongbao_password"] = thongbao;
             return RedirectToAction("ThongTinTaiKhoan");
         }
+
+        private string ValidatePassword(string currentPassword, string newPassword)
+        {
+            if (currentPassword == null || newPassword == null)
+            {
+                return "You have not entered information";
+            }
+            else if (newPassword.Length < 8)
+            {
+                return "New password must be at least 8 characters long";
+            }
+            else if (!Regex.IsMatch(newPassword, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$"))
+            {
+                return "New password must contain at least one lowercase letter, one uppercase letter, and one digit, and must be between 8 and 15 characters long";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
 
         //Logout
         public ActionResult Logout()
@@ -263,14 +327,17 @@ namespace WebNhaHang.Controllers
             ViewBag.loginUrl = loginUrl;
             return View();
         }
-
+        public ActionResult Confirmemailfailed()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
 
-
            
+
             if (ModelState.IsValid)
             { 
                  
@@ -282,8 +349,9 @@ namespace WebNhaHang.Controllers
                 {
                     if (user.IsEmailVerified == false)
                     {
-                        ViewBag.error = "Your email has not been verified yet. Please check your email.";
-                        return RedirectToAction("Login");
+                        TempData["thongbao_login"] = "Your email has not been verified yet. Please check your email.";
+                        
+                        return RedirectToAction("login","home");
                     }
 
                     //add session
@@ -295,10 +363,11 @@ namespace WebNhaHang.Controllers
                 }
                 else
                 {
-                    ViewBag.error = "Login failed";
+                    TempData["thongbao_login"] = "Login failed";
                     return RedirectToAction("Login");
                 }
             }
+       
             return View();
         }
 
@@ -316,8 +385,7 @@ namespace WebNhaHang.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(User _user)
         {
-            Session["thongbao_register"] = "";
-            string thongbao = "";
+            
             if (ModelState.IsValid)
             {
                 var check = db.Userss.FirstOrDefault(s => s.Email == _user.Email);
@@ -333,7 +401,7 @@ namespace WebNhaHang.Controllers
                     // Send email verification
                     SendVerificationEmail(_user);
 
-                    ViewBag.SuccessMessage = "Registration successful. Please check your email to confirm.";
+                    TempData["thongbao_register"] = "Registration successful. Please check your email to confirm.";
 
 
 
@@ -341,17 +409,17 @@ namespace WebNhaHang.Controllers
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Userss.Add(_user);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("ConfirmEmailPage");
+                    return RedirectToAction("ConfirmEmailPage","home");
                 }
                 else
                 {
-                    thongbao = "Email already exists";
+                    TempData["thongbao_register"] = "Email already exists";
                     return RedirectToAction("Login");
                 }
 
 
             }
-            TempData["thongbao_register"] = thongbao;
+         
             return RedirectToAction("Index");
 
 

@@ -22,7 +22,7 @@ namespace WebNhaHang
 
             routes.MapRoute(
                name: "About us",
-               url: "About-us",
+               url: "about-us",
                defaults: new { controller = "Home", action = "About", alias = UrlParameter.Optional },
                namespaces: new[] { "WebNhaHang.Controllers" }
            );

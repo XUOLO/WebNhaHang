@@ -100,7 +100,7 @@ namespace WebNhaHang.Controllers
                 item.TotalPrice = item.Quantity * item.Price;
                 cart.AddToCart(item, quantity);
                 Session["Cart"] = cart;
-                code = new { success = true, msg = "Đã thêm vào giỏ hàng", code = 1, Count = cart.items.Count };
+                code = new { success = true, msg = "Added to cart", code = 1, Count = cart.items.Count };
             }
             return Json(code);
         }
@@ -206,7 +206,7 @@ namespace WebNhaHang.Controllers
                                 if (product == null || product.Quantity < item.Quantity)
                                 {
                                     TempData["ProductName"] = item.ProductName;
-                                    var errorMessage = "Sản phẩm " + item.ProductName + " không đủ số lượng";
+                                    var errorMessage = "Product " + item.ProductName + " not enough quantity";
                                     return PartialView("_Error", errorMessage);
                                 }
                                 product.Quantity -= item.Quantity;
@@ -224,7 +224,7 @@ namespace WebNhaHang.Controllers
                         catch (Exception ex)
                         {
                             transaction.Rollback();
-                            var errorMessage = "Có lỗi xảy ra khi thanh toán: " + ex.Message;
+                            var errorMessage = "An error occurred during checkout: " + ex.Message;
                             return PartialView("_Error", errorMessage);
                         }
                     }

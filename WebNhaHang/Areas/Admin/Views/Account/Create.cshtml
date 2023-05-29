@@ -2,11 +2,11 @@
 
 @model  WebNhaHang.Models.CreateAccountViewModel
 @{
-    ViewBag.Title = "Thêm  tài khoản";
+    ViewBag.Title = "Add Account";
 }
 
 
- 
+
 
 <!-- Content Header (Page header) -->
 @section naviheader{
@@ -15,25 +15,24 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/admin" class="nav-link">ViewBag.Title </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
 
     </ul>
 }
-
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Thêm tài khoản</h3>
+            <h3 class="card-title"> Add account</h3>
 
         </div>
         <div class="card-body">
@@ -43,11 +42,11 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-group">
-                    <label>Tài khoản</label>
+                    <label>Account</label>
                     @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <label>Họ tên</label>
+                    <label>Name</label>
                     @Html.TextBoxFor(x => x.FullName, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
@@ -60,18 +59,18 @@
                 </div>
                 <div class="form-group">
                     <label>Role</label>
-                    @Html.DropDownListFor(x => x.Role, ViewBag.Role as SelectList, "-Chọn quyền", new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.Role, ViewBag.Role as SelectList, "-Select permissions", new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <label>Mật khẩu</label>
+                    <label>Password</label>
                     @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <label>Nhập lại mật khẩu</label>
+                    <label>Confirm password</label>
                     @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Thêm mới </button>
+                    <button type="submit" class="btn btn-success">Add New </button>
                 </div>
             }
         </div>

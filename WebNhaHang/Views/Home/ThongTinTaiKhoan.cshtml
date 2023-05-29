@@ -1,8 +1,8 @@
 ﻿@model List<WebNhaHang.Models.EF.User>
 
 @{
-    ViewBag.Title = "Thông tin tài khoản";
-    Layout = "~/Views/Shared/_LayoutOther.cshtml"; 
+    ViewBag.Title = "Account Information";
+    Layout = "~/Views/Shared/_LayoutOther.cshtml";
 }
 
 
@@ -33,14 +33,14 @@
                             <div class="myaccount-tab-menu nav" role="tablist">
                                 <a href="/home/thongtintaikhan" class="active">
                                     <i class="fas fa-tachometer-alt"></i>
-                                    Thông tin tài khoản
+                                    account information
                                 </a>
                                 <div class="mautab">
 
 
                                     <a href="/order/index">
                                         <i class="fa fa-cart-arrow-down"></i>
-                                        Sản phẩm mua sau
+                                        Products to buy later
                                     </a>
 
                                 </div>
@@ -48,7 +48,7 @@
 
                                 <a href="/Home/InfoReservation">
                                     <i class="fa fa-user"></i>
-                                    Quản lý đơn đặt bàn
+                                    Manage table orders
                                 </a>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                                 <div class="col-xl-5">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h5 class="card-title mb-0" style="">Thông tin người dùng</h5>
+                                                            <h5 class="card-title mb-0" style="">User Info</h5>
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="row g-0">
@@ -101,26 +101,26 @@
                                                                 <div class="row">
                                                                     <div class="col-12 mb-30">
 
-                                                                        <h4>Đổi mật khẩu </h4><br />
+                                                                        <h4>Change Password </h4><br />
                                                                         <p style="color:forestgreen">@TempData["thongbao_password"]</p>
 
                                                                     </div>
 
                                                                     <div class="col-12 mb-30">
-                                                                        <input id="currentPassword" required name="currentPassword" placeholder="Nhập mật khẩu cũ" type="password">
+                                                                        <input id="currentPassword" required name="currentPassword" placeholder="Enter old password" type="password">
                                                                     </div>
 
                                                                     <div class="col-lg-6 col-12 mb-30">
-                                                                        <input id="newPassword" required name="newPassword" placeholder="Nhập mật khẩu mới" type="password">
+                                                                        <input id="newPassword" required name="newPassword" placeholder="Enter new password" type="password">
                                                                     </div>
 
                                                                     <div class="col-lg-6 col-12 mb-30">
-                                                                        <input id="confirmPassword" required name="confirmPassword" placeholder="Nhập lại mật khẩu mới" type="password">
+                                                                        <input id="confirmPassword" required name="confirmPassword" placeholder="Re-enter new password" type="password">
                                                                     </div>
 
                                                                     <div class="col-12 mb-30">
                                                                         <button type="submit" class="btn theme-btn--dark1 btn--md">
-                                                                            Lưu Thay Đổi
+                                                                            Save Changes
                                                                         </button>
                                                                     </div>
 

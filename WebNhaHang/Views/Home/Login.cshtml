@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
+  
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +23,12 @@
                 <li><a href="#" id="regbtn" class="btnlist">Register</a></li>
             </ul>
 
-       
-        <p style="color:aquamarine"> @ViewBag.SuccessMessage</p>
-            <p style="color:crimson"> @TempData["thongbao_register"]</p>
+           
+            
             <div class="form-tab">
+                
                 <div id="loginForm" class="show">
+                    <p style="color:orangered">@TempData["thongbao_login"]</p>
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
@@ -40,23 +42,23 @@
 
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                             </div>
-
+                            <p> @ViewBag.error</p>
                             <div class="btn-cont">
                                 <button class="submite-btn" type="submit" name="submit">Login</button>
 
-                                <a href="/Home/ResetPasswordUser" class="float-right forget">Forgot password ?</a>
+                                <a href="/Home/RsPasswordUser" class="float-right forget">Forgot password ?</a>
                                 @*<p><a href="@ViewBag.loginUrl">fb</a></p>*@
                             </div>
 
                             @*<div class="line">
-                            <span>or</span>
-                        </div>
+                        <span>or</span>
+                    </div>
 
-                        <ul class="flow-btn-cont">
-                            <li><a href="@ViewBag.loginUrl" class="fa-btn">Facebook</a></li>
-                            <li><a href="#" class="goog-btn">Google</a></li>
-                            <li><a href="#" class="twit-btn">Twitter</a></li>
-                        </ul>*@
+                    <ul class="flow-btn-cont">
+                        <li><a href="@ViewBag.loginUrl" class="fa-btn">Facebook</a></li>
+                        <li><a href="#" class="goog-btn">Google</a></li>
+                        <li><a href="#" class="twit-btn">Twitter</a></li>
+                    </ul>*@
                         </form>
                     }
                 </div>
@@ -71,7 +73,8 @@
 
                         @Html.AntiForgeryToken()
                         <form action="">
-
+                            <p style="color:aquamarine"> @ViewBag.SuccessMessage</p>
+                            <p style="color:crimson"> @TempData["thongbao_register"]</p>
                             <div class="form-row">
 
                                 <div class="input-box">
@@ -97,7 +100,7 @@
 
                             <div class="input-box">
                                 @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "form-group" })
-                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Nhập đúng sốđiện thoại" } })
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", data_val_regex_pattern = "(03|05|07|08|09)[0-9]{8}", data_val_regex = "Enter the correct phone number" } })
 
                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
 
@@ -127,14 +130,14 @@
                             </div>
 
                             @*<div class="line">
-                            <span>or register</span>
-                        </div>*@
+                        <span>or register</span>
+                    </div>*@
 
                             @*<ul class="flow-btn-cont">
-                            <li><a href="#" class="fa-btn">Facebook</a></li>
-                            <li><a href="#" class="goog-btn">Google</a></li>
-                            <li><a href="#" class="twit-btn">Twitter</a></li>
-                        </ul>*@
+                        <li><a href="#" class="fa-btn">Facebook</a></li>
+                        <li><a href="#" class="goog-btn">Google</a></li>
+                        <li><a href="#" class="twit-btn">Twitter</a></li>
+                    </ul>*@
 
                         </form>
                     }
@@ -168,7 +171,7 @@
 
     .form-container {
         background-color: #fff;
-        min-width: 500px;
+        min-width: 655px;
         padding: 100px;
         margin-bottom:3.5%;
     }

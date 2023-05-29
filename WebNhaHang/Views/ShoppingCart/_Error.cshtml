@@ -2,10 +2,8 @@
 
 
 
-
-
 @{
-    ViewBag.Title = "Thanh toán không thành công";
+    ViewBag.Title = "Payment failed";
 
     Layout = "~/Views/Shared/_LayoutOther.cshtml";
 
@@ -50,6 +48,6 @@
 
 
 
-<h1 class="h">Payment failed</h1> <p>Sorry, you cannot pay for this order because of product <span style="color:red;">@TempData["ProductName "]</span>. The quantity is not enough.</p> <p>Please return to the cart and edit the quantity or remove the product from the cart.</p> <p>Thank you for shopping in our store. .</p>
+<h1 class="h">Payment failed</h1> <p>Sorry, you cannot pay for this order because of product <span style="color:red;">@TempData["ProductName"]</span>. The quantity is not enough.</p> <p>Please return to the cart and edit the quantity or remove the product from the cart.</p> <p>Thank you for shopping in our store. .</p>
 
 <a href="@Url.Action("Index", "ShoppingCart")" class="btnn btn-primary">Back to cart</a>

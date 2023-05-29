@@ -2,7 +2,7 @@
 @using PagedList;
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Danh sách đơn hàng";
+    ViewBag.Title = "Order List";
 }
 @section naviheader{
     <ul class="navbar-nav">
@@ -10,24 +10,22 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/order" class="nav-link">Danh sách đơn hàng </a>
+            <a href="/admin/order" class="nav-link">Order list </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
-
 <!-- Main content -->
 <section class="content">
-
     <!-- Default box -->
     <div class="card">
-        <div class=" card-header">
-            <h3 class="card-title">Danh sách đơn hàng</h3>
+        <div class="card-header">
+            <h3 class="card-title">Order list</h3>
 
             <div class="card-tools">
 
@@ -36,16 +34,16 @@
         </div>
         <div class="card-body">
 
-            <table class="table table-bordered"id="dataTable">
+            <table class="table table-bordered" id="dataTable">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Mã đơn hàng</th>
-                        <th>Tên khách hàng</th>
+                        <th>Order ID</th>
+                        <th>Customer name</th>
                         <th>SDT</th>
-                        <th>Tiền </th>
-                        <th>Trạng thái</th>
-                        <th>Ngày tạo</th>
+                        <th>Money </th>
+                        <th>Status</th>
+                        <th>Date Created</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,25 +59,24 @@
                         <td>@item.CustomerName</td>
                         <td>@item.Phone</td>
                         <td>@WebNhaHang.Common.Common.FormatNumber(item.TotalAmount, 0)<span> VND</span></td>
-                        @*<td>@(item.TypePayment==1?"chờ thanh toán":"Đã thanh toán")</td>*@
-                        <td>@(item.TypePayment == 0 ? "đã hủy" : (item.TypePayment == 1 ? "chờ thanh toán" : "đã thanh toán"))</td>
+                        @*<td>@(item.TypePayment==1?"pending payment":"Paid")</td>*@
+                        <td>@(item.TypePayment == 0 ? "cancelled" : (item.TypePayment == 1 ? "pending payment" : "paid"))</td>
                         <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
                         <td>
-                            @if (item.TypePayment==0)
+                            @if (item.TypePayment == 0)
                             {
-                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">View</a>
 
-                               
+
                             }
                             else
                             {
-                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+                                <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">View</a>
 
-                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Cập nhật</a>
+                                <a href="#" class="btn btn-sm btn-dangerrrr btnCapNhat" data-id="@item.Id">Update</a>
                             }
 
                         </td>
-
                     </tr>
                             i++;
                         }
@@ -111,7 +108,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <h4 class="modal-title">Update status</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,17 +116,17 @@
             <div class="modal-body">
                 <input type="hidden" id="txtOrderId" value="0" />
                 <div class="form-group">
-                    <label>Trạng thái</label>
-                    <select class="form-control" id="ddTrangThai">
+                    <label>Status</label>
+                    <select class="form-control" id="ddPageThai">
                         <option value="2">
-                            Đã thanh toán
+                            Paid
                         </option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary  " id="btnLuu">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary " id="btnLuu">Save</button>
             </div>
         </div>
         <!-- /.modal-content -->

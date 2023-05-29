@@ -20,7 +20,7 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <ul class="nav navbar-nav navbar-right info">
                     <li>
-                        <i class="fa fa-user login"> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ManageLogins", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</i>
+                        <i class="fa fa-user login">Hello @User.Identity.GetUserName()   </i>
                     </li>
                     <li><a href="javascript:document.getElementById('logOffForm').submit()">Log off</a></li>
                 </ul>
@@ -67,21 +67,11 @@
 
 
             </li>
-            <li class="nav-item">
-
-                <a href="/admin/order" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        Order
-                        @*<i class="right fas fa-angle-left"></i>*@
-                    </p>
-                </a>
-
-            </li>
+        
             <li class="nav-item">
 
                 <a href="/admin/reservation" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-table"></i>
                     <p>
                         Reservation
 
@@ -93,7 +83,7 @@
             <li class="nav-item">
 
                 <a href="/admin/order" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-luggage-cart"></i>
                     <p>
                         Order
 
@@ -105,7 +95,7 @@
             <li class="nav-item">
 
                 <a href="/admin/Role" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-house-user"></i>
                     <p>
                         Role
                         @*<i class="right fas fa-angle-left"></i>*@
@@ -117,7 +107,7 @@
             <li class="nav-item">
 
                 <a href="/admin/Contact" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-phone"></i>
                     <p>
                         Contact
                         @*<i class="right fas fa-angle-left"></i>*@
@@ -129,7 +119,7 @@
             <li class="nav-item">
 
                 <a href="/admin/Recuitment" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-list"></i>
                     <p>
                         Recruitment
                         @*<i class="right fas fa-angle-left"></i>*@
@@ -141,7 +131,7 @@
             <li class="nav-item">
 
                 <a href="/admin/account" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-user"></i>
                     <p>
                         Account
                         @*<i class="right fas fa-angle-left"></i>*@
@@ -152,9 +142,9 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="fa fa-hamburger"></i>
                     <p>
-                        Product Management
+                        Food Management
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -162,7 +152,7 @@
                     <li class="nav-item">
                         <a href="/admin/ProductCategory" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Product catalog</p>
+                            <p>Food catalog</p>
                         </a>
                     </li>
 

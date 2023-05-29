@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebNhaHang.Models.EF.Category>
 @{
-    ViewBag.Title = "Danh Mục";
+    ViewBag.Title = "Category";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,27 +10,26 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Danh mục </a>
+            <a href="#" class="nav-link">Category </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
-
     </ul>
 }
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý danh mục</h1>
+                 <h1>Manage Categories</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Danh mục</li>
+                    <li class="breadcrumb-item"><a href="/admin/home">Homepage</a></li>
+                    <li class="breadcrumb-item active">Category</li>
                 </ol>
             </div>
         </div>
@@ -43,10 +42,10 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách danh mục</h3>
+            <h3 class="card-title">Category list</h3>
 
             <div class="card-tools">
-                <a href="/admin/Category/Add" class="btn btn-primary">Thêm mới</a>
+                <a href="/admin/Category/Add" class="btn btn-primary">Add New</a>
             </div>
         </div>
         <div class="card-body">
@@ -54,8 +53,8 @@
                 <thead>
                     <tr>
                         <th>Stt</th>
-                        <th>Tên danh mục</th>
-                        <th>thứ tự</th>
+                        <th>Category Name</th>
+                        <th>Positition</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,9 +69,9 @@
                                 <td>@item.Title</td>
                                 <td>@item.Position</td>
                                 <td>
-                                    <a href="/admin/category/edit/@item.id" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="/admin/category/edit/@item.id" class="btn btn-sm btn-primary">Edit</a>
 
-                                    <a href="/admin/category/index" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                    <a href="/admin/category/index" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
                             i++;
@@ -81,7 +80,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="4"> Không có bản ghi nào</td>
+                            <td colspan="4"> Nothing yet</td>
                         </tr>
 
 
@@ -106,7 +105,7 @@
         $(document).ready(function () {
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
-                var conf = confirm('Bạn có muốn xóa ?');
+                var conf = confirm('Do you want to delete ?');
                 if (conf === true) {
                     $.ajax({
                         url: '/admin/category/delete',

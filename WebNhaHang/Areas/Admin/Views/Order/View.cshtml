@@ -2,7 +2,7 @@
 @using WebNhaHang.Common
 @using PagedList;
 @{
-    ViewBag.Title = "Chi tiết đơn hàng";
+    ViewBag.Title = "Order details";
 }
 @section naviheader{
     <ul class="navbar-nav">
@@ -10,13 +10,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Chi tiết đơn hàng </a>
+            <a href="#" class="nav-link">Order details </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
@@ -27,7 +27,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Chi tiết đơn hàng</h3>
+            <h3 class="card-title">Order details</h3>
 
 
         </div>
@@ -35,13 +35,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Mã đơn hàng</label>
+                        <label>Order code</label>
                         <p class="form-control">@Model.Code</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Họ tên khách</label>
+                        <label>Customer name</label>
                         <p class="form-control">@Model.CustomerName</p>
                     </div>
                 </div>
@@ -49,13 +49,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>tổng tiền</label>
+                        <label>Total amount</label>
                         <p class="form-control">@WebNhaHang.Common.Common.FormatNumber(Model.TotalAmount, 0)</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>SDT</label>
+                        <label>Phone</label>
                         <p class="form-control">@Model.Phone</p>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Ngày tạo</label>
+                        <label>Date created</label>
                         <p class="form-control">@Model.CreateDate.ToString("dd/MM/yyyy")</p>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Trạng thái</label>
-                        <p class="form-control">@(Model.TypePayment == 0 ? "đã hủy" : (Model.TypePayment == 1 ? "chờ thanh toán" : "đã thanh toán")) </p>
-                         
+                        <label>Status</label>
+                        <p class="form-control">@(Model.TypePayment == 0 ? "cancelled" : (Model.TypePayment == 1 ? "pending payment" : "paid")) </p>
+
                     </div>
                 </div>
                 <div class="col-md-6">
