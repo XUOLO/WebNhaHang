@@ -123,14 +123,14 @@ namespace WebNhaHang.Controllers
             //gui admin
             string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send4.html"));
             contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", course.Name);
-            contentAdmin = contentAdmin.Replace("{{RightDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+            contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
             contentAdmin = contentAdmin.Replace("{{MaDon}}", course.Code);
             contentAdmin = contentAdmin.Replace("{{Phone}}", course.Phone);
             contentAdmin = contentAdmin.Replace("{{Email}}", course.Email);
-            contentAdmin = contentAdmin.Replace("{{Recording}}", course.Note);
+            contentAdmin = contentAdmin.Replace("{{GhiChu}}", course.Note);
             contentAdmin = contentAdmin.Replace("{{Phong}}", course.Room);
             contentAdmin = contentAdmin.Replace("{{SoNguoi}}", course.NumberOfPeople);
-            contentAdmin = contentAdmin.Replace("{{Times}}", course.DateTime.ToString());
+            contentAdmin = contentAdmin.Replace("{{ThoiGian}}", course.DateTime.ToString());
             WebNhaHang.Common.Common.SendMail("XuoLo BBQ Restaurant", "Table Reservation Code #" + course.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
 
             return RedirectToAction("CheckOut_Success");  

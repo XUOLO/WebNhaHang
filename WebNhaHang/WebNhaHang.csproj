@@ -461,6 +461,10 @@
     <Compile Include="Migrations\202305251905240_usermailactiva.Designer.cs">
       <DependentUpon>202305251905240_usermailactiva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305290801025_deleteisfeature.cs" />
+    <Compile Include="Migrations\202305290801025_deleteisfeature.Designer.cs">
+      <DependentUpon>202305290801025_deleteisfeature.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -4192,6 +4196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305251905240_usermailactiva.resx">
       <DependentUpon>202305251905240_usermailactiva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305290801025_deleteisfeature.resx">
+      <DependentUpon>202305290801025_deleteisfeature.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="report\ReportReservation.rdlc" />
     <EmbeddedResource Include="report\ReportProduct.rdlc" />

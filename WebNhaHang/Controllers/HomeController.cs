@@ -89,12 +89,22 @@ namespace WebNhaHang.Controllers
             return View(users);
 
         }
-        public ActionResult InfoReservation()
+        public ActionResult InfoReservation(int? page)
         {
 
+            var items = db.Reservations.OrderByDescending(x => x.CreateDate).ToList();
+            if (page == null)
+            {
+                page = 1;
 
-            List<Reservation> reservations = db.Reservations.ToList();
-            return View(reservations);
+            }
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            ViewBag.Page = pageNumber;
+            ViewBag.PageSize = pageSize;
+            return View(items.ToPagedList(pageNumber, pageSize));
+
+            
         }
 
   
@@ -289,7 +299,7 @@ namespace WebNhaHang.Controllers
                 {
                     db.SaveChanges();
                 }
-                return RedirectToAction("order");
+                return RedirectToAction("index","order");
 
             }
 

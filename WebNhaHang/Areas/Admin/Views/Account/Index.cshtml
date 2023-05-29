@@ -14,7 +14,7 @@
             <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">ViewBag.Title </a>
+            <a href="/admin" class="nav-link">@ViewBag.Title </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/home/index" class="nav-link">Shop </a>
@@ -51,6 +51,7 @@
 
                 </thead>
                 <tbody>
+
                     @if (Model != null && Model.Any())
                     {
 
@@ -66,9 +67,8 @@
                                 <td>@item.Email</td>
 
                                 <td>
-                                    @*<a href="/admin/account/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>*@
-
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Delete</a>
+                                    <!-- Nút xóa sử dụng ajax -->
+                                    <button data-id="@item.Id" class="btn btn-sm btn-danger delete-account">Xóa</button>
                                 </td>
                             </tr>
                             i++;
@@ -78,6 +78,12 @@
                 </tbody>
             </table>
         </div>
+
+
+
+
+
+
         <!-- /.card-body -->
         <div class="card-footer">
 
@@ -90,24 +96,26 @@
 <!-- /.content -->
 @section scripts{
     <script>
-
-
-        $('body').on('click', '.btnDelete', function () {
-            var id = $(this).data("id");
-            var conf = confirm('Do you want to delete ?');
-            if (conf === true) {
-                $.ajax({
-                    url: '/admin/account/delete',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (rs) {
-                        if (rs.success) {
-                            $('#trow_' + id).remove();
+        $(document).ready(function () {
+            $(".delete-account").click(function () {
+                var accountId = $(this).data("id");
+                if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
+                    $.ajax({
+                        url: '/Account/DeleteAccount',
+                        data: { id: accountId },
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success === true) {
+                                $("#trow_" + accountId).remove();
+                                alert('Tài khoản đã được xóa thành công');
+                            }
+                            else {
+                                alert('Có lỗi xảy ra khi xóa tài khoản');
+                            }
                         }
-                    }
-
-                });
-            }
+                    });
+                }
+            });
         });
     </script>
 }

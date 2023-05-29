@@ -607,10 +607,7 @@
           <DataField>IsHot</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="IsFeature">
-          <DataField>IsFeature</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
+       
         <Field Name="Quantity">
           <DataField>Quantity</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>

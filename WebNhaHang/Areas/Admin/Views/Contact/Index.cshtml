@@ -2,7 +2,7 @@
 @using PagedList;
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Danh sách tin nhắn liên hệ";
+    ViewBag.Title = "Contact message list";
 }
 @section naviheader{
     <ul class="navbar-nav">
@@ -10,24 +10,23 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/home" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/contact" class="nav-link">Danh sách tin nhắn liên hệ </a>
+            <a href="/admin/contact" class="nav-link">Contact message list </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/home/index" class="nav-link">Cửa hàng </a>
+            <a href="/home/index" class="nav-link">Shop </a>
         </li>
     </ul>
 }
-
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh sách tin nhắn</h3>
+            <h3 class="card-title">Contact message list</h3>
 
 
         </div>
@@ -38,11 +37,11 @@
                     <tr>
                         <th>#</th>
 
-                        <th>Tên khách hàng</th>
-                        <th>SDT</th>
+                        <th>Customer name</th>
+                        <th>Phone</th>
                         <th>Email</th>
-                        <th>Lời nhắn</th>
-                        <th>Ngày tạo</th>
+                        <th>Message</th>
+                        <th>Create date</th>
                         @*<th>Trạng thái</th>*@
 
                         <th></th>
@@ -54,25 +53,25 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                    <tr>
-                        <td>@i</td>
-                        <td>@item.Name</td>
-                        <td>@item.Phone</td>
-                        <td>@item.Email</td>
-                        <td>@item.Message</td>
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Name</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                                <td>@item.Message</td>
 
 
 
 
-                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
 
-                        @*<td>@(item.Isread==1?"Chưa xem":"Đã xem")</td>*@
-                        @*<td>
-                            <a href="/admin/contact/view/@item.id" class="btn btn-sm btn-success">Xem</a>
-                            <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.id">Cập nhật</a>
-                        </td>*@
+                                @*<td>@(item.Isread==1?"Chưa xem":"Đã xem")</td>*@
+                                @*<td>
+                                        <a href="/admin/contact/view/@item.id" class="btn btn-sm btn-success">Xem</a>
+                                        <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.id">Cập nhật</a>
+                                    </td>*@
 
-                    </tr>
+                            </tr>
                             i++;
                         }
 

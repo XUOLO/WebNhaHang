@@ -24,6 +24,37 @@ namespace WebNhaHang.Areas.Admin.Controllers
         public AccountController()
         {
         }
+        public AccountController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+        [HttpPost]
+        public async Task<ActionResult> DeleteAccount(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var result = await UserManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Account deleted successfully";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Error deleting account";
+                return RedirectToAction("Index");
+            }
+        }
+
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
