@@ -106,8 +106,7 @@ namespace WebNhaHang.Controllers
 
             
         }
-
-  
+ 
 
         //public ActionResult ChangePassword(string id, string currentPassword, string newPassword, string confirmPassword)
         //{

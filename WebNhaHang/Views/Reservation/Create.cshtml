@@ -75,13 +75,13 @@
                 </div>
                 <div class="form-left-agileits-w3layouts bottom-w3ls">
                     <label><i class="fa fa-home" aria-hidden="true"></i> Table type :</label>
-                    @Html.DropDownListFor(m => m.Room, new SelectList(ViewBag.Rooms, "Value", "Text"), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.Room, (IEnumerable<SelectListItem>)ViewBag.Rooms, new { @class = "form-control" })
                 </div>
                 <div class="form-left-agileits-w3layouts">
                     <label>
                         <i class="fa fa-users" aria-hidden="true"></i> Number of people :
                     </label>
-                    @Html.DropDownListFor(m => m.NumberOfPeople, new SelectList(ViewBag.Peoples, "Value", "Text"), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.NumberOfPeople, (IEnumerable<SelectListItem>)ViewBag.Peoples, new { @class = "form-control" })
                 </div>
 
 

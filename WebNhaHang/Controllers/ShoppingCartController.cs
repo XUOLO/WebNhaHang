@@ -196,6 +196,8 @@ namespace WebNhaHang.Controllers
                         Code = "DH" + new Random().Next(1000, 9999)
                     };
                     // Check product quantity and update database in one transaction
+                    List<string> insufficientProducts = new List<string>();
+                    int insufficientProductCount = 0;
                     using (var transaction = db.Database.BeginTransaction())
                     {
                         try
@@ -205,18 +207,28 @@ namespace WebNhaHang.Controllers
                                 var product = await db.Products.FindAsync(item.ProductId);
                                 if (product == null || product.Quantity < item.Quantity)
                                 {
-                                    TempData["ProductName"] = item.ProductName;
-                                    var errorMessage = "Product " + item.ProductName + " not enough quantity";
-                                    return PartialView("_Error", errorMessage);
+                                    insufficientProducts.Add(item.ProductName);
+                                    insufficientProductCount++;
                                 }
-                                product.Quantity -= item.Quantity;
-                                order.OderDetails.Add(new OrderDetail
+                                else
                                 {
-                                    ProductId = item.ProductId,
-                                    Quantity = item.Quantity,
-                                    Price = item.Price
-                                });
+                                    // Cập nhật số lượng sản phẩm trong cơ sở dữ liệu và lưu thông tin đơn hàng
+                                    product.Quantity -= item.Quantity;
+                                    order.OderDetails.Add(new OrderDetail
+                                    {
+                                        ProductId = item.ProductId,
+                                        Quantity = item.Quantity,
+                                        Price = item.Price
+                                    });
+                                }
                             }
+
+                            if (insufficientProductCount > 0)
+                            {
+                                ViewBag.ProductNameList = insufficientProducts;
+                                return View("_Error");
+                            }
+
                             db.Orders.Add(order);
                             await db.SaveChangesAsync();
                             transaction.Commit();
@@ -228,6 +240,7 @@ namespace WebNhaHang.Controllers
                             return PartialView("_Error", errorMessage);
                         }
                     }
+
                     //send mail cho khachs hang
                     var strSanPham = "";
                     var thanhtien = decimal.Zero;

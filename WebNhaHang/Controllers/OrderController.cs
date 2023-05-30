@@ -15,21 +15,18 @@ namespace WebNhaHang.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult index(int? page)
+        public ActionResult Index(string email, int? page)
         {
             var items = db.Orders.OrderByDescending(x => x.CreateDate).ToList();
             if (page == null)
             {
                 page = 1;
-
             }
             var pageNumber = page ?? 1;
             var pageSize = 10;
             ViewBag.Page = pageNumber;
             ViewBag.PageSize = pageSize;
             return View(items.ToPagedList(pageNumber, pageSize));
-
-
         }
     }
 }

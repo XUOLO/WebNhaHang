@@ -48,6 +48,16 @@
 
 
 
-<h1 class="h">Payment failed</h1> <p>Sorry, you cannot pay for this order because of product <span style="color:red;">@TempData["ProductName"]</span>. The quantity is not enough.</p> <p>Please return to the cart and edit the quantity or remove the product from the cart.</p> <p>Thank you for shopping in our store. .</p>
+<h1 class="h" style="font-size: 24px; color: red; text-align: center;">Payment failed</h1>
+<p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px;">Sorry, you cannot pay for this order because of the following product(s):</p>
+<ul style="list-style-type: none; margin: 0; padding: 0;">
+@foreach(var item in ViewBag.ProductNameList)
+{
+    <li style="color: red; margin-left: 20px;">@item</li>
+}
+</ul>
+<p>The quantity of these products is not enough.</p>
+<p>Please return to the cart and edit the quantity or remove the product(s) from the cart.</p>
+<p>Thank you for shopping in our store. .</p>
 
 <a href="@Url.Action("Index", "ShoppingCart")" class="btnn btn-primary">Back to cart</a>
