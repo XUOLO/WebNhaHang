@@ -76,7 +76,7 @@
 
                         <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
 
-                        <td>@(item.Status == 0 ? "chưa duyệt" : (item.Status == -1 ? "đã hủy" : "Đã duyệt"))</td>
+                        <td>@(item.Status == 0 ? "unapproved" : (item.Status == -1 ? "cancelled" : "Approved"))</td>
                         @if (item.Status.ToString() == "0")
                         {
                             <td>
@@ -176,9 +176,9 @@
 
             tab_text = tab_text + exportTable.html();
             tab_text = tab_text + '</table></body></html>';
-            var fileName = "Danh sách đặt bàn" + '.xls';
+            var fileName = "Table reservation list" + '.xls';
 
-            //Save the file
+             //Save the file
             var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
             window.saveAs(blob, fileName);
         }

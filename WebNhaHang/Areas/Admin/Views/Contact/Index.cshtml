@@ -42,7 +42,7 @@
                         <th>Email</th>
                         <th>Message</th>
                         <th>Create date</th>
-                        @*<th>Trạng thái</th>*@
+                        <th>Status</th>
 
                         <th></th>
                     </tr>
@@ -65,11 +65,11 @@
 
                                 <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
 
-                                @*<td>@(item.Isread==1?"Chưa xem":"Đã xem")</td>*@
-                                @*<td>
-                                        <a href="/admin/contact/view/@item.id" class="btn btn-sm btn-success">Xem</a>
-                                        <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.id">Cập nhật</a>
-                                    </td>*@
+                                <td>@(item.Isread==0?"Read":"UnRead")</td>
+                                <td>
+                                        @*<a href="/admin/contact/view/@item.id" class="btn btn-sm btn-success">Xem</a>*@
+                                        <a href="#" class="btn btn-sm btn-primary btnCapNhat" data-id="@item.id">Update</a>
+                                    </td>
 
                             </tr>
                             i++;
@@ -109,9 +109,9 @@
                 <input type="hidden" id="txtOrderId" value="0" />
                 <div class="form-group">
                     <label>Status</label>
-                    <select class="form-control" id="ddPageThai">
+                    <select class="form-control" id="ddTrangThai">
                         <option value="2">
-                            Watched
+                           Read
                         </option>
                     </select>
                 </div>

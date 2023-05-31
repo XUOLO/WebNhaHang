@@ -39,7 +39,8 @@
                 <td>@Common.FormatNumber(item.Price) VND</td>
                 <td><input type="number" class="form-control updatecartitem" data-productid="@item.ProductId" id="quantity-@item.ProductId" value="@item.Quantity" onkeypress="return valideNumber()" min="1" /></td>
 
-                <th>@Common.FormatNumber(item.TotalPrice, 2)<span> VND</span></th>
+               <th>@Common.FormatNumber(item.TotalPrice, 2)<span> VND</span></th>
+
                 <td>
 
                     <a href="#" data-id="@item.ProductId" class="   btnDelete"><i class="fa fa-close"></i> </a>
@@ -87,7 +88,7 @@ else
             return false;
         }
     }
-
+ 
 
     $(document).ready(function () {
         $(".updatecartitem").change(function (event) {
@@ -103,7 +104,7 @@ else
                     quantity: quantity
                 },
                 success: function (result) {
-                    window.location.href = "";
+                    location.reload();
                 }
             });
         });

@@ -35,6 +35,7 @@ namespace WebNhaHang.Controllers
             course.CreateDate = DateTime.Now;
             course.ModifieDate = DateTime.Now;
             db.Contacts.Add(course);
+            TempData["thongbao_message"] = "Message sent successfully";
             db.SaveChanges();
             return View();
         }
