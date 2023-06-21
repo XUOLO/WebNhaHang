@@ -43,8 +43,8 @@
                         <th>Account</th>
                         <th>Name</th>
                         <th>Email</th>
-
-                        <th></th>
+                         
+                        @*<th></th>*@
 
 
                     </tr>
@@ -65,11 +65,11 @@
                                 <td>@item.UserName</td>
                                 <td>@item.FullName</td>
                                 <td>@item.Email</td>
-
-                                <td>
+                                 
+                                <!--<td>-->
                                     <!-- Nút xóa sử dụng ajax -->
-                                    <button data-id="@item.Id" class="btn btn-sm btn-danger delete-account">Xóa</button>
-                                </td>
+                                    <!--<button data-id="@item.Id" class="btn btn-sm btn-danger delete-account">Xóa</button>
+                                </td>-->
                             </tr>
                             i++;
                         }

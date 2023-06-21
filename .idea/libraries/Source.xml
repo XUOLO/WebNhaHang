@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Source">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/jquery-ui-1.12.1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/sass.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/bootstrap-4.4.1-dist.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/OwlCarousel2-2.3.4.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/jquery-nice-select-1.1.0.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/font-awesome-4.7.0.zip!/" />
+      <root url="jar://$PROJECT_DIR$/WebNhaHang/Asset/Source/SlickNav-master.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

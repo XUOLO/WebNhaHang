@@ -44,7 +44,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json(new { message = "Success", Success = true });
             }
-            return Json(new { message = "UnSuccess", Success = false });
+            return Json(new { message = "Success", Success = false });
         }
 
     }

@@ -23,9 +23,7 @@ namespace WebNhaHang.Models.EF
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string Email { get; set; }
 
-        [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
-
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Your password must contain at least one lowercase, one uppercase, one digit and between 8 and 15 characters.")]
         public string Password { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 3)]

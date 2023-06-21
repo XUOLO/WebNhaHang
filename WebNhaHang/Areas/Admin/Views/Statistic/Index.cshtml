@@ -1,0 +1,180 @@
+﻿@model IEnumerable<WebNhaHang.Models.EF.Order>
+
+@{
+    ViewBag.Title = "Sales Statistics";
+}
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Statistical </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/home/index" class="nav-link">Shop </a>
+        </li>
+    </ul>
+}
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Statistical</h3>
+             
+
+        </div>
+
+
+      
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-info" style="padding-top:20px">
+                    <div class="inner">
+                        <h3>@ViewBag.CountOrder</h3>
+
+                        <p>New Orders</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <a href="/admin/order/index" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning" style="padding-top:20px">
+                    <div class="inner">
+                        <h3>@ViewBag.CountUsers</h3>
+
+                        <p>User Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div> 
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+
+                        <form method="get" action="@Url.Action("Index", "Statistic")">
+                            <label for="date">Select date:</label><br />
+                            <input type="date" id="date" name="date" />
+                            <button type="submit">Calculate</button>
+                        </form>
+                     
+
+                        <p>Revenue for the day : @ViewBag.DateDay</p>
+                        <p>Total Revenue: @ViewBag.TotalRevenueDay</p>
+                    </div>
+                  
+                    @*<a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>*@
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                       
+                        <form method="get" action="@Url.Action("Index", "Statistic")">
+                            <label for="month">Select month:</label>
+                            <input type="month" id="month" name="month" />
+                            <button type="submit">Calculate</button>
+                        </form>
+                      
+
+                        <p>Revenue for the month : @ViewBag.DateMonth</p>
+                        <p>Total Revenue: @ViewBag.TotalRevenueMonth</p>
+                    </div>
+                    
+                    @*<a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>*@
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+ 
+<script src="~/Content/assets/js/export.js"></script>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        function fnExcelReport(id, name) {
+            var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+            tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+            tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+            tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+            tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+            tab_text = tab_text + "<table border='1px' style='color:black'>";
+
+
+            var exportTable = $('#' + id).clone();
+            exportTable.find('th').last().remove();
+            exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+            exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+            tab_text = tab_text + exportTable.html();
+            tab_text = tab_text + '</table></body></html>';
+            var fileName = "Table reservation list" + '.xls';
+
+            //Save the file
+            var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+            window.saveAs(blob, fileName);
+        }
+        $(document).ready(function () {
+            $('body').on('click', '.btnCapNhat', function () {
+                var id = $(this).data("id");
+                $('#txtOrderId').val(id);
+                $('#modal-default').modal('show');
+            });
+
+            $('body').on('click', '#btnLuu', function () {
+                var id = $('#txtOrderId').val();
+                var tt = $('#ddTrangThai').val();
+                $.ajax({
+                    url: '/admin/reservation/UpdateTT',
+                    type: 'POST',
+                    data: { id: id, trangthai: tt },
+                    success: function (res) {
+
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+
+            });
+        });
+
+    </script>
+}

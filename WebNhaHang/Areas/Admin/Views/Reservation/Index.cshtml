@@ -29,11 +29,7 @@
         <div class="card-header">
             <h3 class="card-title">List of reservations</h3>
             <div style="text-align:right;">
-                @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
-                @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
-                @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
-                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
-                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
+                @Html.ActionLink("Export to Excel", "ExportToExcel")
             </div>
 
         </div>
@@ -43,7 +39,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-
+                        <th>Code</th>
                         <th>Customer name</th>
                         <th>SDT</th>
                         <th>Email</th>
@@ -66,6 +62,7 @@
                         {
                     <tr>
                         <td>@i</td>
+                        <td>@item.Code</td>
                         <td>@item.Name</td>
                         <td>@item.Phone</td>
                         <td>@item.Email</td>
@@ -135,7 +132,7 @@
                 <input type="hidden" id="txtOrderId" value="0" />
                 <div class="form-group">
                     <label>Status</label>
-                    <select class="form-control" id="ddPageThai">
+                    <select class="form-control" id="ddTrangThai">
                         <option value="1">
                             Approved
                         </option>

@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @using PagedList;
 @{
-    ViewBag.Title = "Category List";
+    ViewBag.Title = "Food catalog List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,9 +22,6 @@
         </li>
     </ul>
 }
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  
 
 <section class="content-header">
@@ -241,7 +238,7 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
-                        <th>Stt</th>
+                        <th>No.</th>
                         <th>Image</th>
                         <th>Title </th>
                         <th>Date Created</th>
@@ -275,7 +272,7 @@
                                 <td>
                                     <a href="/admin/productcategory/edit/@item.id" class="btn btn-sm btn-primary">Edit</a>
 
-                                    <a href="/admin/productcategory/index" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
+                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
                             i++;

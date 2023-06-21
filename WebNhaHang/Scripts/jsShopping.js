@@ -38,7 +38,7 @@ $(document).ready(function (){
     $('body').on('click', '.btnDeleteAll', function () {
 
         var id = $(this).data('id');
-        var conf = confirm('Bạn có muốn xóa hết giỏ hàng này không ?');
+        var conf = confirm('Do you want to delete all this cart?');
         if (conf === true) {
             DeleteAll();
         }
@@ -48,7 +48,7 @@ $(document).ready(function (){
     $('body').on('click', '.btnDelete', function () {
         
         var id = $(this).data('id');
-        var conf = confirm('Bạn có muốn xóa sản phẩm này không ?');
+        var conf = confirm('Do you want to delete this product?');
         if (conf === true) {
             $.ajax({
             url: '/shoppingcart/Delete',

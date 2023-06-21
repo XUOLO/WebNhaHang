@@ -6,7 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
-
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 namespace WebNhaHang.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin,Employee")]
@@ -38,42 +39,91 @@ namespace WebNhaHang.Areas.Admin.Controllers
             var items = db.OrderDetails.Where(x => x.OrderId == id).ToList();
             return PartialView(items);
         }
-        public ActionResult Reports(string ReportType)
+        public ActionResult ExportToExcel()
         {
-            LocalReport localreport = new LocalReport();
-            localreport.ReportPath = Server.MapPath("~/report/ReportReservation.rdlc");
+            var reservations = db.Reservations.ToList();
 
-            ReportDataSource reportDataSource = new ReportDataSource();
-            reportDataSource.Name = "DataSetReservation";
-            reportDataSource.Value = db.Reservations.ToList();
-            localreport.DataSources.Add(reportDataSource);
-            string reportType = ReportType;
-            string mimeType;
-            string encoding;
-            string fileNameExtension;
-            if (reportType == "Excel")
+            using (var package = new ExcelPackage())
             {
-                fileNameExtension = "xlsx";
-            }
-            if (reportType == "Word")
-            {
-                fileNameExtension = "docx";
-            }
-            if (reportType == "PDF")
-            {
-                fileNameExtension = "pdf";
-            }
-            else
-            {
-                fileNameExtension = "jpg";
-            }
-            string[] streams;
-            Warning[] warnings;
-            byte[] renderedByte;
-            renderedByte = localreport.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment;filename= Reservation_report." + fileNameExtension);
-            return File(renderedByte, fileNameExtension);
+                var worksheet = package.Workbook.Worksheets.Add("Reservations");
 
+                // Add header row
+                worksheet.Cells[1, 1].Value = "NO.";
+                worksheet.Cells[1, 2].Value = "Code";
+                worksheet.Cells[1, 3].Value = "Name";
+                worksheet.Cells[1, 4].Value = "Email";
+                worksheet.Cells[1, 5].Value = "Phone";
+                worksheet.Cells[1, 6].Value = "Note";
+                worksheet.Cells[1, 7].Value = "Room";
+                worksheet.Cells[1, 8].Value = "Status";
+                worksheet.Cells[1, 9].Value = "Number of People";
+                worksheet.Cells[1, 10].Value = "Arrival time";
+
+                // Apply styling to header row
+                using (var range = worksheet.Cells[1, 1, 1, 10])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#007bff"));
+                    range.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                }
+
+                // Add data rows
+                for (int i = 0; i < reservations.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = i + 1; // Số thứ tự là i + 1
+                    worksheet.Cells[i + 2, 2].Value = reservations[i].Code;
+                    worksheet.Cells[i + 2, 3].Value = reservations[i].Name;
+                    worksheet.Cells[i + 2, 4].Value = reservations[i].Email;
+                    worksheet.Cells[i + 2, 5].Value = reservations[i].Phone;
+                    worksheet.Cells[i + 2, 6].Value = reservations[i].Note;
+                    worksheet.Cells[i + 2, 7].Value = reservations[i].Room;
+
+                    // Convert Status value to string
+                    string statusString;
+                    switch (reservations[i].Status)
+                    {
+                        case (-1):
+                            statusString = "Cancelled";
+                            break;
+                        case 1:
+                            statusString = "Approved";
+                            break;
+                        case 0:
+                            statusString = "unapproved";
+                            break;
+                        default:
+                            statusString = "";
+                            break;
+                    }
+                    worksheet.Cells[i + 2, 8].Value = statusString;
+
+                    worksheet.Cells[i + 2, 9].Value = reservations[i].NumberOfPeople;
+                    worksheet.Cells[i + 2, 10].Value = reservations[i].DateTime.ToString("dd/MM/yyyy HH:mm:ss");
+                }
+
+             
+
+                // Add export date row
+                int exportDateRowIndex = reservations.Count + 3; // Add 3 to skip header row, data rows, and numbering row
+                worksheet.Cells[exportDateRowIndex, 1].Value = "Exported on:";
+                worksheet.Cells[exportDateRowIndex, 2].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                // Set styling for export date row
+                using (var range = worksheet.Cells[exportDateRowIndex, 1, exportDateRowIndex, 2])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                }
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+                // Set the filename and content type for the response
+                string filename = "Reservations_" + DateTime.Now.ToString("dd/MM/yyyy") + ".xlsx";
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                // Return the Excel file as a byte array
+                return File(package.GetAsByteArray(), contentType, filename);
+            }
         }
         [HttpPost]
         public ActionResult UpdateTT(int id, int trangthai)

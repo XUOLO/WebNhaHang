@@ -1,4 +1,7 @@
-﻿@model IEnumerable<WebNhaHang.Models.EF.Category>
+﻿@model PagedList.PagedList<WebNhaHang.Models.EF.Category>
+@using PagedList.Mvc;
+@using PagedList;
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Category";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -24,7 +27,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                 <h1>Manage Categories</h1>
+                <h1>Manage Categories</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -52,15 +55,17 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Stt</th>
+                        <th>No.</th>
                         <th>Category Name</th>
                         <th>Positition</th>
+                        <th>Create by</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     @if (Model != null && Model.Any())
                     {
-                        var i = 1;
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
                             <tr id="trow_@item.id  ">
@@ -68,10 +73,11 @@
                                 <td>@i</td>
                                 <td>@item.Title</td>
                                 <td>@item.Position</td>
+                                <td>@item.CreateBy</td>
                                 <td>
                                     <a href="/admin/category/edit/@item.id" class="btn btn-sm btn-primary">Edit</a>
 
-                                    <a href="/admin/category/index" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
+                                    <a href="#" data-id="@item.id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
                             i++;
@@ -85,8 +91,15 @@
 
 
                     }
+
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-6"> </div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -103,6 +116,57 @@
 
 
         $(document).ready(function () {
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+                e.preventDefault();
+                var str = "";
+
+                var checkbox = $(this).parents('.card').find('tr td input:checkbox');
+                var i = 0;
+                checkbox.each(function () {
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                        var _id = $(this).val();
+                        if (i === 0) {
+                            str += _id;
+                        } else {
+                            str += "," + _id;
+                        }
+                        i++;
+                    } else {
+                        checkbox.attr('selected', '');
+
+                    }
+
+
+                });
+                if (str.length > 0) {
+                    var conf = confirm('Do you want to delete them all?');
+                    if (conf === true) {
+                        $.ajax({
+                            url: '/admin/productcategory/deleteAll',
+                            type: 'POST',
+                            data: { ids: str },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $('body').on('change', '#selectAll', function () {
+                var checkStatus = this.checked;
+                var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+                checkbox.each(function () {
+                    this.checked = checkStatus;
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+            });
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
                 var conf = confirm('Do you want to delete ?');
@@ -119,6 +183,31 @@
 
                     });
                 }
+            });
+
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+                $.ajax({
+                    url: '/admin/productcategory/IsActive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+
+                        if (rs.success) {
+                            if (rs.isActive) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+
+                            }
+                            else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+
+                    }
+
+                });
             });
         });
     </script>

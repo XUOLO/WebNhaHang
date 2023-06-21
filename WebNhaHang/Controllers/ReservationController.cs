@@ -37,7 +37,7 @@ namespace WebNhaHang.Controllers
             {
                 page = 1;
             }
-            IEnumerable<Reservation> items = db.Reservations.OrderByDescending(x => x.id);
+            IEnumerable<Reservation> items = db.Reservations.OrderByDescending(x => x.id).Where(x=>x.Status==1);
 
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -66,7 +66,8 @@ namespace WebNhaHang.Controllers
             rooms.Add(new SelectListItem() { Text = "Table for 6", Value = "Table for 6" });
             rooms.Add(new SelectListItem() { Text = "Long Table", Value = "Long Table" });
 
-            ViewBag.Rooms = rooms;
+            ViewBag.Rooms = new SelectList(rooms, "Value", "Text");
+
             List<SelectListItem> peoples = new List<SelectListItem>();
             peoples.Add(new SelectListItem() { Text = "Person", Value = "0" });
             peoples.Add(new SelectListItem() { Text = "1 Person", Value = "1" });

@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
 using WebNhaHang.Models.EF;
- 
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
@@ -194,6 +195,81 @@ namespace WebNhaHang.Areas.Admin.Controllers
             }
             return Json(new { success = false });
         }
+        public ActionResult ExportToExcel()
+        {
+            var products = db.Products.ToList();
 
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Products");
+
+                // Add header row
+                worksheet.Cells[1, 1].Value = "No.";
+                worksheet.Cells[1, 2].Value = "Title";
+                worksheet.Cells[1, 3].Value = "Product Category";
+                worksheet.Cells[1, 4].Value = "Description";
+                worksheet.Cells[1, 5].Value = "Detail";
+                worksheet.Cells[1, 6].Value = "Image";
+                worksheet.Cells[1, 7].Value = "Price";
+                worksheet.Cells[1, 8].Value = "Quantity";
+
+                // Apply styling to header row
+                using (var range = worksheet.Cells[1, 1, 1, 8])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#007bff"));
+                    range.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                }
+
+                // Add data rows
+                for (int i = 0; i < products.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = i + 1; // Số thứ tự tăng dần
+                    worksheet.Cells[i + 2, 2].Value = products[i].Title;
+                    worksheet.Cells[i + 2, 3].Value = products[i].ProductCategory.Title;
+                    worksheet.Cells[i + 2, 4].Value = products[i].Description;
+                    worksheet.Cells[i + 2, 5].Value = products[i].Detail;
+                    worksheet.Cells[i + 2, 6].Value = products[i].Image;
+                    worksheet.Cells[i + 2, 7].Value = products[i].Price;
+                    worksheet.Cells[i + 2, 8].Value = products[i].Quantity;
+                }
+
+                // Insert column "No." at position 1
+                worksheet.InsertColumn(1, 1);
+
+                // Set header style for column "No."
+                using (var range = worksheet.Cells[1, 1])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#007bff"));
+                    range.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                }
+
+                // Add export date row
+                int exportDateRowIndex = products.Count + 3; // Add 3 to skip header row and data rows
+                worksheet.Cells[exportDateRowIndex, 1].Value = "Exported on:";
+                worksheet.Cells[exportDateRowIndex, 2].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                // Set styling for export date row
+                using (var range = worksheet.Cells[exportDateRowIndex, 1, exportDateRowIndex, 2])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                }
+
+                // Set auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set the filename and content type for the response
+                string filename = "Products_" + DateTime.Now.ToString("dd/MM/yyyy") + ".xlsx";
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                // Return the Excel file as a byte array
+                return File(package.GetAsByteArray(), contentType, filename);
+            }
+        }
     }
 }

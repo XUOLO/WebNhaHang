@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +15,23 @@ namespace WebNhaHang.Areas.Admin.Controllers
         // GET: Admin/Category
         // GET: Admin/Category
         ApplicationDbContext db = new ApplicationDbContext();
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, int? page)
         {
-            var items = db.Categories;
+            var pageSize = 5;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Category> items = db.Categories.OrderBy(x => x.Position);
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x => x.Alias.Contains(SearchString) || x.Title.Contains(SearchString)).ToList();
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
             return View(items);
         }
 
@@ -73,12 +88,12 @@ namespace WebNhaHang.Areas.Admin.Controllers
             return View(model);
 
         }
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var item = db.Categories.Find(id);
             if (item != null)
             {
-                //var DeleyteItem = db.Categories.Attach(item);
                 db.Categories.Remove(item);
                 db.SaveChanges();
                 return Json(new { success = true });

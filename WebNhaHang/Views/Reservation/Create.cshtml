@@ -24,13 +24,19 @@
 
 
 
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  
  
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
-    </head>
+  
+</head>
 
 
     <body>
@@ -79,19 +85,20 @@
                     </div>
                     <div class="form-date-w3-agileits">
                         @Html.LabelFor(m => m.Date, new { @class = "fa fa-calendar" })
-                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control datepicker" })
+                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control datepicker"})
                         @Html.ValidationMessageFor(m => m.Date)
 
                     </div>
                     <div class="form-date-w3-agileits">
                         @Html.LabelFor(m => m.Time, new { @class = "fa fa-clock-o" })
-                        @Html.TextBoxFor(m => m.Time, new { @class = "form-control  " })
+                        @Html.TextBoxFor(m => m.Time, new { @class = "form-control   " })
                         @Html.ValidationMessageFor(m => m.Time)
 
                     </div>
                     <div class="form-left-agileits-w3layouts bottom-w3ls">
                         <label><i class="fa fa-home" aria-hidden="true"></i> Table type :</label>
-                        @Html.DropDownListFor(m => m.Room, (IEnumerable<SelectListItem>)ViewBag.Rooms, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Room, ViewBag.Rooms as SelectList, new { @class = "form-control" })
+
                     </div>
                     <div class="form-left-agileits-w3layouts">
                         <label>
@@ -114,12 +121,15 @@
             
         </div>
         <script>
+         
             $(function () {
-                $('#Date').datepicker({
-                    format: 'dd/MM/yyyy',
-                    autoclose: true
+                $(".datepicker").datepicker({
+                    dateFormat: "dd/mm/yy"
                 });
             });
+            
+ 
+         
        
             function validPhoneNumber(event) {
                 // Chỉ nhận các giá trị số và phím xoá
@@ -129,7 +139,7 @@
                         var phoneNumber = phoneNumberInputs[i].value;
                         // Số điện thoại của Việt Nam có độ dài là 10 và bắt đầu từ số 0
                         if (phoneNumber.length < 10 || phoneNumber.charAt(0) !== '0') {
-                            phoneNumberInputs[i].setCustomValidity('Phone numbers must start with 0 and be 10 digits long;
+                            phoneNumberInputs[i].setCustomValidity('Phone numbers must start with 0 and be 10 digits long');
                         } else {
                             phoneNumberInputs[i].setCustomValidity('');
                         }

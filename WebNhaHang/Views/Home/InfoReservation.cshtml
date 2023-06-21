@@ -221,31 +221,32 @@
                                                     {
                                                         if (user.Email == email)
                                                         {
-                                                            <tr>
-                                                                <td style="text-align:center;">@user.Code</td>
-                                                                <td style="text-align:center;">@user.Name</td>
-                                                                <td style="text-align:center;">@user.Email</td>
+                                                <tr>
+                                                    <td style="text-align:center;">@user.Code</td>
+                                                    <td style="text-align:center;">@user.Name</td>
+                                                    <td style="text-align:center;">@user.Email</td>
 
-                                                                <td style="text-align:center;">@user.NumberOfPeople</td>
-                                                                <td style="text-align:center;">@user.Room</td>
-                                                                <td style="text-align:center;">@user.Note</td>
-                                                                <td style="text-align:center;">@user.DateTime.ToString("HH:mm")</td>
-                                                                <td style="text-align:center;">@user.DateTime.ToString("dd/MM/yyyy")</td>
-                                                                <td style="text-align:center;">@user.CreateDate</td>
-                                                                @if (user.Status.ToString() == "0")
-                                                                {
-                                                                    <td style="text-align:center;"> Waiting for confirmation <a href="@Url.Action("CheckDatBan", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel menu </div></a></td>
-                                                                }
-                                                                else if (user.Status.ToString() == "1")
-                                                                {
-                                                                    <td style="text-align:center;"> Confirmed <a href="@Url.Action("CheckDatBan", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel menu </div></a> </td>
-                                                                }
-                                                                else if (user.Status.ToString() == "-1")
-                                                                {
-                                                                    <td style="text-align:center; color:red;"> Cancelled     </td>
-                                                                }
+                                                    <td style="text-align:center;">@user.NumberOfPeople</td>
+                                                    <td style="text-align:center;">@user.Room</td>
+                                                    <td style="text-align:center;">@user.Note</td>
+                                                    <td style="text-align:center;">@user.DateTime.ToString("HH:mm")</td>
+                                                    <td style="text-align:center;">@user.DateTime.ToString("dd/MM/yyyy")</td>
+                                                    <td style="text-align:center;">@user.CreateDate.ToString("dd/MM/yyyy")</td>
+                                                
+                                                    @if (user.Status.ToString() == "0")
+                                                    {
+                                                        <td style="text-align:center;"> Waiting for confirmation <a href="@Url.Action("CheckDatBan", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel menu </div></a></td>
+                                                    }
+                                                    else if (user.Status.ToString() == "1")
+                                                    {
+                                                        <td style="text-align:center;"> Confirmed <a href="@Url.Action("CheckDatBan", "Home", new { id = user.Code, check = "300" })"> <div style="border: 1px solid rgb(255 4 4); color: rgb(255 4 4) ">Cancel menu </div></a> </td>
+                                                    }
+                                                    else if (user.Status.ToString() == "-1")
+                                                    {
+                                                        <td style="text-align:center; color:red;"> Cancelled     </td>
+                                                    }
 
-                                                            </tr>
+                                                </tr>
                                                             foundUser = true;
                                                         }
 
@@ -263,12 +264,12 @@
 
 
                                         </table>
-                                        <div class="row">
+                                        @*<div class="row">
                                             <div class="col-5"> </div>
                                             <div class="col-5" style="text-align:right;">
                                                 @Html.PagedListPager(Model, page => Url.Action("InfoReservation", new { page }))
                                             </div>
-                                        </div>
+                                        </div>*@
 
                                     </div>
                                 </div>

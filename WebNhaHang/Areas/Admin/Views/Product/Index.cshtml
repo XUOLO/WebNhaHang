@@ -23,11 +23,7 @@
         </li>
     </ul>
 }
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+ 
 <script src="~/Content/assets/js/export.js"></script>
 
 <script>
@@ -79,13 +75,7 @@
 
             <div class="card-tools">
 
-                @Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
-                @Html.ActionLink("Export to PDF", "Reports", new { ReportType = "PDF" })|
-                @Html.ActionLink("Export to WORD", "Reports", new { ReportType = "WORD" })|
-                @Html.ActionLink("Export to IMAGE", "Reports", new { ReportType = "IMAGE" })|
-                <a href="/admin/Product/Add" class="btn btn-primary">Add New</a>
-                <a href="3" class="btn btn-danger" id="BtnDeleteAll">Delete</a>
-                <button class="btn btn-primary" onclick="javascript: fnExcelReport('dataTable', 'data')">Export To Excel(page)</button>
+                @Html.ActionLink("Export to Excel", "ExportToExcel")
             </div>
 
         </div>

@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
 using WebNhaHang.Models.EF;
- 
+
 namespace WebNhaHang.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -86,9 +85,9 @@ namespace WebNhaHang.Areas.Admin.Controllers
             {
                 db.ProductCategories.Remove(item);
                 db.SaveChanges();
-                return Json(new { succes = true });
+                return Json(new { success = true });
             }
-            return Json(true);
+            return Json(new { success = false });
         }
 
 

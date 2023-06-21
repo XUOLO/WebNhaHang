@@ -635,18 +635,19 @@ namespace WebNhaHang.Controllers
 
         private string GenerateRandomPassword()
         {
-            // Tạo một chuỗi ngẫu nhiên có 8 ký tự
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var random = new Random();
-            var password = new string(
-               Enumerable.Repeat(chars, 10)
-               .Select(s => s[random.Next(s.Length)])
-               .ToArray());
-
+            var random = new Random(DateTime.Now.Millisecond);
+            var passwordChars = new char[10];
+            passwordChars[0] = chars[random.Next(10, 36)];
+            passwordChars[1] = chars[random.Next(36, chars.Length)];
+            for (int i = 2; i < passwordChars.Length; i++)
+            {
+                passwordChars[i] = chars[random.Next(chars.Length)];
+            }
+            var password = new string(passwordChars);
             return password;
         }
 
-        
 
 
 

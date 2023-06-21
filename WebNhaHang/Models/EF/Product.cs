@@ -25,9 +25,7 @@ namespace WebNhaHang.Models.EF
         public string Title { get; set; }
         [StringLength(250)]
         public string Alias { get; set; }
-        //[StringLength(250)]
-        //public string TypeCode { get; set; }
-        //public string Link { get; set; }
+        
         [StringLength(50)]
         public string ProductCode { get; set; }
         public int ProductCategoryID { get; set; }
