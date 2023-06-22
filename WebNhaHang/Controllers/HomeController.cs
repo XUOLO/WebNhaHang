@@ -446,10 +446,16 @@ namespace WebNhaHang.Controllers
             try
             {
                 bool IsVerified = false;
-                db.Configuration.ValidateOnSaveEnabled = false; // This line avoids validation of entity at SaveChanges
+
+                // Tắt validate entity để không kiểm tra tính hợp lệ của đối tượng trước khi lưu vào cơ sở dữ liệu
+                db.Configuration.ValidateOnSaveEnabled = false;
+
+                // Tìm kiếm người dùng có mã xác minh trùng với id truyền vào
                 var user = db.Userss.Where(u => u.ActivationCode == new Guid(id)).FirstOrDefault();
+
                 if (user != null)
                 {
+                    // Cập nhật trạng thái xác minh email của người dùng
                     user.IsEmailVerified = true;
                     db.SaveChanges();
                     IsVerified = true;
@@ -457,17 +463,20 @@ namespace WebNhaHang.Controllers
 
                 if (IsVerified)
                 {
+                    // Nếu xác minh thành công, hiển thị thông báo thành công và chuyển hướng đến trang ConfirmEmailSuccess
                     TempData["SuccessMessage"] = "Your email address has been verified successfully.";
                     return RedirectToAction("ConfirmEmailSuccess", "Home");
                 }
                 else
                 {
+                    // Nếu xác minh không thành công, hiển thị thông báo lỗi và chuyển hướng đến trang chủ
                     TempData["ErrorMessage"] = "Invalid verification code. Please try again.";
                     return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception e)
             {
+                // Nếu có lỗi xảy ra, hiển thị thông báo lỗi và ném ra ngoại lệ (Exception)
                 Console.WriteLine("Error Message: " + e.Message);
                 Console.WriteLine("Inner Exception: " + e.InnerException?.Message);
                 Console.WriteLine("StackTrace: " + e.StackTrace);

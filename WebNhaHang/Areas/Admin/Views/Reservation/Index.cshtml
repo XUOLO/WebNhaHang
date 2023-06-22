@@ -28,11 +28,22 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">List of reservations</h3>
-            <div style="text-align:right;">
-                @Html.ActionLink("Export to Excel", "ExportToExcel")
-            </div>
+            @using (Html.BeginForm("Index", "Reservation", FormMethod.Get, new { }))
+            {
+                <div class="input-group" style="display: flex; width: 40%; padding-left: 25px;">
 
-        </div>
+                    @Html.TextBox("SearchString", "", new { @class = "form-control", @id = "new-event", @type = "text", @placeholder = "Search" })
+                    <div class="input-group-append">
+                        <button id="add-new-event" type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                </div>
+            }
+                <div style="text-align: right; margin-top: -25px;"  >
+                    @Html.ActionLink("Export to Excel", "ExportToExcel")
+                </div>
+
+            </div>
         <div class="card-body">
 
             <table class="table table-bordered" id="dataTable">

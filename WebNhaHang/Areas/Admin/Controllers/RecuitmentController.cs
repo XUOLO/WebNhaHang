@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebNhaHang.Models;
+using WebNhaHang.Models.EF;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
@@ -15,13 +16,19 @@ namespace WebNhaHang.Areas.Admin.Controllers
         // GET: Admin/Recuitment
 
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ActionResult Index(int? page)
+        public ActionResult Index(string SearchString, int? page)
         {
-            var items = db.Aplications.OrderByDescending(x => x.CreateDate).ToList();
+             
             if (page == null)
             {
                 page = 1;
 
+            }
+            IEnumerable<Aplication> items = db.Aplications.OrderByDescending(x => x.CreateDate).ToList();
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x => x.Code.Contains(SearchString) || x.FullName.Contains(SearchString) || x.Phone.Contains(SearchString) || x.Email.Contains(SearchString)).ToList();
             }
             var pageNumber = page ?? 1;
             var pageSize = 10;

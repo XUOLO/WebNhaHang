@@ -19,7 +19,7 @@ $(document).ready(function (){
             success: function (rs) {
                 if (rs.success) {
                     $('#checkout_items').html(rs.Count);
-                    
+                  /*  alert(rs.msg);*/
                 }
             }
         });    

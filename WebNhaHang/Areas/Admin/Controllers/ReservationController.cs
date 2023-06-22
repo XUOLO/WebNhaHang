@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using WebNhaHang.Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using WebNhaHang.Models.EF;
+
 namespace WebNhaHang.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin,Employee")]
@@ -15,13 +17,19 @@ namespace WebNhaHang.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Order
-        public ActionResult Index(int? page)
+        public ActionResult Index(string SearchString, int? page)
         {
-            var items = db.Reservations.OrderByDescending(x => x.CreateDate).ToList();
+           
             if (page == null)
             {
                 page = 1;
 
+            }
+            IEnumerable<Reservation> items = db.Reservations.OrderByDescending(x => x.CreateDate).ToList();
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x => x.Code.Contains(SearchString) || x.Name.Contains(SearchString) || x.Email.Contains(SearchString)|| x.Phone.Contains(SearchString)).ToList();
             }
             var pageNumber = page ?? 1;
             var pageSize = 10;

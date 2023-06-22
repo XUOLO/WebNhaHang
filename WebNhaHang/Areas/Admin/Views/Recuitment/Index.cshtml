@@ -27,10 +27,21 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">List of candidates</h3>
+            @using (Html.BeginForm("Index", "Recuitment", FormMethod.Get, new { }))
+            {
+                <div class="input-group" style="display: flex; width: 40%; padding-left: 25px;">
+
+                    @Html.TextBox("SearchString", "", new { @class = "form-control", @id = "new-event", @type = "text", @placeholder = "Search" })
+                    <div class="input-group-append">
+                        <button id="add-new-event" type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                </div>
+            }
             <div class="card-tools">
 
-              
-             
+
+
             </div>
 
         </div>

@@ -11,6 +11,7 @@ using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using System.IO;
 using MigraDoc.Rendering;
+using WebNhaHang.Models.EF;
 
 namespace WebNhaHang.Areas.Admin.Controllers
 {
@@ -19,13 +20,20 @@ namespace WebNhaHang.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Order
-        public ActionResult Index(int? page)
+        public ActionResult Index(string SearchString, int? page)
         {
-            var items = db.Orders.OrderByDescending(x => x.CreateDate).ToList();
+            
             if(page==null)
             {
                 page = 1;
 
+            }
+
+            IEnumerable<Order> items = db.Orders.OrderByDescending(x => x.CreateDate).ToList();
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x => x.Code.Contains(SearchString) || x.CustomerName.Contains(SearchString) || x.Phone.Contains(SearchString) || x.Mail.Contains(SearchString)).ToList();
             }
             var pageNumber = page ?? 1;
             var pageSize = 10;

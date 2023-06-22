@@ -27,10 +27,10 @@ namespace WebNhaHang.Areas.Admin.Controllers
                 var monthNumber = int.Parse(month.Substring(5, 2));
 
                 var orders = db.Orders
-                    .Where(o => o.CreateDate.Year == year && o.CreateDate.Month == monthNumber)
+                    .Where(o => o.CreateDate.Year == year && o.CreateDate.Month == monthNumber && o.TypePayment == 2)
                     .ToList();
 
-                var totalRevenue = orders.Sum(o => o.TotalAmount);
+                var totalRevenue = orders.Where(o => o.TypePayment == 2).Sum(o => o.TotalAmount);
 
                 ViewBag.DateMonth = new DateTime(year, monthNumber, 1).ToString("MM/yyyy");
                 ViewBag.TotalRevenueMonth = totalRevenue.ToString("#,##0 VND");
@@ -39,10 +39,10 @@ namespace WebNhaHang.Areas.Admin.Controllers
             if (date != null)
             {
                 var orders = db.Orders
-                    .Where(o => o.CreateDate.Year == date.Value.Year && o.CreateDate.Month == date.Value.Month && o.CreateDate.Day == date.Value.Day)
+                    .Where(o => o.CreateDate.Year == date.Value.Year && o.CreateDate.Month == date.Value.Month && o.CreateDate.Day == date.Value.Day && o.TypePayment == 2)
                     .ToList();
 
-                var totalRevenue = orders.Sum(o => o.TotalAmount);
+                var totalRevenue = orders.Where(o => o.TypePayment == 2).Sum(o => o.TotalAmount);
 
                 ViewBag.DateDay = date.Value.ToString("dd/MM/yyyy");
                 ViewBag.TotalRevenueDay = totalRevenue.ToString("#,##0 VND");
@@ -55,6 +55,5 @@ namespace WebNhaHang.Areas.Admin.Controllers
             return View();
         }
 
-        
     }
 }

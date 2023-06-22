@@ -72,11 +72,22 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">@ViewBag.Title</h3>
+            @using (Html.BeginForm("Index", "product", FormMethod.Get, new { }))
+            {
+                <div class="input-group" style="display: flex; width: 40%; padding-left: 25px;">
 
-            <div class="card-tools">
+                    @Html.TextBox("SearchString", "", new { @class = "form-control", @id = "new-event", @type = "text", @placeholder = "Search" })
+                    <div class="input-group-append">
+                        <button id="add-new-event" type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                </div>
+            }
+            <div class="card-tools" style="text-align: right; margin-top: -25px;">
 
                 @Html.ActionLink("Export to Excel", "ExportToExcel")
             </div>
+           
 
         </div>
         <div class="card-body">

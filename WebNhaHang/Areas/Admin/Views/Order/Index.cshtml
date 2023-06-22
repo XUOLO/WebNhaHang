@@ -26,12 +26,22 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Order list</h3>
+            @using (Html.BeginForm("Index", "Order", FormMethod.Get, new { }))
+            {
+                <div class="input-group" style="display: flex; width: 40%; padding-left: 25px;">
 
+                    @Html.TextBox("SearchString", "", new { @class = "form-control", @id = "new-event", @type = "text", @placeholder = "Search" })
+                    <div class="input-group-append">
+                        <button id="add-new-event" type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                </div>
+            }
             <div class="card-tools">
 
-                <div style="text-align:right;">
+                <div style="text-align:right;margin-top: -25px;" ">
                     @Html.ActionLink("Export to Excel", "ExportToExcel")
-                     
+
                 </div>
             </div>
         </div>

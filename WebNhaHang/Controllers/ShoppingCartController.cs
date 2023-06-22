@@ -196,50 +196,50 @@ namespace WebNhaHang.Controllers
                         Code = "DH" + new Random().Next(1000, 9999)
                     };
                     // Check product quantity and update database in one transaction
-                    List<string> insufficientProducts = new List<string>();
-                    int insufficientProductCount = 0;
-                    using (var transaction = db.Database.BeginTransaction())
-                    {
-                        try
+                        List<string> insufficientProducts = new List<string>();
+                        int insufficientProductCount = 0;
+                        using (var transaction = db.Database.BeginTransaction())
                         {
-                            foreach (var item in cart.items)
+                            try
                             {
-                                var product = await db.Products.FindAsync(item.ProductId);
-                                if (product == null || product.Quantity < item.Quantity)
+                                foreach (var item in cart.items)
                                 {
-                                    insufficientProducts.Add(item.ProductName);
-                                    insufficientProductCount++;
-                                }
-                                else
-                                {
-                                    // Cập nhật số lượng sản phẩm trong cơ sở dữ liệu và lưu thông tin đơn hàng
-                                    product.Quantity -= item.Quantity;
-                                    order.OderDetails.Add(new OrderDetail
+                                    var product = await db.Products.FindAsync(item.ProductId);
+                                    if (product == null || product.Quantity < item.Quantity)
                                     {
-                                        ProductId = item.ProductId,
-                                        Quantity = item.Quantity,
-                                        Price = item.Price
-                                    });
+                                        insufficientProducts.Add(item.ProductName);
+                                        insufficientProductCount++;
+                                    }
+                                    else
+                                    {
+                                        // Cập nhật số lượng sản phẩm trong cơ sở dữ liệu và lưu thông tin đơn hàng
+                                        product.Quantity -= item.Quantity;
+                                        order.OderDetails.Add(new OrderDetail
+                                        {
+                                            ProductId = item.ProductId,
+                                            Quantity = item.Quantity,
+                                            Price = item.Price
+                                        });
+                                    }
                                 }
-                            }
 
-                            if (insufficientProductCount > 0)
+                                if (insufficientProductCount > 0)
+                                {
+                                    ViewBag.ProductNameList = insufficientProducts;
+                                    return View("_Error");
+                                }
+
+                                db.Orders.Add(order);
+                                await db.SaveChangesAsync();
+                                transaction.Commit();
+                            }
+                            catch (Exception ex)
                             {
-                                ViewBag.ProductNameList = insufficientProducts;
-                                return View("_Error");
+                                transaction.Rollback();
+                                var errorMessage = "An error occurred during checkout: " + ex.Message;
+                                return PartialView("_Error", errorMessage);
                             }
-
-                            db.Orders.Add(order);
-                            await db.SaveChangesAsync();
-                            transaction.Commit();
                         }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            var errorMessage = "An error occurred during checkout: " + ex.Message;
-                            return PartialView("_Error", errorMessage);
-                        }
-                    }
 
                     //send mail cho khachs hang
                     var strSanPham = "";

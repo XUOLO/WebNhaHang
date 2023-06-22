@@ -17,13 +17,23 @@ namespace WebNhaHang.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Product
-        public ActionResult Index(int? page)
+        public ActionResult Index(string SearchString, int? page)
         {
-            IEnumerable<Product> items = db.Products.OrderByDescending(x=>x.id);
+            
             var pageSize = 10;
             if (page == null)
             {
                 page = 1;
+            }
+            IEnumerable<Product> items = db.Products.OrderByDescending(x => x.id).ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                items = items.Where(x =>
+                    x.Title.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    x.Alias.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    x.ProductCategory.Title.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    x.ProductCategory.Alias.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
             }
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
@@ -31,43 +41,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
             ViewBag.Page = page;
             return View(items);
         }
-        public ActionResult Reports(string ReportType)
-        {
-            LocalReport localreport = new LocalReport();
-            localreport.ReportPath = Server.MapPath("~/report/ReportProduct.rdlc");
-
-            ReportDataSource reportDataSource = new ReportDataSource();
-            reportDataSource.Name = "DataSetProduct";
-            reportDataSource.Value = db.Products.ToList();
-            localreport.DataSources.Add(reportDataSource);
-            string reportType = ReportType;
-            string mimeType;
-            string encoding;
-            string fileNameExtension;
-            if (reportType == "Excel")
-            {
-                fileNameExtension = "xlsx";
-            }
-            if (reportType == "Word")
-            {
-                fileNameExtension = "docx";
-            }
-            if (reportType == "PDF")
-            {
-                fileNameExtension = "pdf";
-            }
-            else
-            {
-                fileNameExtension = "jpg";
-            }
-            string[] streams;
-            Warning[] warnings;
-            byte[] renderedByte;
-            renderedByte = localreport.Render(reportType, "", out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment;filename= Product_report." + fileNameExtension);
-            return File(renderedByte, fileNameExtension);
-
-        }
+        
         public ActionResult Add()
         {
             ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");
@@ -111,7 +85,7 @@ namespace WebNhaHang.Areas.Admin.Controllers
                 {
                     model.SeoTitle = model.Title;
                 }
-                    if (string.IsNullOrEmpty(model.Alias))
+                if (string.IsNullOrEmpty(model.Alias))
                 model.Alias = WebNhaHang.Models.Common.Filter.FilterChar(model.Title);
                 db.Products.Add(model);
                 db.SaveChanges();
